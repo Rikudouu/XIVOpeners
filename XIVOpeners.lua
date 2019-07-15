@@ -11,9 +11,7 @@ xivopeners.running = false
 xivopeners.supportedJobs = {
     [31] = {
         main = xivopeners_mch.main,
-        listOpeners = xivopeners_mch.listOpeners,
-        currentOpenerIndex = xivopeners_mch.currentOpenerIndex,
-        openers = xivopeners_mch.openers,
+        openerInfo = xivopeners_mch.openerInfo,
         queueOpener = xivopeners_mch.queueOpener,
         openerAvailable = xivopeners_mch.openerAvailable,
         checkOpenerIds = xivopeners_mch.checkOpenerIds
@@ -28,6 +26,10 @@ end
 
 function xivopeners.ToggleRun()
     xivopeners.running = not xivopeners.running
+    if (xivopeners.supportedJobs[Player.job] ~= nil) then
+        xivopeners.supportedJobs[Player.job].checkOpenerIds()
+        xivopeners.supportedJobs[Player.job].queueOpener()
+    end
 end
 
 function xivopeners.Init()
@@ -101,7 +103,7 @@ function xivopeners.drawMainFull()
             GUI:NextColumn()
             GUI:PushItemWidth(-1)
             local openerIndexChanged
-            xivopeners.supportedJobs[Player.job].currentOpenerIndex, openerIndexChanged = GUI:Combo("##xivopeners_opener_select", xivopeners.supportedJobs[Player.job].currentOpenerIndex, xivopeners.supportedJobs[Player.job].listOpeners)
+            xivopeners.supportedJobs[Player.job].openerInfo.currentOpenerIndex, openerIndexChanged = GUI:Combo("##xivopeners_opener_select", xivopeners.supportedJobs[Player.job].openerInfo.currentOpenerIndex, xivopeners.supportedJobs[Player.job].openerInfo.listOpeners)
             if (openerIndexChanged) then
                 xivopeners.supportedJobs[Player.job].queueOpener()
             end
@@ -178,6 +180,9 @@ function xivopeners.OnUpdate(event, tickcount)
     if (gamestate == FFXIV.GAMESTATE.INGAME) then
         xivopeners.running = xivopeners.supportedJobs[Player.job] ~= nil and xivopeners.running
         if (xivopeners.running) then
+            if (FFXIV_Common_BotRunning) then
+                ml_global_information.ToggleRun() -- toggle bot to off if opener is running
+            end
             xivopeners.supportedJobs[Player.job].main() -- call main for job
         elseif (xivopeners.oocEnable and not Player.incombat) then
             xivopeners.running = true

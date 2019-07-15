@@ -16,8 +16,10 @@ xivopeners_mch.openerAbilities = {
     CleanShot = ActionList:Get(1, 7413)
 }
 
-xivopeners_mch.listOpeners = {"Early WF", "Late WF"}
-xivopeners_mch.currentOpenerIndex = 1
+xivopeners_mch.openerInfo = {
+    listOpeners = {"Early WF", "Late WF"},
+    currentOpenerIndex = 1,
+}
 
 xivopeners_mch.openers = {
     earlyWF = {
@@ -91,7 +93,7 @@ xivopeners_mch.openerStarted = false
 
 function xivopeners_mch.getOpener()
     local opener
-    if (xivopeners_mch.currentOpenerIndex == 1) then
+    if (xivopeners_mch.openerInfo.currentOpenerIndex == 1) then
         opener = xivopeners_mch.openers.earlyWF
     else
         opener = xivopeners_mch.openers.lateWF
@@ -123,31 +125,23 @@ function xivopeners_mch.main()
 
         if (not xivopeners_mch.openerAvailable() and not xivopeners_mch.openerStarted) then return end -- don't start opener if it's not available, if it's already started then yolo
 
+        if (xivopeners_mch.openerStarted and next(xivopeners_mch.abilityQueue) == nil) then
+            -- opener is finished, pass control to ACR
+            xivopeners.log("Finished openers, handing control to ACR")
+            xivopeners_mch.openerStarted = false
+            xivopeners.running = false
+            if (not FFXIV_Common_BotRunning) then
+                ml_global_information.ToggleRun()
+            end
+        end
+
         if (ActionList:IsCasting()) then return end
 
---        if (xivopeners_mch.lastCastFromQueue and Player.castinginfo.lastcastid == xivopeners_mch.lastCastFromQueue.id) then
---            xivopeners_mch.dequeue()
---            xivopeners_mch.useNextAction(target)
---        elseif (xivopeners_mch.lastCastFromQueue) then
---            -- looks like casting the action failed, let's retry the ability
---            if (not xivopeners_mch.lastCastFromQueue.isoncd) then
---                xivopeners_mch.useNextAction(target)
---            else
---                -- ability wasn't last but is on cooldown, something messed up in the rotation, fuck it
---                xivopeners_mch.dequeue()
---                xivopeners_mch.useNextAction(target)
---                xivopeners.log("WARNING: Something went wrong with action " .. xivopeners_mch.lastCastFromQueue.name .. ", continuing to next ability anyway")
---            end
---        else
---            -- looks like we haven't run our opener yet, go from the start
---            xivopeners_mch.openerStarted = true
---            xivopeners_mch.useNextAction(target)
---        end
-
         if (not xivopeners_mch.openerStarted) then
+            xivopeners.log("Starting opener")
             xivopeners_mch.openerStarted = true
             xivopeners_mch.useNextAction(target)
-        elseif (Player.castinginfo.lastcastid == xivopeners_mch.lastCastFromQueue.id) then
+        elseif (xivopeners_mch.lastCastFromQueue and Player.castinginfo.lastcastid == xivopeners_mch.lastCastFromQueue.id) then
             xivopeners_mch.dequeue()
             xivopeners_mch.useNextAction(target)
         else
@@ -158,11 +152,13 @@ function xivopeners_mch.main()
 end
 
 function xivopeners_mch.queueOpener()
+    -- empty queue first
+    xivopeners_mch.abilityQueue = {}
     for _, action in pairs(xivopeners_mch.getOpener()) do
         xivopeners_mch.enqueue(action)
     end
     xivopeners.log("queue:")
-    for k, v in pairs(xivopeners_mch.getOpener()) do
+    for _, v in pairs(xivopeners_mch.abilityQueue) do
         xivopeners.log(v.name)
     end
 end
@@ -180,6 +176,7 @@ function xivopeners_mch.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
     if (target and target.attackable and xivopeners_mch.abilityQueue[1]) then
+        -- commented out cause idk how to make it not spam console
         xivopeners.log("Casting " .. xivopeners_mch.abilityQueue[1].name)
         xivopeners_mch.abilityQueue[1]:Cast(target.id)
         xivopeners_mch.lastCastFromQueue = xivopeners_mch.abilityQueue[1]
