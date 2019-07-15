@@ -14,11 +14,13 @@ xivopeners.supportedJobs = {
         listOpeners = xivopeners_mch.listOpeners,
         currentOpenerIndex = xivopeners_mch.currentOpenerIndex,
         openers = xivopeners_mch.openers,
-        queueOpener = xivopeners_mch.queueOpener
+        queueOpener = xivopeners_mch.queueOpener,
+        openerAvailable = xivopeners_mch.openerAvailable,
+        checkOpenerIds = xivopeners_mch.checkOpenerIds
     },
 
 }
-xivopeners.oocEnable = true
+xivopeners.oocEnable = false
 
 function xivopeners.log(string)
     d("[XIVOpeners] " .. string)
@@ -29,6 +31,11 @@ function xivopeners.ToggleRun()
 end
 
 function xivopeners.Init()
+    if (xivopeners.supportedJobs[Player.job] ~= nil) then
+        xivopeners.supportedJobs[Player.job].checkOpenerIds()
+        xivopeners.supportedJobs[Player.job].queueOpener()
+    end
+
     ml_gui.ui_mgr:AddMember({ id = "FFXIVMINION##MENU_XIVOpeners", name = "XIVOpeners", onClick = function() xivopeners.GUI.open = not xivopeners.GUI.open end, tooltip = "Does openers and passes them off to ACR. Currently in BETA, not all jobs are supportec!"},"FFXIVMINION##MENU_HEADER")
 end
 
@@ -55,9 +62,15 @@ function xivopeners.drawMainFull()
         GUI:AlignFirstTextHeightToWidgets()
         GUI:Text("Status: ")
         GUI:SameLine(0, 0)
+
+        -- going to rework this shitshow of a status display soon
         if (xivopeners.supportedJobs[Player.job] ~= nil) then
             if (xivopeners.running) then
-                GUI:TextColored(.1, 1, .2, 1, "RUNNING")
+                if (xivopeners.supportedJobs[Player.job].openerAvailable()) then
+                    GUI:TextColored(.1, 1, .2, 1, "RUNNING")
+                else
+                    GUI:TextColored(.1, 1, .2, 1, "RUNNING (NR)")
+                end
             else
                 GUI:TextColored(1, .1, .2, 1, "STOPPED")
             end
@@ -113,10 +126,15 @@ function xivopeners.drawMainSmall()
     local childColor
     local botMode
 
+    -- going to rework this shitshow of a status display soon
     if (xivopeners.supportedJobs[Player.job] ~= nil) then
         if (xivopeners.running) then
             childColor = {r = 0, g = .1, b = 0, a = .75 }
-            botMode = "Opener"
+            if (xivopeners.supportedJobs[Player.job].openerAvailable()) then
+                botMode = "Opener"
+            else
+                botMode = "Opener (NR)"
+            end
         else
             childColor = {r = .1, g = 0, b = 0, a = .75 }
             botMode = "Opener"
