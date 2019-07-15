@@ -97,19 +97,24 @@ function xivopeners_brd.main()
             if (not FFXIV_Common_BotRunning) then
                 ml_global_information.ToggleRun()
             end
+            return
         end
 
         if (ActionList:IsCasting()) then return end
 
         if (not xivopeners_brd.openerStarted) then
-            -- technically, even if you use an ability from prepull, it should still work, since the next time this loop runs it'll jump to the elseif
+            -- technically, even if you use an ability from prepull, it should still work, since the next time this loop runs it'll jump to the elseif and the last ability used should be the right one
             xivopeners.log("Starting opener")
             xivopeners_brd.openerStarted = true
             xivopeners_brd.useNextAction(target)
         elseif (xivopeners_brd.lastCastFromQueue and xivopeners_brd.lastCastFromQueue.id ~= -1 and Player.castinginfo.lastcastid == xivopeners_brd.lastCastFromQueue.id) then -- -1 means the cast was skipped intentionally
             -- if multiple abilities are added here, this will skip them and only cast it once
-            xivopeners_brd.dequeue()
-            xivopeners_brd.useNextAction(target)
+            if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.abilityQueue[2] and not xivopeners_brd.abilityQueue[2]:IsReady(target.id)) then
+                xivopeners_brd.useNextAction(target)
+            else
+                xivopeners_brd.dequeue()
+                xivopeners_brd.useNextAction(target)
+            end
         else
             xivopeners_brd.useNextAction(target)
         end
@@ -145,7 +150,7 @@ function xivopeners_brd.useNextAction(target)
         -- prepull RS
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.RagingStrikes and HasBuff(Player.id, xivopeners_brd.openerAbilities.RagingStrikesBuffID)) then
             xivopeners.log("Player already used raging strikes prepull, continue with opener")
-            xivopeners_brd.lastCastFromQueue = {id = -1, name = "skip"}
+            xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RagingStrikes
             return
         end
         -- pp3 gauge 2
@@ -166,7 +171,11 @@ function xivopeners_brd.useNextAction(target)
             return
         end
 
-        -- idk how to make it not spam console
+        if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.abilityQueue[2] and not xivopeners_brd.abilityQueue[2]:IsReady(target.id)) then
+            return
+        end
+
+        -- idk how to make it not spam console and still keep performance
         xivopeners.log("Casting " .. xivopeners_brd.abilityQueue[1].name)
         xivopeners_brd.abilityQueue[1]:Cast(target.id)
         xivopeners_brd.lastCastFromQueue = xivopeners_brd.abilityQueue[1]
