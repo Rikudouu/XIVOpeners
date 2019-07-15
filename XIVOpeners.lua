@@ -11,9 +11,10 @@ xivopeners.running = false
 xivopeners.supportedJobs = {
     [31] = {
         main = xivopeners_mch.main,
-        availableOpeners = xivopeners_mch.availableOpeners,
+        listOpeners = xivopeners_mch.listOpeners,
         currentOpenerIndex = xivopeners_mch.currentOpenerIndex,
-        openerIndexChanged = xivopeners_mch.openerIndexChanged
+        openers = xivopeners_mch.openers,
+        queueOpener = xivopeners_mch.queueOpener
     },
 
 }
@@ -85,8 +86,12 @@ function xivopeners.drawMainFull()
         if (xivopeners.supportedJobs[Player.job]) then
             GUI:Text("Opener")
             GUI:NextColumn()
-            GUI:PushItemWidth(-135)
-            xivopeners.supportedJobs[Player.job].currentOpenerIndex, xivopeners.supportedJobs[Player.job].openerIndexChanged = GUI:Combo("##xivopeners_opener_select", xivopeners.supportedJobs[Player.job].currentOpenerIndex, xivopeners.supportedJobs[Player.job].availableOpeners)
+            GUI:PushItemWidth(-1)
+            local openerIndexChanged
+            xivopeners.supportedJobs[Player.job].currentOpenerIndex, openerIndexChanged = GUI:Combo("##xivopeners_opener_select", xivopeners.supportedJobs[Player.job].currentOpenerIndex, xivopeners.supportedJobs[Player.job].listOpeners)
+            if (openerIndexChanged) then
+                xivopeners.supportedJobs[Player.job].queueOpener()
+            end
         end
         GUI:Columns(1)
 
