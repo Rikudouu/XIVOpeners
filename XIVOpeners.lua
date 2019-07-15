@@ -7,7 +7,16 @@ xivopeners.GUI = {
 }
 
 xivopeners.running = false
-xivopeners.supportedJobs = {31} -- only supports mch and brd for now
+-- only supports mch and brd for now
+xivopeners.supportedJobs = {
+    [31] = {
+        main = xivopeners_mch.main,
+        availableOpeners = xivopeners_mch.availableOpeners,
+        currentOpenerIndex = xivopeners_mch.currentOpenerIndex,
+        openerIndexChanged = xivopeners_mch.openerIndexChanged
+    },
+
+}
 xivopeners.oocEnable = true
 
 function xivopeners.log(string)
@@ -36,8 +45,7 @@ function xivopeners.DrawCall(event, ticks)
 end
 
 function xivopeners.drawMainFull()
-    -- GUI.SetCond_FirstUseEver
-    GUI:SetNextWindowSize(230, 110)
+    GUI:SetNextWindowSize(230, 110, GUI.SetCond_FirstUseEver)
     xivopeners.GUI.visible, xivopeners.GUI.open = GUI:Begin("XIVOpeners", xivopeners.GUI.open)
     if (xivopeners.GUI.visible) then
         local x, y = GUI:GetWindowPos()
@@ -46,14 +54,14 @@ function xivopeners.drawMainFull()
         GUI:AlignFirstTextHeightToWidgets()
         GUI:Text("Status: ")
         GUI:SameLine(0, 0)
-        if (xivopeners.supportedJobs[Player.job]) then
+        if (xivopeners.supportedJobs[Player.job] ~= nil) then
             if (xivopeners.running) then
                 GUI:TextColored(.1, 1, .2, 1, "RUNNING")
             else
-                GUI:TextColored(1, .6471, 0, 1,"STOPPED")
+                GUI:TextColored(1, .1, .2, 1, "STOPPED")
             end
         else
-            GUI:TextColored(1, .1, .2, 1, "JOB UNSUPPORTED")
+            GUI:TextColored(1, .6471, 0, 1, "JOB UNSUPPORTED")
         end
         GUI:SameLine(0, 5)
         if (GUI:ImageButton("##xivopeners_drawmode_collapse", ml_global_information.path .. "\\GUI\\UI_Textures\\collapse.png", 14, 14)) then
@@ -67,11 +75,18 @@ function xivopeners.drawMainFull()
         GUI:NextColumn()
         local oocEnableChanged --unused for now, left it here for future use
         xivopeners.oocEnable, oocEnableChanged = GUI:Checkbox("##xivopeners_oocenablecheck", xivopeners.oocEnable)
-    --    if (oocEnableChanged) then
-    --    end
+--        if (oocEnableChanged) then
+--        end
         GUI:EndGroup()
         if (GUI:IsItemHovered()) then
             GUI:SetTooltip("Automatically re-enables opener once you're out of combat")
+        end
+        GUI:NextColumn()
+        if (xivopeners.supportedJobs[Player.job]) then
+            GUI:Text("Opener")
+            GUI:NextColumn()
+            GUI:PushItemWidth(-135)
+            xivopeners.supportedJobs[Player.job].currentOpenerIndex, xivopeners.supportedJobs[Player.job].openerIndexChanged = GUI:Combo("##xivopeners_opener_select", xivopeners.supportedJobs[Player.job].currentOpenerIndex, xivopeners.supportedJobs[Player.job].availableOpeners)
         end
         GUI:Columns(1)
 
@@ -93,16 +108,16 @@ function xivopeners.drawMainSmall()
     local childColor
     local botMode
 
-    if (xivopeners.supportedJobs[Player.job]) then
+    if (xivopeners.supportedJobs[Player.job] ~= nil) then
         if (xivopeners.running) then
             childColor = {r = 0, g = .1, b = 0, a = .75 }
             botMode = "Opener"
         else
-            childColor = {r = 1, g = .6471, b = 0, a = .75 }
+            childColor = {r = .1, g = 0, b = 0, a = .75 }
             botMode = "Opener"
         end
     else
-        childColor = {r = .1, g = 0, b = 0, a = .75 }
+        childColor = {r = .1, g = .06471, b = 0, a = .75 }
         botMode = "JOB UNSUPPORTED"
     end
     GUI:PushStyleVar(GUI.StyleVar_ChildWindowRounding,10)
@@ -135,10 +150,15 @@ function xivopeners.drawMainSmall()
     GUI:End()
 end
 
-function xivopeners.OnUpdate()
+function xivopeners.OnUpdate(event, tickcount)
     local gamestate = GetGameState()
     if (gamestate == FFXIV.GAMESTATE.INGAME) then
         xivopeners.running = xivopeners.supportedJobs[Player.job] ~= nil and xivopeners.running
+        if (xivopeners.running) then
+            xivopeners.supportedJobs[Player.job].main() -- call main for job
+        elseif (xivopeners.oocEnable and not Player.incombat) then
+            xivopeners.running = true
+        end
     end
 end
 
