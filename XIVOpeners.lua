@@ -17,6 +17,14 @@ xivopeners.supportedJobs = {
         checkOpenerIds = xivopeners_mch.checkOpenerIds
     },
 
+    [23] = {
+        main = xivopeners_brd.main,
+        openerInfo = xivopeners_brd.openerInfo,
+        queueOpener = xivopeners_brd.queueOpener,
+        openerAvailable = xivopeners_brd.openerAvailable,
+        checkOpenerIds = xivopeners_brd.checkOpenerIds
+    }
+
 }
 xivopeners.oocEnable = false
 

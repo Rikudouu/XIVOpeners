@@ -138,6 +138,7 @@ function xivopeners_mch.main()
         if (ActionList:IsCasting()) then return end
 
         if (not xivopeners_mch.openerStarted) then
+            -- technically, even if you use an ability from prepull, it should still work, since the next time this loop runs it'll jump to the elseif
             xivopeners.log("Starting opener")
             xivopeners_mch.openerStarted = true
             xivopeners_mch.useNextAction(target)
@@ -176,7 +177,7 @@ function xivopeners_mch.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
     if (target and target.attackable and xivopeners_mch.abilityQueue[1]) then
-        -- commented out cause idk how to make it not spam console
+        -- idk how to make it not spam console
         xivopeners.log("Casting " .. xivopeners_mch.abilityQueue[1].name)
         xivopeners_mch.abilityQueue[1]:Cast(target.id)
         xivopeners_mch.lastCastFromQueue = xivopeners_mch.abilityQueue[1]
