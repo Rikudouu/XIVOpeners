@@ -63,7 +63,7 @@ function xivopeners.DrawCall(event, ticks)
 end
 
 function xivopeners.drawMainFull()
-    GUI:SetNextWindowSize(400, 130, GUI.SetCond_FirstUse)
+    GUI:SetNextWindowSize(400, 130, GUI.SetCond_FirstUseEver)
     xivopeners.GUI.visible, xivopeners.GUI.open = GUI:Begin("XIVOpeners", xivopeners.GUI.open)
     if (xivopeners.GUI.visible) then
         local x, y = GUI:GetWindowPos()
