@@ -181,7 +181,7 @@ function xivopeners_mch.useNextAction(target)
     -- the current implementation uses a queue system
     if (target and target.attackable and xivopeners_mch.abilityQueue[1]) then
         -- idk how to make it not spam console
-        xivopeners.log("Casting " .. xivopeners_mch.abilityQueue[1].name)
+        --xivopeners.log("Casting " .. xivopeners_mch.abilityQueue[1].name)
         xivopeners_mch.abilityQueue[1]:Cast(target.id)
         xivopeners_mch.lastCastFromQueue = xivopeners_mch.abilityQueue[1]
     end

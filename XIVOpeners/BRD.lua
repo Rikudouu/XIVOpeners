@@ -106,10 +106,10 @@ function xivopeners_brd.updateActionUsed()
     -- this function is required for duplicate abilities, i would avoid using it unless absolutely neccessary
     if (xivopeners_brd.lastCastFromQueue) then
         if (xivopeners_brd.lastCastFromQueue.casting and Player.castinginfo.castingid ~= xivopeners_brd.lastCastFromQueue.id) then
-            xivopeners.log("Casted")
+            --xivopeners.log("Casted")
             xivopeners_brd.lastCastFromQueue.casted = true
         elseif (Player.castinginfo.castingid == xivopeners_brd.lastCastFromQueue.id) then
-            xivopeners.log("Currently casting")
+            --xivopeners.log("Currently casting")
             xivopeners_brd.lastCastFromQueue.casting = true
         end
     end
@@ -225,7 +225,7 @@ function xivopeners_brd.useNextAction(target)
         end
 
         -- idk how to make it not spam console and still keep performance
-        xivopeners.log("Casting " .. xivopeners_brd.abilityQueue[1].name)
+        --xivopeners.log("Casting " .. xivopeners_brd.abilityQueue[1].name)
         xivopeners_brd.cast(xivopeners_brd.abilityQueue[1], target)
         xivopeners_brd.lastCastFromQueue = xivopeners_brd.abilityQueue[1]
     end
