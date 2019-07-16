@@ -1,9 +1,9 @@
-#XIVOpeners
+# XIVOpeners
 This is a WIP addon that will do your opener and handle control back to the main bot, be it ACR or SkillManager.
 
 **Currently, it is in early alpha, and it can stop working mid opener and ruin your parse.** The goal is to have it fully working when savage drops.
 
-###Custom Openers
+### Custom Openers
 If you want to make your own opener, **you need to have basic knowledge of lua**. I have provided and commented 2 polar examples, and it should be easy enough to copy from them.
 
 MCH is a fairly straight-forward example. It has a set, linear rotation with no conditionals, and _no ability gets executed multiple times in a row_. The logic is fairly clear cut, you insert your opener and select it, and it should work. It's important that there's no repeated consecutive casts, because other wise the cast detection will fail and count it all as one cast.
