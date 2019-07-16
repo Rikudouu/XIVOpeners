@@ -29,45 +29,45 @@ xivopeners_mch.openerInfo = {
 xivopeners_mch.openers = {
     earlyWF = {
         xivopeners_mch.openerAbilities.Drill,
-        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.BarrelStabilizer,
         xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.SplitShot,
-        xivopeners_mch.openerAbilities.BarrelStabilizer,
         xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.SlugShot,
         xivopeners_mch.openerAbilities.WildFire,
         xivopeners_mch.openerAbilities.HyperCharge,
         xivopeners_mch.openerAbilities.HeatBlast,
-        xivopeners_mch.openerAbilities.Ricochet,
-        xivopeners_mch.openerAbilities.HeatBlast,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.HeatBlast,
         xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.HeatBlast,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.HeatBlast,
-        xivopeners_mch.openerAbilities.Reassemble,
+        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.HeatBlast,
+        xivopeners_mch.openerAbilities.Reassamble,
         xivopeners_mch.openerAbilities.AirAnchor,
-        xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.CleanShot,
-        xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.GaussRound,
-        xivopeners_mch.openerAbilities.Drill,
         xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.Drill,
+        xivopeners_mch.openerAbilities.GaussRound
     },
 
     lateWF = {
         xivopeners_mch.openerAbilities.SplitShot,
-        xivopeners_mch.openerAbilities.BarrelStabilizer,
-        xivopeners_mch.openerAbilities.SlugShot,
+        xivopeners_mch.openerAbilities.SlugShot, -- a tincture is supposed to be used after this, but i can't be fucked adding logic for that right now
         xivopeners_mch.openerAbilities.CleanShot,
         xivopeners_mch.openerAbilities.SplitShot,
         xivopeners_mch.openerAbilities.Reassemble,
+        xivopeners_mch.openerAbilities.BarrelStabilizer,
         xivopeners_mch.openerAbilities.Drill,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
-        xivopeners_mch.openerAbilities.SlughShot,
+        xivopeners_mch.openerAbilities.SlugShot,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.AirAnchor,
@@ -85,7 +85,6 @@ xivopeners_mch.openers = {
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.CleanShot,
         xivopeners_mch.openerAbilities.Ricochet,
-        xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.SplitShot,
         xivopeners_mch.openerAbilities.Drill
     },
@@ -133,7 +132,7 @@ function xivopeners_mch.main(event, tickcount)
             -- opener is finished, pass control to ACR
             xivopeners.log("Finished openers, handing control to ACR")
             xivopeners_mch.openerStarted = false
-            xivopeners.running = false
+            if (xivopeners.running) then xivopeners.ToggleRun() end
             if (not FFXIV_Common_BotRunning) then
                 ml_global_information.ToggleRun()
             end
