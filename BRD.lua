@@ -190,7 +190,7 @@ function xivopeners_brd.useNextAction(target)
             return
         end
 
---         RA proc during BurstShot
+        --  RA proc during BurstShot
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.BurstShot and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
             -- still need to dequeue burst shot
             xivopeners.log("Using RA proc during BurstShot window")
@@ -199,6 +199,13 @@ function xivopeners_brd.useNextAction(target)
             return
         end
 
+        -- RA proc during Barrage
+        if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.Barrage and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
+            -- don't want to dequeue barrage here
+            xivopeners.log("Using RA proc before barrage")
+            xivopeners_brd.cast(xivopeners_brd.openerAbilities.RefulgentArrow, target)
+            xivopeners_brd.lastCastFromQueue = {id = -1, name = "skip"}
+        end
 
         -- idk how to make it not spam console and still keep performance
         xivopeners.log("Casting " .. xivopeners_brd.abilityQueue[1].name)
