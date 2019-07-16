@@ -1,3 +1,8 @@
+-- MCH has a very basic opener with no duplicate ablities in a row, key word being "row". Unlike bard,
+-- which has 3 burst shots in a row, MCH can rely on checking the last cast used to queue up the next cast.
+-- This is faster than the checking method implemented in the bard opener, but the bard opener is also really fast,
+-- you just have to be careful where you check for casts
+
 xivopeners_mch = {}
 
 xivopeners_mch.supportedLevel = 80

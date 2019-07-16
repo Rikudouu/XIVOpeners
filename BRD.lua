@@ -1,3 +1,9 @@
+-- This is an example of a more complicated opener with several conditions and duplicates. There is a function called
+-- updateActionused() which is called every update and it is a custom cast detection mechanicsm. However, it's use should be
+-- avoided unless absolutely necessary because it relies on changing animations, which means that if you check a GCD, you
+-- will be stuck without using any ogcd abilities until the gcd's cast animation finishes. This is circumvented with another
+-- elseif statement shown below in the code. Only duplicate abilties should be checked using this function.
+
 xivopeners_brd = {}
 
 xivopeners_brd.supportedLevel = 80
