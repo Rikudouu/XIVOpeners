@@ -42,7 +42,7 @@ xivopeners_brd.openers = {
         xivopeners_brd.openerAbilities.BurstShot,
         xivopeners_brd.openerAbilities.BurstShot,
         xivopeners_brd.openerAbilities.BurstShot,
-        xivopeners_brd.openerAbilities.Barrage,
+        xivopeners_brd.openerAbilities.Barrage, -- need a check here for an RA proc, and use that instead
         xivopeners_brd.openerAbilities.RefulgentArrow,
         xivopeners_brd.openerAbilities.Sidewinder,
         xivopeners_brd.openerAbilities.BurstShot,
@@ -52,7 +52,23 @@ xivopeners_brd.openers = {
     },
 
     compatibility = {
-
+        xivopeners_brd.openerAbilities.RagingStrikes,
+        xivopeners_brd.openerAbilities.Stormbite,
+        xivopeners_brd.openerAbilities.Bloodletter,
+        xivopeners_brd.openerAbilities.CausticBite,
+        xivopeners_brd.openerAbilities.WanderersMinuet,
+        xivopeners_brd.openerAbilities.BattleVoice,
+        xivopeners_brd.openerAbilities.BurstShot,
+        xivopeners_brd.openerAbilities.EmpyrealArrow,
+        xivopeners_brd.openerAbilities.BurstShot,
+        xivopeners_brd.openerAbilities.BurstShot,
+        xivopeners_brd.openerAbilities.Barrage,
+        xivopeners_brd.openerAbilities.EmpyrealArrow,
+        xivopeners_brd.openerAbilities.Sidewinder,
+        xivopeners_brd.openerAbilities.BurstShot,
+        xivopeners_brd.openerAbilities.Bloodletter,
+        xivopeners_brd.openerAbilities.IronJaws,
+        xivopeners_brd.openerAbilities.EmpyrealArrow
     },
 }
 
@@ -204,7 +220,8 @@ function xivopeners_brd.useNextAction(target)
             -- don't want to dequeue barrage here
             xivopeners.log("Using RA proc before barrage")
             xivopeners_brd.cast(xivopeners_brd.openerAbilities.RefulgentArrow, target)
-            xivopeners_brd.lastCastFromQueue = {id = -1, name = "skip"}
+            xivopeners_brd.lastCastFromQueue = {id = -1, name = "skip" }
+            return
         end
 
         -- idk how to make it not spam console and still keep performance
