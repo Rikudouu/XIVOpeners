@@ -144,11 +144,11 @@ function xivopeners_brd.main(event, tickcount)
             xivopeners_brd.useNextAction(target)
         -- if the last ability and the next ability are the same, we need some special logic to cover it since our normal check will always succeed
         elseif(xivopeners_brd.abilityQueue[1] == xivopeners_brd.abilityQueue[2] and xivopeners_brd.lastCastFromQueue.id ~= -1) then
-            if (xivopeners_brd.lastCastFromQueue.casted) then
+            if (xivopeners_brd.lastCastFromQueue.casted) then -- we use casted here, which is updated from the updateActionUsed call above to detect if the cast went off
                 xivopeners_brd.dequeue()
             end
 
-            xivopeners_brd.useNextAction(target)
+            xivopeners_brd.useNextAction(target) -- we still want to call this every pulse to weave in ogcds and use any procs we might get
         elseif (xivopeners_brd.lastCastFromQueue and xivopeners_brd.lastCastFromQueue.id ~= -1 and xivopeners_brd.lastCastFromQueue.id == Player.castinginfo.lastcastid) then -- -1 means the cast was skipped intentionally
             xivopeners_brd.dequeue()
             xivopeners_brd.useNextAction(target)
