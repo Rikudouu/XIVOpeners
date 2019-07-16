@@ -116,7 +116,6 @@ end
 
 function xivopeners_mch.openerAvailable()
     -- check cooldowns
-
     for _, action in pairs(xivopeners_mch.getOpener()) do
         if (action.cd >= 1.5) then return false end
     end

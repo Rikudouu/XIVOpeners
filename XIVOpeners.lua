@@ -46,7 +46,7 @@ function xivopeners.Init()
         xivopeners.supportedJobs[Player.job].queueOpener()
     end
 
-    ml_gui.ui_mgr:AddMember({ id = "FFXIVMINION##MENU_XIVOpeners", name = "XIVOpeners", onClick = function() xivopeners.GUI.open = not xivopeners.GUI.open end, tooltip = "Does openers and passes them off to ACR. Currently in BETA, not all jobs are supportec!"},"FFXIVMINION##MENU_HEADER")
+    ml_gui.ui_mgr:AddMember({ id = "FFXIVMINION##MENU_XIVOpeners", name = "XIVOpeners", onClick = function() xivopeners.GUI.open = not xivopeners.GUI.open end, tooltip = "Does openers and passes them off to ACR. Currently in BETA, not all jobs are supported!"},"FFXIVMINION##MENU_HEADER")
 end
 
 function xivopeners.DrawCall(event, ticks)
@@ -95,7 +95,7 @@ function xivopeners.drawMainFull()
         GUI:Columns(2, "##xivopeners_cols", true)
 
         GUI:BeginGroup()
-        GUI:Text("Auto enable")
+        GUI:Text("Professional Static Mode")
         GUI:NextColumn()
         local oocEnableChanged --unused for now, left it here for future use
         xivopeners.oocEnable, oocEnableChanged = GUI:Checkbox("##xivopeners_oocenablecheck", xivopeners.oocEnable)
@@ -103,7 +103,7 @@ function xivopeners.drawMainFull()
 --        end
         GUI:EndGroup()
         if (GUI:IsItemHovered()) then
-            GUI:SetTooltip("Automatically re-enables opener once you're out of combat")
+            GUI:SetTooltip("Automatically re-enables opener out of combat, useful for a̶ ̶w̶i̶p̶e̶ ̶p̶a̶r̶t̶y̶ progging")
         end
         GUI:NextColumn()
         if (xivopeners.supportedJobs[Player.job]) then
