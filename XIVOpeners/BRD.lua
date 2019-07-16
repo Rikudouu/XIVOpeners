@@ -165,10 +165,10 @@ function xivopeners_brd.queueOpener()
     for _, action in pairs(xivopeners_brd.getOpener()) do
         xivopeners_brd.enqueue(action)
     end
-    xivopeners.log("queue:")
-    for _, v in pairs(xivopeners_brd.abilityQueue) do
-        xivopeners.log(v.name)
-    end
+--    xivopeners.log("queue:")
+--    for _, v in pairs(xivopeners_brd.abilityQueue) do
+--        xivopeners.log(v.name)
+--    end
 end
 
 function xivopeners_brd.enqueue(action)

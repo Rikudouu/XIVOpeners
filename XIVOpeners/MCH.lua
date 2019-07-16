@@ -161,10 +161,10 @@ function xivopeners_mch.queueOpener()
     for _, action in pairs(xivopeners_mch.getOpener()) do
         xivopeners_mch.enqueue(action)
     end
-    xivopeners.log("queue:")
-    for _, v in pairs(xivopeners_mch.abilityQueue) do
-        xivopeners.log(v.name)
-    end
+--    xivopeners.log("queue:")
+--    for _, v in pairs(xivopeners_mch.abilityQueue) do
+--        xivopeners.log(v.name)
+--    end
 end
 
 function xivopeners_mch.enqueue(action)
