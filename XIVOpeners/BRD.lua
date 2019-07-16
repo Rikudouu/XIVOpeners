@@ -63,7 +63,7 @@ xivopeners_brd.openers = {
         xivopeners_brd.openerAbilities.BurstShot,
         xivopeners_brd.openerAbilities.BurstShot,
         xivopeners_brd.openerAbilities.Barrage,
-        xivopeners_brd.openerAbilities.EmpyrealArrow,
+        xivopeners_brd.openerAbilities.RefulgentArrow,
         xivopeners_brd.openerAbilities.Sidewinder,
         xivopeners_brd.openerAbilities.BurstShot,
         xivopeners_brd.openerAbilities.Bloodletter,
@@ -217,8 +217,8 @@ function xivopeners_brd.useNextAction(target)
 
         -- RA proc during Barrage
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.Barrage and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
-            -- don't want to dequeue barrage here
-           -- xivopeners.log("Using RA proc before barrage")
+            -- don't want to dequeue Barrage here
+           -- xivopeners.log("Using RA proc before Barrage")
             xivopeners_brd.cast(xivopeners_brd.openerAbilities.RefulgentArrow, target)
             xivopeners_brd.lastCastFromQueue = {id = -1, name = "skip" }
             return
