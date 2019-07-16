@@ -63,7 +63,7 @@ function xivopeners.DrawCall(event, ticks)
 end
 
 function xivopeners.drawMainFull()
-    GUI:SetNextWindowSize(230, 110, GUI.SetCond_FirstUseEver)
+    GUI:SetNextWindowSize(400, 130, GUI.SetCond_FirstUse)
     xivopeners.GUI.visible, xivopeners.GUI.open = GUI:Begin("XIVOpeners", xivopeners.GUI.open)
     if (xivopeners.GUI.visible) then
         local x, y = GUI:GetWindowPos()
@@ -103,10 +103,11 @@ function xivopeners.drawMainFull()
 --        end
         GUI:EndGroup()
         if (GUI:IsItemHovered()) then
-            GUI:SetTooltip("Automatically re-enables opener out of combat, useful for a̶ ̶w̶i̶p̶e̶ ̶p̶a̶r̶t̶y̶ progging")
+            GUI:SetTooltip("Automatically re-enables opener out of combat, useful for a wipe party / progging")
         end
         GUI:NextColumn()
         if (xivopeners.supportedJobs[Player.job]) then
+            -- TODO: move this to a drawcall that's opener specific so they can have custom options, can also get rid of openerInfo that way
             GUI:Text("Opener")
             GUI:NextColumn()
             GUI:PushItemWidth(-1)
@@ -126,7 +127,7 @@ function xivopeners.drawMainFull()
 end
 
 function xivopeners.drawMainSmall()
-    GUI:SetNextWindowSize(190,50,GUI.SetCond_Always)
+    GUI:SetNextWindowSize(190,50,GUI.SetCond_FirstUseEver)
     local flags = (GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoCollapse)
     GUI:Begin("xivopeners_main_minimized", true, flags)
 
@@ -186,14 +187,17 @@ end
 function xivopeners.OnUpdate(event, tickcount)
     local gamestate = GetGameState()
     if (gamestate == FFXIV.GAMESTATE.INGAME) then
-        xivopeners.running = xivopeners.supportedJobs[Player.job] ~= nil and xivopeners.running
+        if (xivopeners.supportedJobs[Player.job] == nil and xivopeners.running) then
+            xivopeners.ToggleRun()
+        end
+
         if (xivopeners.running) then
             if (FFXIV_Common_BotRunning) then
                 ml_global_information.ToggleRun() -- toggle bot to off if opener is running
             end
             xivopeners.supportedJobs[Player.job].main(event, tickcount) -- call main for job
-        elseif (xivopeners.oocEnable and not Player.incombat) then
-            xivopeners.running = true
+        elseif (xivopeners.oocEnable and not Player.incombat and not xivopeners.running) then
+            xivopeners.ToggleRun()
         end
     end
 end

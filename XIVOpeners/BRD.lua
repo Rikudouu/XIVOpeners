@@ -128,7 +128,7 @@ function xivopeners_brd.main(event, tickcount)
             -- opener is finished, pass control to ACR
             xivopeners.log("Finished openers, handing control to ACR")
             xivopeners_brd.openerStarted = false
-            xivopeners.running = false
+            if (xivopeners.running) then xivopeners.ToggleRun() end
             if (not FFXIV_Common_BotRunning) then
                 ml_global_information.ToggleRun()
             end
