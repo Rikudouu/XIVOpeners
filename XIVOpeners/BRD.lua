@@ -106,10 +106,10 @@ function xivopeners_brd.updateActionUsed()
     -- this function is required for duplicate abilities, i would avoid using it unless absolutely neccessary
     if (xivopeners_brd.lastCastFromQueue) then
         if (xivopeners_brd.lastCastFromQueue.casting and Player.castinginfo.castingid ~= xivopeners_brd.lastCastFromQueue.id) then
-            --xivopeners.log("Casted")
+            xivopeners.log("Casted")
             xivopeners_brd.lastCastFromQueue.casted = true
         elseif (Player.castinginfo.castingid == xivopeners_brd.lastCastFromQueue.id) then
-            --xivopeners.log("Currently casting")
+            xivopeners.log("Currently casting")
             xivopeners_brd.lastCastFromQueue.casting = true
         end
     end
@@ -193,14 +193,14 @@ function xivopeners_brd.useNextAction(target)
     if (target and target.attackable and xivopeners_brd.abilityQueue[1]) then
         -- prepull RS
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.RagingStrikes and HasBuff(Player.id, xivopeners_brd.openerAbilities.RagingStrikesBuffID)) then
-            xivopeners.log("Player already used raging strikes prepull, continue with opener")
+            --xivopeners.log("Player already used raging strikes prepull, continue with opener")
             xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RagingStrikes
             return
         end
         -- pp3 gauge 2
         if (Player.gauge[2] >= 3) then
             -- don't want to dequeue here
-            xivopeners.log("Using PP3 proc")
+            --xivopeners.log("Using PP3 proc")
             xivopeners_brd.cast(xivopeners_brd.openerAbilities.PitchPerfect, target)
             xivopeners_brd.lastCastFromQueue = {id = -1, name = "skip"}
             return
@@ -209,7 +209,7 @@ function xivopeners_brd.useNextAction(target)
         --  RA proc during BurstShot
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.BurstShot and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
             -- still need to dequeue burst shot
-            xivopeners.log("Using RA proc during BurstShot window")
+            --xivopeners.log("Using RA proc during BurstShot window")
             xivopeners_brd.cast(xivopeners_brd.openerAbilities.RefulgentArrow, target)
             xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RefulgentArrow
             return
@@ -218,7 +218,7 @@ function xivopeners_brd.useNextAction(target)
         -- RA proc during Barrage
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.Barrage and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
             -- don't want to dequeue barrage here
-            xivopeners.log("Using RA proc before barrage")
+           -- xivopeners.log("Using RA proc before barrage")
             xivopeners_brd.cast(xivopeners_brd.openerAbilities.RefulgentArrow, target)
             xivopeners_brd.lastCastFromQueue = {id = -1, name = "skip" }
             return
