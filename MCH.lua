@@ -118,7 +118,7 @@ function xivopeners_mch.openerAvailable()
     return true
 end
 
-function xivopeners_mch.main()
+function xivopeners_mch.main(event, tickcount)
     if (Player.level >= xivopeners_mch.supportedLevel) then
         local target = Player:GetTarget()
         if (not target) then return end

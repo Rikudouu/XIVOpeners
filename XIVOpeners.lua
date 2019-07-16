@@ -191,7 +191,7 @@ function xivopeners.OnUpdate(event, tickcount)
             if (FFXIV_Common_BotRunning) then
                 ml_global_information.ToggleRun() -- toggle bot to off if opener is running
             end
-            xivopeners.supportedJobs[Player.job].main() -- call main for job
+            xivopeners.supportedJobs[Player.job].main(event, tickcount) -- call main for job
         elseif (xivopeners.oocEnable and not Player.incombat) then
             xivopeners.running = true
         end
