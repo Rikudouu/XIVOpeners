@@ -1,7 +1,7 @@
 # XIVOpeners
 This is a WIP addon that will do your opener and handle control back to the main bot, be it ACR or SkillManager.
 
-**Currently, it is in early alpha, and it can stop working mid opener and ruin your parse.** The goal is to have it fully working when savage drops.
+**Currently, it is in early alpha, and it can stop working mid opener and ruin your parse.** The goal is to have it fully working when Eden savage drops.
 
 ### Custom Openers
 If you want to make your own opener, **you need to have basic knowledge of lua**. I have provided and commented 2 polar examples, and it should be easy enough to copy from them.
