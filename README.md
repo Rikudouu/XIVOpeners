@@ -3,10 +3,22 @@ This is a WIP addon that will do your opener and handle control back to the main
 
 **Currently, it is in early alpha, and it can stop working mid opener and ruin your parse.** The goal is to have it fully working when Eden savage drops.
 
-### Status
+## Status
+|     **Job**     |   **Status**  |
+|:---------------:|:-------------:|
+|       BRD       |     Alpha     |
+|       MCH       |     Alpha     |
+| Everything Else | Not Implemented |
 
+**Alpha**: Implemented and tested against a dummy, but not in an actual raid environment
 
-### Custom Openers
+**Fully Working**: Tested in an actual raid environment
+
+**Not Working**: Has been implemented but might not be fully working yet
+
+**Not Implemented**: Hasn't been added to the addon yet
+
+## Custom Openers
 If you want to make your own opener, **you need to have basic knowledge of lua**. I have provided and commented 2 polar examples, and it should be easy enough to copy from them.
 
 MCH is a fairly straight-forward example. It has a set, linear rotation with no conditionals, and _no ability gets executed multiple times in a row_. The logic is fairly clear cut, you insert your opener and select it, and it should work. It's important that there's no repeated consecutive casts, because other wise the cast detection will fail and count it all as one cast.
@@ -16,7 +28,7 @@ The addon can handle both of these extremes completely fine. The function used i
 
 Feel free to combine different aspects of both files for your openers.
 
-### Development 
+## Development 
 Extremely high IQ readers may have noticed, but repeated consecutive casts are quite an important problem to deal with. So how exactly do we deal with them? In the ``BRD.lua`` file, there are a few things we can copy.
 1. Copy ``xivopeners_brd.updateActionUsed()``
 2. Copy ``xivopeners_brd.dequeue()``
