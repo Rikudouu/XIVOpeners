@@ -136,6 +136,7 @@ function xivopeners_mch.main(event, tickcount)
             if (not FFXIV_Common_BotRunning) then
                 ml_global_information.ToggleRun()
             end
+            return
         end
 
         if (ActionList:IsCasting()) then return end
@@ -156,6 +157,7 @@ function xivopeners_mch.main(event, tickcount)
 end
 
 function xivopeners_mch.queueOpener()
+    -- the only time this gets called is when the main script is toggled, so we can do more than just queue the opener
     -- empty queue first
     xivopeners_mch.abilityQueue = {}
     for _, action in pairs(xivopeners_mch.getOpener()) do
@@ -165,6 +167,8 @@ function xivopeners_mch.queueOpener()
 --    for _, v in pairs(xivopeners_mch.abilityQueue) do
 --        xivopeners.log(v.name)
 --    end
+    xivopeners_mch.lastCastFromQueue = nil
+    xivopeners_mch.openerStarted = false
 end
 
 function xivopeners_mch.enqueue(action)

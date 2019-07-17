@@ -1,9 +1,3 @@
--- This is an example of a more complicated opener with several conditions and duplicates. There is a function called
--- updateActionused() which is called every update and it is a custom cast detection mechanicsm. However, it's use should be
--- avoided unless absolutely necessary because it relies on changing animations, which means that if you check a GCD, you
--- will be stuck without using any ogcd abilities until the gcd's cast animation finishes. This is circumvented with another
--- elseif statement shown below in the code. Only duplicate abilties should be checked using this function.
-
 xivopeners_brd = {}
 
 xivopeners_brd.supportedLevel = 80
@@ -25,8 +19,6 @@ xivopeners_brd.openerAbilities = {
     RagingStrikesBuffID = 125,
 }
 
-xivopeners_brd.init = false
-
 xivopeners_brd.openerInfo = {
     listOpeners = {"Recommended", "Compatibility"},
     currentOpenerIndex = 1,
@@ -41,7 +33,6 @@ xivopeners_brd.openers = {
         xivopeners_brd.openerAbilities.CausticBite,
         xivopeners_brd.openerAbilities.EmpyrealArrow,
         xivopeners_brd.openerAbilities.BattleVoice, -- after this point it's either 3 burst shots, or RA procs if we get them
-        xivopeners_brd.openerAbilities.BurstShot,
         xivopeners_brd.openerAbilities.BurstShot,
         xivopeners_brd.openerAbilities.BurstShot,
         xivopeners_brd.openerAbilities.BurstShot, -- The last castid will always be the same so we need it an additional time, also note that bard will need more checks due to RA procs interfering
@@ -80,13 +71,11 @@ xivopeners_brd.lastCastFromQueue = nil -- might need this for some more complex 
 xivopeners_brd.openerStarted = false
 
 function xivopeners_brd.getOpener()
-    local opener
     if (xivopeners_brd.openerInfo.currentOpenerIndex == 1) then
-        opener = xivopeners_brd.openers.recommended
+        return xivopeners_brd.openers.recommended
     else
-        opener = xivopeners_brd.openers.compatibility
+        return xivopeners_brd.openers.compatibility
     end
-    return opener
 end
 
 function xivopeners_brd.checkOpenerIds()
@@ -105,10 +94,25 @@ function xivopeners_brd.openerAvailable()
     return true
 end
 
+function xivopeners_brd.queueOpener()
+    -- the only time this gets called is when the main script is toggled, so we can do more than just queue the opener
+    -- empty queue first
+    xivopeners_brd.abilityQueue = {}
+    for _, action in pairs(xivopeners_brd.getOpener()) do
+        xivopeners_brd.enqueue(action)
+    end
+    --    xivopeners.log("queue:")
+    --    for _, v in pairs(xivopeners_brd.abilityQueue) do
+    --        xivopeners.log(v.name)
+    --    end
+    xivopeners_brd.lastCastFromQueue = nil
+    xivopeners_brd.openerStarted = false
+end
+
 function xivopeners_brd.updateActionUsed()
     -- this function is required for duplicate abilities, i would avoid using it unless absolutely neccessary
     if (xivopeners_brd.lastCastFromQueue) then
-        xivopeners.log("Currentcast: " .. tostring(Player.castinginfo.castingid))
+        --        xivopeners.log("Currentcast: " .. tostring(Player.castinginfo.castingid) .. ", LastCast: " .. xivopeners_brd.lastCastFromQueue.name)
         if (xivopeners_brd.lastCastFromQueue.casting and Player.castinginfo.castingid ~= xivopeners_brd.lastCastFromQueue.id) then
             xivopeners.log("Casted " .. xivopeners_brd.lastCastFromQueue.name)
             xivopeners_brd.lastCastFromQueue.casted = true
@@ -119,23 +123,27 @@ function xivopeners_brd.updateActionUsed()
     end
 end
 
+function xivopeners_brd.processProcs()
+    -- prepull RS
+    if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.RagingStrikes and HasBuff(Player.id, xivopeners_brd.openerAbilities.RagingStrikesBuffID)) then
+        xivopeners.log("Player already used raging strikes prepull, continue with opener")
+        xivopeners_brd.dequeue()
+    elseif (Player.gauge[2] >= 3 and xivopeners_brd.abilityQueue[1] ~= xivopeners_brd.openerAbilities.PitchPerfect) then
+        -- don't want to dequeue here
+        xivopeners.log("Using PP3 proc")
+        xivopeners_brd.enqueueNext(xivopeners_brd.openerAbilities.PitchPerfect)
+--    elseif (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.BurstShot and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
+--        xivopeners.log("Using RA proc during BurstShot window")
+--        xivopeners_brd.enqueueNext(xivopeners_brd.openerAbilities.RefulgentArrow)
+    end
+end
+
 function xivopeners_brd.main(event, tickcount)
     if (Player.level >= xivopeners_brd.supportedLevel) then
-        if (not xivopeners_brd.init) then
-            for k, v in ipairs(xivopeners_brd.openerAbilities) do
-                v.casting = false
-                v.casted = false
-            end
-
-            xivopeners_brd.init = true
-        end
-
         local target = Player:GetTarget()
-        if (not target or not target.attackable) then return end
+        if (not target) then return end
 
         if (not xivopeners_brd.openerAvailable() and not xivopeners_brd.openerStarted) then return end -- don't start opener if it's not available, if it's already started then yolo
-
-        xivopeners_brd.updateActionUsed()
 
         if (xivopeners_brd.openerStarted and next(xivopeners_brd.abilityQueue) == nil) then
             -- opener is finished, pass control to ACR
@@ -150,32 +158,24 @@ function xivopeners_brd.main(event, tickcount)
 
         if (ActionList:IsCasting()) then return end
 
+        xivopeners_brd.processProcs()
+        xivopeners_brd.updateActionUsed()
+
         if (not xivopeners_brd.openerStarted) then
-            -- technically, even if you use an ability from prepull, it should still work, because the next time this loop runs it'll jump to correct elseif since the last ability used should be the right one
+            -- technically, even if you use an ability from prepull, it should still work, since the next time this loop runs it'll jump to the elseif
             xivopeners.log("Starting opener")
             xivopeners_brd.openerStarted = true
             xivopeners_brd.useNextAction(target)
-        -- if the last ability and the next ability are the same, we need some special logic to cover it since our normal check will always succeed
-        elseif (xivopeners_brd.lastCastFromQueue and xivopeners_brd.lastCastFromQueue.id ~= -1 and xivopeners_brd.abilityQueue[1] == xivopeners_brd.abilityQueue[2]) then
-            if (xivopeners_brd.lastCastFromQueue.casted) then -- we use casted here, which is updated from the updateActionUsed call above to detect if the cast went off
-                xivopeners.log("Dequeuing duplicate")
+        elseif (xivopeners_brd.lastCastFromQueue == xivopeners_brd.openerAbilities.BurstShot) then
+            if (xivopeners_brd.lastCastFromQueue.casted) then
+                xivopeners.log("Dequeuing burst dupe")
                 xivopeners_brd.dequeue()
             end
-
-            xivopeners_brd.useNextAction(target) -- we still want to call this every pulse to weave in ogcds and use any procs we might get
-        -- either lastcast and lastqueue will be the same, or the ability will go on cooldown
-        elseif (xivopeners_brd.lastCastFromQueue and xivopeners_brd.lastCastFromQueue.id ~= -1) then -- -1 means the cast was skipped intentionally
-            if (xivopeners_brd.lastCastFromQueue.id == Player.castinginfo.lastcastid) then
-                xivopeners.log("Dequeueing because lastcastid match")
-                xivopeners_brd.dequeue()
-                xivopeners_brd.useNextAction(target)
-            elseif (xivopeners_brd.lastCastFromQueue.cdmax - xivopeners_brd.lastCastFromQueue.cd > 4.0 and Player.castinginfo.castingid ~= xivopeners_brd.lastCastFromQueue.id) then
-                xivopeners.log("Dequeueing because cooldown is " .. tostring(xivopeners_brd.lastCastFromQueue.cdmax - xivopeners_brd.lastCastFromQueue.cd))
-                xivopeners_brd.dequeue()
-                xivopeners_brd.useNextAction(target)
-            else
-                xivopeners_brd.useNextAction(target)
-            end
+            xivopeners_brd.useNextAction(target)
+        elseif (xivopeners_brd.lastCastFromQueue and Player.castinginfo.lastcastid == xivopeners_brd.lastCastFromQueue.id) then
+            xivopeners.log("Dequeuing normal")
+            xivopeners_brd.dequeue()
+            xivopeners_brd.useNextAction(target)
         else
             xivopeners_brd.useNextAction(target)
         end
@@ -183,16 +183,8 @@ function xivopeners_brd.main(event, tickcount)
     end
 end
 
-function xivopeners_brd.queueOpener()
-    -- empty queue first
-    xivopeners_brd.abilityQueue = {}
-    for _, action in pairs(xivopeners_brd.getOpener()) do
-        xivopeners_brd.enqueue(action)
-    end
---    xivopeners.log("queue:")
---    for _, v in pairs(xivopeners_brd.abilityQueue) do
---        xivopeners.log(v.name)
---    end
+function xivopeners_brd.enqueueNext(action)
+    table.insert(xivopeners_brd.abilityQueue, 1, action)
 end
 
 function xivopeners_brd.enqueue(action)
@@ -201,63 +193,23 @@ function xivopeners_brd.enqueue(action)
 end
 
 function xivopeners_brd.dequeue()
-    xivopeners.log("Dequeing " .. xivopeners_brd.abilityQueue[1].name .. " | Lastcast: " .. xivopeners_brd.lastCastFromQueue.name)
+    xivopeners.log("Dequeing " .. xivopeners_brd.abilityQueue[1].name)
     xivopeners_brd.abilityQueue[1].casting = false
     xivopeners_brd.abilityQueue[1].casted = false
+    if (xivopeners_brd.lastCastFromQueue) then
+        xivopeners_brd.lastCastFromQueue.casting = false
+        xivopeners_brd.lastCastFromQueue.casted = false
+    end
     table.remove(xivopeners_brd.abilityQueue, 1)
-end
-
-function xivopeners_brd.cast(action, target)
-    action:Cast(target.id)
 end
 
 function xivopeners_brd.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
     if (target and target.attackable and xivopeners_brd.abilityQueue[1]) then
-        -- prepull RS
-        if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.RagingStrikes and HasBuff(Player.id, xivopeners_brd.openerAbilities.RagingStrikesBuffID)) then
-            xivopeners.log("Player already used raging strikes prepull, continue with opener")
-            xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RagingStrikes
-            return
-        end
-        -- pp3 gauge 2
-        if (Player.gauge[2] >= 3) then
-            -- don't want to dequeue here
---            xivopeners.log("Using PP3 proc")
-            xivopeners_brd.cast(xivopeners_brd.openerAbilities.PitchPerfect, target)
-            xivopeners_brd.lastCastFromQueue = {id = -1, name = "skip"}
-            return
-        end
-
-        --  RA proc during BurstShot
-        if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.BurstShot and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
-            -- still need to dequeue burst shot
-            xivopeners.log("Using RA proc during BurstShot window")
-            xivopeners_brd.cast(xivopeners_brd.openerAbilities.RefulgentArrow, target)
-            xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RefulgentArrow
-            return
-        end
-
-        -- RA proc during Barrage
---[[        if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.Barrage and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
-            -- don't want to dequeue Barrage here, but we need to dequeue the burstshot between Sidewinder and IJ
---            xivopeners.log("Using RA proc before Barrage")
-            xivopeners_brd.cast(xivopeners_brd.openerAbilities.RefulgentArrow, target)
-            xivopeners_brd.lastCastFromQueue = {id = -1, name = "skip" }
-            -- dequeue the next burst shot
---            for k, v in pairs(xivopeners_brd.abilityQueue) do
---                if (v == xivopeners_brd.openerAbilities.BurstShot) then
---                    table.remove(xivopeners_brd.abilityQueue, k)
---                    break
---                end
---            end
-            return
-        end]]
-
-        -- idk how to make it not spam console and still keep performance
---        xivopeners.log("Casting " .. xivopeners_brd.abilityQueue[1].name)
-        xivopeners_brd.cast(xivopeners_brd.abilityQueue[1], target)
+        -- idk how to make it not spam console
+        --xivopeners.log("Casting " .. xivopeners_brd.abilityQueue[1].name)
+        xivopeners_brd.abilityQueue[1]:Cast(target.id)
         xivopeners_brd.lastCastFromQueue = xivopeners_brd.abilityQueue[1]
     end
 end
