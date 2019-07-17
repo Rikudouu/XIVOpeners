@@ -7,7 +7,7 @@ This is a WIP addon that will do your opener and handle control back to the main
 |     **Job**     |   **Status**  |
 |:---------------:|:-------------:|
 |       BRD       |     Alpha     |
-|       MCH       |     Alpha     |
+|       MCH       |     Fully Working     |
 | Everything Else | Not Implemented |
 
 **Alpha**: Implemented and tested against a dummy, but not in an actual raid environment
@@ -17,6 +17,9 @@ This is a WIP addon that will do your opener and handle control back to the main
 **Not Working**: Has been implemented but might not be fully working yet
 
 **Not Implemented**: Hasn't been added to the addon yet
+
+## Installation
+Just drag and drop the XIVOpeners folder into ``MINIONAPP\Bots\FFXIVMinion64\LuaMods``, so there should be a new folder called XIVOpeners. After that, reload LUA or restart your game.
 
 ## Custom Openers
 If you want to make your own opener, **you need to have basic knowledge of lua**. I have provided and commented 2 polar examples, and it should be easy enough to copy from them.
