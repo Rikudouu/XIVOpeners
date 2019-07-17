@@ -3,4 +3,4 @@ Name=XIVOpeners
 Version=1
 Files=MCH.lua,BRD.lua,XIVOpeners.lua
 Enabled=1
-Dependencies=minionlib,AceLib
+Dependencies=minionlib
