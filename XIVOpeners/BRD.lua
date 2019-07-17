@@ -123,7 +123,7 @@ function xivopeners_brd.updateActionUsed()
     end
 end
 
-function xivopeners_brd.processProcs()
+function xivopeners_brd.processProcs(target)
     -- prepull RS
     if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.RagingStrikes and HasBuff(Player.id, xivopeners_brd.openerAbilities.RagingStrikesBuffID)) then
         xivopeners.log("Player already used raging strikes prepull, continue with opener")
@@ -131,9 +131,10 @@ function xivopeners_brd.processProcs()
     elseif (Player.gauge[2] >= 3 and xivopeners_brd.abilityQueue[1] ~= xivopeners_brd.openerAbilities.PitchPerfect) then
         -- don't want to dequeue here
         xivopeners.log("Using PP3 proc")
-        xivopeners_brd.enqueueNext(xivopeners_brd.openerAbilities.PitchPerfect)
+        xivopeners_brd.openerAbilities.PitchPerfect:Cast(target.id)
 --    elseif (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.BurstShot and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
 --        xivopeners.log("Using RA proc during BurstShot window")
+--        xivopeners_brd.dequeue()
 --        xivopeners_brd.enqueueNext(xivopeners_brd.openerAbilities.RefulgentArrow)
     end
 end
@@ -158,7 +159,7 @@ function xivopeners_brd.main(event, tickcount)
 
         if (ActionList:IsCasting()) then return end
 
-        xivopeners_brd.processProcs()
+        xivopeners_brd.processProcs(target)
         xivopeners_brd.updateActionUsed()
 
         if (not xivopeners_brd.openerStarted) then
