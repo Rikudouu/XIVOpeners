@@ -1,5 +1,7 @@
 xivopeners_brd = {}
 
+xivopeners_brd.debug = false
+
 xivopeners_brd.supportedLevel = 80
 xivopeners_brd.openerAbilities = {
     BurstShot = ActionList:Get(1, 16495),
@@ -112,17 +114,40 @@ function xivopeners_brd.queueOpener()
 end
 
 function xivopeners_brd.updateLastCast()
-    if (Player.castinginfo.castingid ~= 0) then
-        if (xivopeners_brd.lastcastid == -1) then
-            -- compare the real castid and see if it changed, if it did, update from -1
-            if (xivopeners_brd.lastcastid2 ~= Player.castinginfo.castingid) then
-                xivopeners_brd.lastcastid = Player.castinginfo.castingid
-                xivopeners_brd.lastcastid2 = Player.castinginfo.castingid
-            end
-        elseif (xivopeners_brd.lastcastid ~= Player.castinginfo.castingid) then
+--    xivopeners.log(tostring(xivopeners_brd.lastcastid) .. ", " .. tostring(xivopeners_brd.lastcastid2) .. ", " .. tostring(Player.castinginfo.lastcastid))
+    if (xivopeners_brd.lastcastid == -1) then
+        -- compare the real castid and see if it changed, if it did, update from -1
+        if (xivopeners_brd.lastcastid2 ~= Player.castinginfo.castingid and Player.castinginfo.castingid ~= xivopeners_brd.openerAbilities.PitchPerfect.id) then
+            xivopeners.log("cast changed")
             xivopeners_brd.lastcastid = Player.castinginfo.castingid
             xivopeners_brd.lastcastid2 = Player.castinginfo.castingid
         end
+    elseif (xivopeners_brd.lastcastid ~= Player.castinginfo.castingid) then
+        xivopeners_brd.lastcastid = Player.castinginfo.castingid
+        xivopeners_brd.lastcastid2 = Player.castinginfo.castingid
+    end
+end
+
+function xivopeners_brd.drawCall(event, tickcount)
+    if (xivopeners_brd.debug) then
+        GUI:Text("lastcastid")
+        GUI:NextColumn()
+        GUI:InputText("##xivopeners_brd_lastcastid_display", tostring(xivopeners_brd.lastcastid))
+
+        GUI:NextColumn()
+        GUI:Text("lastcastid2")
+        GUI:NextColumn()
+        GUI:InputText("##xivopeners_brd_lastcastid2_display", tostring(xivopeners_brd.lastcastid2))
+
+        GUI:NextColumn()
+        GUI:Text("lastcastid_o")
+        GUI:NextColumn()
+        GUI:InputText("##xivopeners_brd_lastcastid_original_display", tostring(Player.castinginfo.lastcastid))
+
+        GUI:NextColumn()
+        GUI:Text("castingid")
+        GUI:NextColumn()
+        GUI:InputText("##xivopeners_brd_castingid", tostring(Player.castinginfo.castingid))
     end
 end
 
@@ -153,9 +178,11 @@ function xivopeners_brd.main(event, tickcount)
             xivopeners.log("Starting opener")
             xivopeners_brd.openerStarted = true
             xivopeners_brd.useNextAction(target)
-        elseif (xivopeners_brd.lastCastFromQueue and xivopeners_brd.lastCastFromQueue.id ~= -1 and xivopeners_brd.lastcastid == xivopeners_brd.lastCastFromQueue.id) then
+        elseif (xivopeners_brd.lastCastFromQueue and xivopeners_brd.lastcastid == xivopeners_brd.lastCastFromQueue.id) then
             xivopeners_brd.lastcastid = -1
-            xivopeners_brd.dequeue()
+            if (xivopeners_brd.lastCastFromQueue ~= xivopeners_brd.openerAbilities.PitchPerfect) then
+                xivopeners_brd.dequeue()
+            end
             xivopeners_brd.useNextAction(target)
         else
             xivopeners_brd.useNextAction(target)
@@ -191,14 +218,15 @@ function xivopeners_brd.useNextAction(target)
         -- idk how to make it not spam console
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.RagingStrikes and HasBuff(Player.id, xivopeners_brd.openerAbilities.RagingStrikesBuffID)) then
             xivopeners.log("Player already used raging strikes prepull, continue with opener")
-            xivopeners_brd.lastCastFromQueue = {name = "skip", id = -1}
+--            xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RagingStrikes
+            xivopeners_brd.dequeue()
             return
         end
         if (Player.gauge[2] >= 3 and xivopeners_brd.abilityQueue[1] ~= xivopeners_brd.openerAbilities.PitchPerfect) then
             -- don't want to dequeue here
             xivopeners.log("Using PP3 proc")
             xivopeners_brd.openerAbilities.PitchPerfect:Cast(target.id)
-            xivopeners_brd.lastCastFromQueue = {name = "skip", id = -1}
+--            xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.PitchPerfect
             return
         end
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.BurstShot and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
@@ -207,7 +235,7 @@ function xivopeners_brd.useNextAction(target)
             xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RefulgentArrow
             return
         end
-        xivopeners.log("Casting " .. xivopeners_brd.abilityQueue[1].name)
+--        xivopeners.log("Casting " .. xivopeners_brd.abilityQueue[1].name)
         xivopeners_brd.abilityQueue[1]:Cast(target.id)
         xivopeners_brd.lastCastFromQueue = xivopeners_brd.abilityQueue[1]
     end

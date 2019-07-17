@@ -14,7 +14,8 @@ xivopeners.supportedJobs = {
         openerInfo = xivopeners_mch.openerInfo,
         queueOpener = xivopeners_mch.queueOpener,
         openerAvailable = xivopeners_mch.openerAvailable,
-        checkOpenerIds = xivopeners_mch.checkOpenerIds
+        checkOpenerIds = xivopeners_mch.checkOpenerIds,
+        drawCall = xivopeners_mch.drawCall,
     },
 
     [23] = {
@@ -22,7 +23,8 @@ xivopeners.supportedJobs = {
         openerInfo = xivopeners_brd.openerInfo,
         queueOpener = xivopeners_brd.queueOpener,
         openerAvailable = xivopeners_brd.openerAvailable,
-        checkOpenerIds = xivopeners_brd.checkOpenerIds
+        checkOpenerIds = xivopeners_brd.checkOpenerIds,
+        drawCall = xivopeners_brd.drawCall,
     }
 
 }
@@ -54,7 +56,7 @@ function xivopeners.DrawCall(event, ticks)
     if (gamestate == FFXIV.GAMESTATE.INGAME) then
         if (xivopeners.GUI.open) then
             if (xivopeners.GUI.drawMode == 1) then
-                xivopeners.drawMainFull()
+                xivopeners.drawMainFull(event, ticks)
             else
                 xivopeners.drawMainSmall()
             end
@@ -62,7 +64,7 @@ function xivopeners.DrawCall(event, ticks)
     end
 end
 
-function xivopeners.drawMainFull()
+function xivopeners.drawMainFull(event, ticks)
     GUI:SetNextWindowSize(400, 130, GUI.SetCond_FirstUseEver)
     xivopeners.GUI.visible, xivopeners.GUI.open = GUI:Begin("XIVOpeners", xivopeners.GUI.open)
     if (xivopeners.GUI.visible) then
@@ -116,6 +118,8 @@ function xivopeners.drawMainFull()
             if (openerIndexChanged) then
                 xivopeners.supportedJobs[Player.job].queueOpener()
             end
+            GUI:NextColumn()
+            xivopeners.supportedJobs[Player.job].drawCall(event, ticks)
         end
         GUI:Columns(1)
 
