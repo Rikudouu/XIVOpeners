@@ -202,12 +202,13 @@ function xivopeners_brd.main(event, tickcount)
             -- i could just do table.insert(queue, 5, burstshot) and it would be faster than looping through, but looping would be more reliable and flexible to opener changes in the future
             for k, v in ipairs(xivopeners_brd.abilityQueue) do
                 if (v == xivopeners_brd.openerAbilities.Sidewinder) then
-                    table.insert(xivopeners_brd.openerAbilities, k + 1, xivopeners_brd.openerAbilities.BurstShot)
+                    xivopeners.log("Added BurstShot back")
+                    table.insert(xivopeners_brd.abilityQueue, k + 1, xivopeners_brd.openerAbilities.BurstShot)
                     break
                 end
             end
 
-            table.insert(xivopeners_brd.abilityQueue, 5, xivopeners_brd.openerAbilities.BurstShot)
+--            table.insert(xivopeners_brd.abilityQueue, 5, xivopeners_brd.openerAbilities.BurstShot)
             xivopeners_brd.dequeue()
             xivopeners_brd.useNextAction(target)
 
