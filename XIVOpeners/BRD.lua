@@ -1,6 +1,6 @@
 xivopeners_brd = {}
 
-xivopeners_brd.debug = false
+xivopeners_brd.debug = true
 
 xivopeners_brd.supportedLevel = 80
 xivopeners_brd.openerAbilities = {
@@ -38,11 +38,12 @@ xivopeners_brd.openers = {
         xivopeners_brd.openerAbilities.BattleVoice, -- after this point it's either 3 burst shots, or RA procs if we get them
         xivopeners_brd.openerAbilities.BurstShot,
         xivopeners_brd.openerAbilities.BurstShot,
-        xivopeners_brd.openerAbilities.BurstShot, -- The last castid will always be the same so we need it an additional time, also note that bard will need more checks due to RA procs interfering
+        xivopeners_brd.openerAbilities.BurstShot,
+        xivopeners_brd.openerAbilities.RefulgentArrow, -- this will be dequeued if we don't have straight shot ready
         xivopeners_brd.openerAbilities.Barrage, -- need a check here for an RA proc, and use that instead
         xivopeners_brd.openerAbilities.RefulgentArrow,
         xivopeners_brd.openerAbilities.Sidewinder,
-        xivopeners_brd.openerAbilities.BurstShot,
+--        xivopeners_brd.openerAbilities.BurstShot, -- this is going to get inserted if we don't get the RA proc
         xivopeners_brd.openerAbilities.Bloodletter,
         xivopeners_brd.openerAbilities.IronJaws,
         xivopeners_brd.openerAbilities.EmpyrealArrow
@@ -156,6 +157,13 @@ function xivopeners_brd.drawCall(event, tickcount)
             GUI:NextColumn()
             GUI:InputText("##xivopeners_brd_queue[1]", xivopeners_brd.abilityQueue[1].name)
         end
+
+        if (xivopeners_brd.lastCastFromQueue) then
+            GUI:NextColumn()
+            GUI:Text("lastCastFromQueue")
+            GUI:NextColumn()
+            GUI:InputText("##xivopeners_brd_lastcastfromqueue", xivopeners_brd.lastCastFromQueue.name)
+        end
     end
 end
 
@@ -186,6 +194,22 @@ function xivopeners_brd.main(event, tickcount)
             xivopeners.log("Starting opener")
             xivopeners_brd.openerStarted = true
             xivopeners_brd.useNextAction(target)
+        -- this code isn't working because the buff gets applied after the BS cast has gone off, but the script dequeues BS the moment the animation happens
+        elseif (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.RefulgentArrow and xivopeners_brd.abilityQueue[2] == xivopeners_brd.openerAbilities.Barrage and (xivopeners_brd.abilityQueue[1].cdmax - xivopeners_brd.abilityQueue[1].cd < 0.9) and not HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
+            xivopeners.log("Didn't get RA proc before Barrage, dequeuing")
+            -- need to insert burst shot back in between Sidewinder and BL
+            -- i could just do table.insert(queue, 5, burstshot) and it would be faster than looping through, but looping would be more reliable and flexible to opener changes in the future
+            for k, v in ipairs(xivopeners_brd.abilityQueue) do
+                if (v == xivopeners_brd.openerAbilities.Sidewinder) then
+                    table.insert(xivopeners_brd.openerAbilities, k + 1, xivopeners_brd.openerAbilities.BurstShot)
+                    break
+                end
+            end
+
+            table.insert(xivopeners_brd.abilityQueue, 5, xivopeners_brd.openerAbilities.BurstShot)
+            xivopeners_brd.dequeue()
+            xivopeners_brd.useNextAction(target)
+
         elseif (xivopeners_brd.lastCastFromQueue and xivopeners_brd.lastcastid == xivopeners_brd.lastCastFromQueue.id) then
             xivopeners_brd.lastcastid = -1
             if (xivopeners_brd.lastCastFromQueue ~= xivopeners_brd.openerAbilities.PitchPerfect) then
@@ -243,11 +267,6 @@ function xivopeners_brd.useNextAction(target)
             xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RefulgentArrow
             return
         end
---        if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.Barrage and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID) and not HasBuff(Player.id, xivopeners_brd.openerAbilities.BarrageBuffID) and Player.castinginfo.castingid ~= xivopeners_brd.openerAbilities.RefulgentArrow.id) then
---            xivopeners.log("Using RA proc before Barrage")
---            xivopeners_brd.openerAbilities.RefulgentArrow:Cast(target.id)
---            return
---        end
 --        xivopeners.log("Casting " .. xivopeners_brd.abilityQueue[1].name)
         xivopeners_brd.abilityQueue[1]:Cast(target.id)
 --        if (Player.castinginfo.castingid == xivopeners_brd.abilityQueue[1].id) then
