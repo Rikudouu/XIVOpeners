@@ -29,6 +29,7 @@ xivopeners.supportedJobs = {
 
 }
 xivopeners.oocEnable = false
+xivopeners.advancedMode = false
 
 function xivopeners.log(string)
     d("[XIVOpeners] " .. string)
@@ -94,20 +95,34 @@ function xivopeners.drawMainFull(event, ticks)
             xivopeners.GUI.drawMode = 0
         end
         GUI:AlignFirstTextHeightToWidgets()
-        GUI:Columns(2, "##xivopeners_cols", true)
 
+        GUI:Columns(2, "##xivopeners_cols", true)
         GUI:BeginGroup()
-        GUI:Text("Professional Static Mode")
+        GUI:Text("Advanced Mode")
         GUI:NextColumn()
-        local oocEnableChanged --unused for now, left it here for future use
-        xivopeners.oocEnable, oocEnableChanged = GUI:Checkbox("##xivopeners_oocenablecheck", xivopeners.oocEnable)
---        if (oocEnableChanged) then
---        end
+        xivopeners.advancedMode = GUI:Checkbox("##xivopeners_advancedcheck", xivopeners.advancedMode)
         GUI:EndGroup()
         if (GUI:IsItemHovered()) then
-            GUI:SetTooltip("Automatically re-enables opener out of combat, useful for a wipe party / progging")
+            GUI:SetTooltip("ONLY ENABLE THIS IF YOU KNOW WHAT YOU'RE DOING!! Shows some useful options such as auto enable when out of combat")
         end
+
         GUI:NextColumn()
+
+        if (xivopeners.advancedMode) then
+            GUI:BeginGroup()
+            GUI:Text("Professional Static Mode")
+            GUI:NextColumn()
+            local oocEnableChanged --unused for now, left it here for future use
+            xivopeners.oocEnable, oocEnableChanged = GUI:Checkbox("##xivopeners_oocenablecheck", xivopeners.oocEnable)
+    --        if (oocEnableChanged) then
+    --        end
+            GUI:EndGroup()
+            if (GUI:IsItemHovered()) then
+                GUI:SetTooltip("Automatically re-enables opener out of combat, useful for a wipe party / progging")
+            end
+            GUI:NextColumn()
+        end
+
         if (xivopeners.supportedJobs[Player.job]) then
             -- TODO: move this to a drawcall that's opener specific so they can have custom options, can also get rid of openerInfo that way
             GUI:Text("Opener")
