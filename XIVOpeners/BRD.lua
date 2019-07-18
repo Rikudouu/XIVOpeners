@@ -60,10 +60,11 @@ xivopeners_brd.openers = {
         xivopeners_brd.openerAbilities.EmpyrealArrow,
         xivopeners_brd.openerAbilities.BurstShot,
         xivopeners_brd.openerAbilities.BurstShot,
+        xivopeners_brd.openerAbilities.RefulgentArrow, -- this will be dequeued if we don't have straight shot ready
         xivopeners_brd.openerAbilities.Barrage,
         xivopeners_brd.openerAbilities.RefulgentArrow,
         xivopeners_brd.openerAbilities.Sidewinder,
-        xivopeners_brd.openerAbilities.BurstShot,
+--        xivopeners_brd.openerAbilities.BurstShot,
         xivopeners_brd.openerAbilities.Bloodletter,
         xivopeners_brd.openerAbilities.IronJaws,
         xivopeners_brd.openerAbilities.EmpyrealArrow
