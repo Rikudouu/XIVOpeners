@@ -1,6 +1,6 @@
 xivopeners_brd = {}
 
-xivopeners_brd.debug = true
+xivopeners_brd.debug = false
 
 xivopeners_brd.supportedLevel = 80
 xivopeners_brd.openerAbilities = {
@@ -234,12 +234,6 @@ end
 
 function xivopeners_brd.dequeue()
     xivopeners.log("Dequeing " .. xivopeners_brd.abilityQueue[1].name)
-    xivopeners_brd.abilityQueue[1].casting = false
-    xivopeners_brd.abilityQueue[1].casted = false
-    if (xivopeners_brd.lastCastFromQueue) then
-        xivopeners_brd.lastCastFromQueue.casting = false
-        xivopeners_brd.lastCastFromQueue.casted = false
-    end
     table.remove(xivopeners_brd.abilityQueue, 1)
 end
 
