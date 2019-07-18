@@ -19,6 +19,7 @@ xivopeners_brd.openerAbilities = {
     PitchPerfect = ActionList:Get(1, 7404),
     StraightShotReadyBuffID = 122,
     RagingStrikesBuffID = 125,
+    BarrageBuffID = 128,
 }
 
 xivopeners_brd.openerInfo = {
@@ -148,6 +149,13 @@ function xivopeners_brd.drawCall(event, tickcount)
         GUI:Text("castingid")
         GUI:NextColumn()
         GUI:InputText("##xivopeners_brd_castingid", tostring(Player.castinginfo.castingid))
+
+        if (xivopeners_brd.abilityQueue[1]) then
+            GUI:NextColumn()
+            GUI:Text("queue[1]")
+            GUI:NextColumn()
+            GUI:InputText("##xivopeners_brd_queue[1]", xivopeners_brd.abilityQueue[1].name)
+        end
     end
 end
 
@@ -235,8 +243,15 @@ function xivopeners_brd.useNextAction(target)
             xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RefulgentArrow
             return
         end
+--        if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.Barrage and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID) and not HasBuff(Player.id, xivopeners_brd.openerAbilities.BarrageBuffID) and Player.castinginfo.castingid ~= xivopeners_brd.openerAbilities.RefulgentArrow.id) then
+--            xivopeners.log("Using RA proc before Barrage")
+--            xivopeners_brd.openerAbilities.RefulgentArrow:Cast(target.id)
+--            return
+--        end
 --        xivopeners.log("Casting " .. xivopeners_brd.abilityQueue[1].name)
         xivopeners_brd.abilityQueue[1]:Cast(target.id)
-        xivopeners_brd.lastCastFromQueue = xivopeners_brd.abilityQueue[1]
+--        if (Player.castinginfo.castingid == xivopeners_brd.abilityQueue[1].id) then
+            xivopeners_brd.lastCastFromQueue = xivopeners_brd.abilityQueue[1]
+--        end
     end
 end
