@@ -6,13 +6,15 @@ This is a WIP addon that will do your opener and handle control back to the main
 ## Status
 |     **Job**     |   **Status**  |
 |:---------------:|:-------------:|
-|       BRD       |     Alpha     |
+|       BRD       |     Mostly Working     |
 |       MCH       |     Fully Working     |
 | Everything Else | Not Implemented |
 
 **Alpha**: Implemented and tested against a dummy, but not in an actual raid environment
 
 **Fully Working**: Tested in an actual raid environment
+
+**Mostly Working**: There might be a few edge cases here and there but it shouldn't affect your parse or it has a very minimal impact
 
 **Not Working**: Has been implemented but might not be fully working yet
 
