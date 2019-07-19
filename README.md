@@ -8,6 +8,7 @@ This is a WIP addon that will do your opener and handle control back to the main
 |:---------------:|:-------------:|
 |       BRD       |     Mostly Working     |
 |       MCH       |     Fully Working     |
+|       MNK       |     Mostly Working     |
 | Everything Else | Not Implemented |
 
 **Alpha**: Implemented and tested against a dummy, but not in an actual raid environment

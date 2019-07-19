@@ -1,18 +1,13 @@
 -- mnk http://owo.sh/AgEymx7.png
 
--- Todo:
--- add it automatically using positions
--- utilize positional window
-
 xivopeners_mnk = {}
 
 xivopeners_mnk.supportedLevel = 80
 xivopeners_mnk.openerAbilities = {
+    Sprint = ActionList:Get(1, 3),
     Demolish = ActionList:Get(1, 66),
     Anatman = ActionList:Get(1, 16475), -- for on tick
     DragonKick = ActionList:Get(1, 74),
-    --Potion = ActionList:Get(1, 24261), -- Grade 3 infusion of strength
-    --Potion= ActionList:Get(1, 27786), -- tincture of strength
     Bootshine = ActionList:Get(1, 53),
     TrueStrike = ActionList:Get(1, 54),
     SnapPunch = ActionList:Get(1, 56),
@@ -34,28 +29,32 @@ xivopeners_mnk.openerInfo = {
 
 xivopeners_mnk.openers = {
     anatman = {
-        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.Sprint,
+        xivopeners_mnk.openerAbilities.Demolish, -- back
         xivopeners_mnk.openerAbilities.Anatman,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.TwinSnakes,
+        -- xivopeners_mnk.openerAbilities.Potion, -- need to figure out how to call a potion
+        xivopeners_mnk.openerAbilities.TrueNorth,
+        xivopeners_mnk.openerAbilities.DragonKick, -- flank
+        xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
         xivopeners_mnk.openerAbilities.RiddleofFire,
-        xivopeners_mnk.openerAbilities.SnapPunch,
+        xivopeners_mnk.openerAbilities.SnapPunch, -- flank
         xivopeners_mnk.openerAbilities.Brotherhood,
         xivopeners_mnk.openerAbilities.ForbiddenChakra,
-        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.Bootshine, -- back
         xivopeners_mnk.openerAbilities.ShoulderTackle,
         xivopeners_mnk.openerAbilities.PerfectBalance,
-        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.TrueNorth,
+        xivopeners_mnk.openerAbilities.DragonKick, -- flank
         xivopeners_mnk.openerAbilities.ElixirField,
-        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.Bootshine, -- back
         xivopeners_mnk.openerAbilities.ShoulderTackle,
         xivopeners_mnk.openerAbilities.FistsOfWind,
-        xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.TrueStrike,
-        xivopeners_mnk.openerAbilities.SnapPunch
+        xivopeners_mnk.openerAbilities.Demolish, -- back
+        xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
+        xivopeners_mnk.openerAbilities.DragonKick, -- flank
+        xivopeners_mnk.openerAbilities.Bootshine, -- back
+        xivopeners_mnk.openerAbilities.TrueStrike, -- back
+        xivopeners_mnk.openerAbilities.SnapPunch -- flank
     },
     normal = {
         xivopeners_mnk.openerAbilities.Demolish,
