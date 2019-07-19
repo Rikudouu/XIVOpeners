@@ -25,7 +25,7 @@ xivopeners.supportedJobs = {
         checkOpenerIds = xivopeners_brd.checkOpenerIds,
         drawCall = xivopeners_brd.drawCall
     },
-    [15] = {
+    [20] = {
         main = xivopeners_mnk.main,
         openerInfo = xivopeners_mnk.openerInfo,
         queueOpener = xivopeners_mnk.queueOpener,
@@ -56,9 +56,14 @@ function xivopeners.Init()
     end
 
     ml_gui.ui_mgr:AddMember(
-        {id = "FFXIVMINION##MENU_XIVOpeners", name = "XIVOpeners", onClick = function()
+        {
+            id = "FFXIVMINION##MENU_XIVOpeners",
+            name = "XIVOpeners",
+            onClick = function()
                 xivopeners.GUI.open = not xivopeners.GUI.open
-            end, tooltip = "Does openers and passes them off to ACR. Currently in BETA, not all jobs are supported!"},
+            end,
+            tooltip = "Does openers and passes them off to ACR. Currently in BETA, not all jobs are supported!"
+        },
         "FFXIVMINION##MENU_HEADER"
     )
 end
