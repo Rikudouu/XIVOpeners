@@ -7,9 +7,34 @@ xivopeners.GUI = {
 }
 
 xivopeners.running = false
+
+-- credit to Kayla D'orden#2527 on discord for this idea and providing the list
+xivopeners.jobs = {
+    Paladin = 19,
+    Monk = 20,
+    Warrior = 21,
+    Dragoon = 22,
+    Bard = 23,
+    WhiteMage = 24,
+    BlackMage = 25,
+    Arcanist = 26,
+    Summoner = 27,
+    Scholar = 28,
+    Rogue = 29,
+    Ninja = 30,
+    Machinist = 31,
+    DarkKnight = 32,
+    Astrologian = 33,
+    Samurai = 34,
+    RedMage = 35,
+    BlueMage = 36,
+    Gunbreaker = 37,
+    Dancer = 38
+}
+
 -- only supports mch and brd for now
 xivopeners.supportedJobs = {
-    [31] = {
+    [xivopeners.jobs.Machinist] = {
         main = xivopeners_mch.main,
         openerInfo = xivopeners_mch.openerInfo,
         queueOpener = xivopeners_mch.queueOpener,
@@ -17,7 +42,7 @@ xivopeners.supportedJobs = {
         checkOpenerIds = xivopeners_mch.checkOpenerIds,
         drawCall = xivopeners_mch.drawCall
     },
-    [23] = {
+    [xivopeners.jobs.Bard] = {
         main = xivopeners_brd.main,
         openerInfo = xivopeners_brd.openerInfo,
         queueOpener = xivopeners_brd.queueOpener,
@@ -25,7 +50,7 @@ xivopeners.supportedJobs = {
         checkOpenerIds = xivopeners_brd.checkOpenerIds,
         drawCall = xivopeners_brd.drawCall
     },
-    [20] = {
+    [xivopeners.jobs.Monk] = {
         main = xivopeners_mnk.main,
         openerInfo = xivopeners_mnk.openerInfo,
         queueOpener = xivopeners_mnk.queueOpener,
