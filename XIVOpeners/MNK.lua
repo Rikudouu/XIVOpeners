@@ -1,5 +1,9 @@
 -- mnk http://owo.sh/AgEymx7.png
 
+-- Todo:
+-- add it automatically using positions
+-- utilize positional window
+
 xivopeners_mnk = {}
 
 xivopeners_mnk.supportedLevel = 80
