@@ -147,20 +147,11 @@ function xivopeners_mnk.main(event, tickcount)
             xivopeners_mnk.openerStarted = true
             xivopeners_mnk.useNextAction(target)
         elseif (xivopeners_mnk.lastCastFromQueue and Player.castinginfo.lastcastid == xivopeners_mnk.lastCastFromQueue.id) then
-            --  end
             if (xivopeners_mnk.lastCastFromQueue == xivopeners_mnk.openerAbilities.Anatman) then
-                xivopeners.log(xivopeners_mnk.lastCastFromQueue.channeltime)
-            -- if (xivopeners_mnk.lastCastFromQueue.channeltime > 1.5) then
-            --     xivopeners_mnk.lastcastid = -1
-            --     xivopeners_mnk.dequeue()
-            --     xivopeners_brd.useNextAction(target)
-            -- end
-            --  else
-            --     xivopeners_mnk.lastcastid = -1
-            --     xivopeners_mnk.dequeue()
-            --     xivopeners_brd.useNextAction(target)
+                if Player.gauge[1] < 2 then
+                    return
+                end
             end
-            -- else
             xivopeners_mnk.dequeue()
             xivopeners_mnk.useNextAction(target)
         else
