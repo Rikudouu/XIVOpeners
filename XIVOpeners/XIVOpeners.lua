@@ -107,14 +107,7 @@ function xivopeners.drawMainFull(event, ticks)
             GUI:TextColored(1, .6471, 0, 1, "JOB UNSUPPORTED")
         end
         GUI:SameLine(0, 5)
-        if
-            (GUI:ImageButton(
-                "##xivopeners_drawmode_collapse",
-                ml_global_information.path .. "\\GUI\\UI_Textures\\collapse.png",
-                14,
-                14
-            ))
-         then
+        if (GUI:ImageButton("##xivopeners_drawmode_collapse", ml_global_information.path .. "\\GUI\\UI_Textures\\collapse.png", 14, 14)) then
             xivopeners.GUI.drawMode = 0
         end
         GUI:AlignFirstTextHeightToWidgets()
@@ -126,9 +119,7 @@ function xivopeners.drawMainFull(event, ticks)
         xivopeners.advancedMode = GUI:Checkbox("##xivopeners_advancedcheck", xivopeners.advancedMode)
         GUI:EndGroup()
         if (GUI:IsItemHovered()) then
-            GUI:SetTooltip(
-                "ONLY ENABLE THIS IF YOU KNOW WHAT YOU'RE DOING!! Shows some useful options such as auto enable when out of combat"
-            )
+            GUI:SetTooltip("ONLY ENABLE THIS IF YOU KNOW WHAT YOU'RE DOING!! Shows some useful options such as auto enable when out of combat")
         end
 
         GUI:NextColumn()
@@ -155,11 +146,7 @@ function xivopeners.drawMainFull(event, ticks)
             GUI:PushItemWidth(-1)
             local openerIndexChanged
             xivopeners.supportedJobs[Player.job].openerInfo.currentOpenerIndex, openerIndexChanged =
-                GUI:Combo(
-                "##xivopeners_opener_select",
-                xivopeners.supportedJobs[Player.job].openerInfo.currentOpenerIndex,
-                xivopeners.supportedJobs[Player.job].openerInfo.listOpeners
-            )
+                GUI:Combo("##xivopeners_opener_select", xivopeners.supportedJobs[Player.job].openerInfo.currentOpenerIndex, xivopeners.supportedJobs[Player.job].openerInfo.listOpeners)
             if (openerIndexChanged) then
                 xivopeners.supportedJobs[Player.job].queueOpener()
             end
@@ -177,9 +164,7 @@ end
 
 function xivopeners.drawMainSmall()
     GUI:SetNextWindowSize(190, 50, GUI.SetCond_FirstUseEver)
-    local flags =
-        (GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar +
-        GUI.WindowFlags_NoCollapse)
+    local flags = (GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoCollapse)
     GUI:Begin("xivopeners_main_minimized", true, flags)
 
     local x, y = GUI:GetWindowPos()

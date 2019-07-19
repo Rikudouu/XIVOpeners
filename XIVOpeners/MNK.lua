@@ -4,32 +4,32 @@ xivopeners_mnk = {}
 
 xivopeners_mnk.supportedLevel = 80
 xivopeners_mnk.openerAbilities = {
-    Demolish = ActionList:Get(1, 8785),
+    Demolish = ActionList:Get(1, 66),
     Anatman = ActionList:Get(1, 16475), -- for on tick
     DragonKick = ActionList:Get(1, 74),
-    Potion = ActionList:Get(1, 24261), -- Grade 3 infusion of strength
+    --Potion = ActionList:Get(1, 24261), -- Grade 3 infusion of strength
     --Potion= ActionList:Get(1, 27786), -- tincture of strength
+    Bootshine = ActionList:Get(1, 53),
+    TrueStrike = ActionList:Get(1, 54),
+    SnapPunch = ActionList:Get(1, 56),
     TwinSnakes = ActionList:Get(1, 61),
     RiddleofFire = ActionList:Get(1, 7395),
-    SnapPunch = ActionList:Get(1, 56),
-    Brotherhood = ActionList:Get(1, 7395),
+    Brotherhood = ActionList:Get(1, 7396),
     ForbiddenChakra = ActionList:Get(1, 3547),
-    Bootshine = ActionList:Get(1, 8785),
     ShoulderTackle = ActionList:Get(1, 71),
     PerfectBalance = ActionList:Get(1, 69),
     ElixirField = ActionList:Get(1, 3545),
     FistsOfWind = ActionList:Get(1, 73),
-    TrueStrike = ActionList:Get(1, 54),
     TrueNorth = ActionList:Get(1, 7546)
 }
 
 xivopeners_mnk.openerInfo = {
-    listOpeners = {"normal", "test"},
+    listOpeners = {"anatman", "normal"},
     currentOpenerIndex = 1
 }
 
 xivopeners_mnk.openers = {
-    normal = {
+    anatman = {
         xivopeners_mnk.openerAbilities.Demolish,
         xivopeners_mnk.openerAbilities.Anatman,
         xivopeners_mnk.openerAbilities.DragonKick,
@@ -53,9 +53,8 @@ xivopeners_mnk.openers = {
         xivopeners_mnk.openerAbilities.TrueStrike,
         xivopeners_mnk.openerAbilities.SnapPunch
     },
-    test = {
+    normal = {
         xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.Anatman,
         xivopeners_mnk.openerAbilities.DragonKick,
         xivopeners_mnk.openerAbilities.TwinSnakes,
         xivopeners_mnk.openerAbilities.RiddleofFire,
@@ -86,9 +85,9 @@ xivopeners_mnk.openerStarted = false
 function xivopeners_mnk.getOpener()
     local opener
     if (xivopeners_mnk.openerInfo.currentOpenerIndex == 1) then
-        opener = xivopeners_mnk.openers.normal
+        opener = xivopeners_mnk.openers.anatman
     else
-        opener = xivopeners_mnk.openers.test
+        opener = xivopeners_mnk.openers.normal
     end
     return opener
 end
@@ -147,9 +146,21 @@ function xivopeners_mnk.main(event, tickcount)
             xivopeners.log("Starting opener")
             xivopeners_mnk.openerStarted = true
             xivopeners_mnk.useNextAction(target)
-        elseif
-            (xivopeners_mnk.lastCastFromQueue and Player.castinginfo.lastcastid == xivopeners_mnk.lastCastFromQueue.id)
-         then
+        elseif (xivopeners_mnk.lastCastFromQueue and Player.castinginfo.lastcastid == xivopeners_mnk.lastCastFromQueue.id) then
+            --  end
+            if (xivopeners_mnk.lastCastFromQueue == xivopeners_mnk.openerAbilities.Anatman) then
+                xivopeners.log(xivopeners_mnk.lastCastFromQueue.channeltime)
+            -- if (xivopeners_mnk.lastCastFromQueue.channeltime > 1.5) then
+            --     xivopeners_mnk.lastcastid = -1
+            --     xivopeners_mnk.dequeue()
+            --     xivopeners_brd.useNextAction(target)
+            -- end
+            --  else
+            --     xivopeners_mnk.lastcastid = -1
+            --     xivopeners_mnk.dequeue()
+            --     xivopeners_brd.useNextAction(target)
+            end
+            -- else
             xivopeners_mnk.dequeue()
             xivopeners_mnk.useNextAction(target)
         else
