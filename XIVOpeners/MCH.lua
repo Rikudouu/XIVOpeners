@@ -101,13 +101,11 @@ xivopeners_mch.useTincture = false
 
 
 function xivopeners_mch.getOpener()
-    local opener
     if (xivopeners_mch.openerInfo.currentOpenerIndex == 1) then
-        opener = xivopeners_mch.openers.earlyWF
+        return xivopeners_mch.openers.earlyWF
     else
-        opener = xivopeners_mch.openers.lateWF
+        return xivopeners_mch.openers.lateWF
     end
-    return opener
 end
 
 function xivopeners_mch.checkOpenerIds()
