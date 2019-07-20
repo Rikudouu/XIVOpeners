@@ -18,7 +18,9 @@ xivopeners_mch.openerAbilities = {
     HeatBlast = ActionList:Get(1, 7410),
     Reassemble = ActionList:Get(1, 2876),
     AirAnchor = ActionList:Get(1, 16500),
-    CleanShot = ActionList:Get(1, 7413)
+    CleanShot = ActionList:Get(1, 7413),
+    Tincture = {name = "Tincture", id = 27787},
+    MedicineBuffID = 49,
 }
 
 xivopeners_mch.openerInfo = {

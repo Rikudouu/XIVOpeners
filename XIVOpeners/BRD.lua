@@ -20,6 +20,8 @@ xivopeners_brd.openerAbilities = {
     StraightShotReadyBuffID = 122,
     RagingStrikesBuffID = 125,
     BarrageBuffID = 128,
+    Tincture = {name = "Tincture", id = 27787},
+    MedicineBuffID = 49,
 }
 
 xivopeners_brd.openerInfo = {
@@ -29,6 +31,7 @@ xivopeners_brd.openerInfo = {
 
 xivopeners_brd.openers = {
     recommended = {
+        xivopeners_brd.openerAbilities.Tincture,
         xivopeners_brd.openerAbilities.RagingStrikes,
         xivopeners_brd.openerAbilities.Stormbite,
         xivopeners_brd.openerAbilities.Bloodletter,
@@ -74,6 +77,7 @@ xivopeners_brd.openers = {
 xivopeners_brd.abilityQueue = {}
 xivopeners_brd.lastCastFromQueue = nil -- might need this for some more complex openers with conditions
 xivopeners_brd.openerStarted = false
+xivopeners_brd.useTincture = false
 xivopeners_brd.lastcastid = 0
 xivopeners_brd.lastcastid2 = 0
 
@@ -96,7 +100,14 @@ end
 function xivopeners_brd.openerAvailable()
     -- check cooldowns
     for _, action in pairs(xivopeners_brd.getOpener()) do
-        if (action.cd >= 1.5) then return false end
+        if (action == xivopeners_brd.openerAbilities.Tincture) then
+            local tincture = Inventory:Get(0):Get(xivopeners_brd.openerAbilities.Tincture.id)
+            if (tincture and xivopeners_brd.useTincture and  tincture:GetAction().cd >= 1.5) then
+                return false
+            end
+        elseif (action.cd >= 1.5) then
+            return false
+        end
     end
     return true
 end
@@ -132,38 +143,49 @@ function xivopeners_brd.updateLastCast()
 end
 
 function xivopeners_brd.drawCall(event, tickcount)
+    local tincture = Inventory:Get(0):Get(xivopeners_brd.openerAbilities.Tincture.id) -- don't know if this is resource-heavy or not
+    if (tincture) then
+        GUI:BeginGroup()
+        GUI:Text("Use Tincture")
+        GUI:NextColumn()
+        xivopeners_brd.useTincture = GUI:Checkbox("##xivopeners_brd_tincturecheck", xivopeners_brd.useTincture)
+        GUI:EndGroup()
+        GUI:NextColumn()
+    end
+
     if (xivopeners_brd.debug) then
         GUI:Text("lastcastid")
         GUI:NextColumn()
         GUI:InputText("##xivopeners_brd_lastcastid_display", tostring(xivopeners_brd.lastcastid))
-
         GUI:NextColumn()
+
         GUI:Text("lastcastid2")
         GUI:NextColumn()
         GUI:InputText("##xivopeners_brd_lastcastid2_display", tostring(xivopeners_brd.lastcastid2))
-
         GUI:NextColumn()
+
         GUI:Text("lastcastid_o")
         GUI:NextColumn()
         GUI:InputText("##xivopeners_brd_lastcastid_original_display", tostring(Player.castinginfo.lastcastid))
-
         GUI:NextColumn()
+
         GUI:Text("castingid")
         GUI:NextColumn()
         GUI:InputText("##xivopeners_brd_castingid", tostring(Player.castinginfo.castingid))
+        GUI:NextColumn()
 
         if (xivopeners_brd.abilityQueue[1]) then
-            GUI:NextColumn()
             GUI:Text("queue[1]")
             GUI:NextColumn()
             GUI:InputText("##xivopeners_brd_queue[1]", xivopeners_brd.abilityQueue[1].name)
+            GUI:NextColumn()
         end
 
         if (xivopeners_brd.lastCastFromQueue) then
-            GUI:NextColumn()
             GUI:Text("lastCastFromQueue")
             GUI:NextColumn()
             GUI:InputText("##xivopeners_brd_lastcastfromqueue", xivopeners_brd.lastCastFromQueue.name)
+            GUI:NextColumn()
         end
     end
 end
@@ -172,6 +194,11 @@ function xivopeners_brd.main(event, tickcount)
     if (Player.level >= xivopeners_brd.supportedLevel) then
         local target = Player:GetTarget()
         if (not target) then return end
+
+        if (not Inventory:Get(0):Get(xivopeners_brd.openerAbilities.Tincture.id) and xivopeners_brd.useTincture) then
+            -- if we don't have a tincture but the toggle is on, turn it off
+            xivopeners_brd.useTincture = false
+        end
 
         if (not xivopeners_brd.openerAvailable() and not xivopeners_brd.openerStarted) then return end -- don't start opener if it's not available, if it's already started then yolo
 
@@ -186,7 +213,7 @@ function xivopeners_brd.main(event, tickcount)
             return
         end
 
-        if (ActionList:IsCasting()) then return end
+        if (ActionList:IsCasting()) then return end -- this doesn't even do anything, probably gonna remove it soon
 
         xivopeners_brd.updateLastCast()
 
@@ -211,7 +238,6 @@ function xivopeners_brd.main(event, tickcount)
 --            table.insert(xivopeners_brd.abilityQueue, 5, xivopeners_brd.openerAbilities.BurstShot)
             xivopeners_brd.dequeue()
             xivopeners_brd.useNextAction(target)
-
         elseif (xivopeners_brd.lastCastFromQueue and xivopeners_brd.lastcastid == xivopeners_brd.lastCastFromQueue.id) then
             xivopeners_brd.lastcastid = -1
             if (xivopeners_brd.lastCastFromQueue ~= xivopeners_brd.openerAbilities.PitchPerfect) then
@@ -243,7 +269,6 @@ function xivopeners_brd.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
     if (target and target.attackable and xivopeners_brd.abilityQueue[1]) then
-        -- idk how to make it not spam console
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.RagingStrikes and HasBuff(Player.id, xivopeners_brd.openerAbilities.RagingStrikesBuffID)) then
             xivopeners.log("Player already used raging strikes prepull, continue with opener")
 --            xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RagingStrikes
@@ -263,10 +288,28 @@ function xivopeners_brd.useNextAction(target)
             xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RefulgentArrow
             return
         end
+        -- tincture check
+
+        if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.Tincture) then
+            local tincture = Inventory:Get(0):Get(xivopeners_brd.openerAbilities.Tincture.id)
+            if (HasBuff(Player.id, xivopeners_brd.openerAbilities.MedicineBuffID) or not xivopeners_brd.useTincture or not tincture) then
+                xivopeners.log("Tincture already used during opener, not enabled, or not available, dequeueing")
+                xivopeners_brd.dequeue()
+                return
+            end
+
+            if (tincture) then
+                xivopeners.log("Casting tincture")
+                tincture:Cast()
+                xivopeners_brd.lastCastFromQueue = tincture:GetAction()
+            end
+            -- don't want to continue past this point or we risk breaking shit
+            return
+        end
+
+        -- idk how to make it not spam console
 --        xivopeners.log("Casting " .. xivopeners_brd.abilityQueue[1].name)
         xivopeners_brd.abilityQueue[1]:Cast(target.id)
---        if (Player.castinginfo.castingid == xivopeners_brd.abilityQueue[1].id) then
-            xivopeners_brd.lastCastFromQueue = xivopeners_brd.abilityQueue[1]
---        end
+        xivopeners_brd.lastCastFromQueue = xivopeners_brd.abilityQueue[1]
     end
 end
