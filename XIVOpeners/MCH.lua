@@ -150,6 +150,11 @@ function xivopeners_mch.main(event, tickcount)
         local target = Player:GetTarget()
         if (not target) then return end
 
+        if (not Inventory:Get(0):Get(xivopeners_mch.openerAbilities.Tincture.id) and xivopeners_mch.useTincture) then
+            -- if we don't have a tincture but the toggle is on, turn it off
+            xivopeners_mch.useTincture = false
+        end
+
         if (not xivopeners_mch.openerAvailable() and not xivopeners_mch.openerStarted) then return end -- don't start opener if it's not available, if it's already started then yolo
 
         if (xivopeners_mch.openerStarted and next(xivopeners_mch.abilityQueue) == nil) then
