@@ -204,6 +204,7 @@ function xivopeners_mch.enqueue(action)
 end
 
 function xivopeners_mch.dequeue()
+    xivopeners.log("Dequeing " .. xivopeners_mch.abilityQueue[1].name)
     table.remove(xivopeners_mch.abilityQueue, 1)
 end
 
