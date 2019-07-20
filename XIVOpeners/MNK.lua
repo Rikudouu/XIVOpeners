@@ -87,6 +87,8 @@ xivopeners_mnk.abilityQueue = {}
 xivopeners_mnk.lastCastFromQueue = nil -- might need this for some more complex openers with conditions
 xivopeners_mnk.openerStarted = false
 xivopeners_mnk.useTincture = false
+xivopeners_mnk.lastcastid = 0
+xivopeners_mnk.lastcastid2 = 0
 
 function xivopeners_mnk.getTincture()
     local tincture = Inventory:Get(0):Get(xivopeners_mnk.openerAbilities.Tincture.id)
@@ -124,6 +126,38 @@ function xivopeners_mnk.openerAvailable()
         end
     end
     return true
+end
+
+function xivopeners_mnk.queueOpener()
+    -- the only time this gets called is when the main script is toggled, so we can do more than just queue the opener
+    -- empty queue first
+    xivopeners_mnk.abilityQueue = {}
+    for _, action in pairs(xivopeners_mnk.getOpener()) do
+        xivopeners_mnk.enqueue(action)
+    end
+    --    xivopeners.log("queue:")
+    --    for _, v in pairs(xivopeners_mnk.abilityQueue) do
+    --        xivopeners.log(v.name)
+    --    end
+    xivopeners_mnk.lastCastFromQueue = nil
+    xivopeners_mnk.openerStarted = false
+end
+
+function xivopeners_mnk.updateLastCast()
+    --    xivopeners.log(tostring(xivopeners_mnk.lastcastid) .. ", " .. tostring(xivopeners_mnk.lastcastid2) .. ", " .. tostring(Player.castinginfo.lastcastid))
+    if (xivopeners_mnk.lastCastFromQueue) then
+        if (xivopeners_mnk.lastcastid == -1) then
+            -- compare the real castid and see if it changed, if it did, update from -1
+            if (xivopeners_mnk.lastcastid2 ~= Player.castinginfo.castingid and xivopeners_mnk.lastCastFromQueue.cd > 0) then
+                xivopeners.log("cast changed")
+                xivopeners_mnk.lastcastid = Player.castinginfo.castingid
+                xivopeners_mnk.lastcastid2 = Player.castinginfo.castingid
+            end
+        elseif (xivopeners_mnk.lastcastid ~= Player.castinginfo.castingid and xivopeners_mnk.lastCastFromQueue.cd > 0) then
+            xivopeners_mnk.lastcastid = Player.castinginfo.castingid
+            xivopeners_mnk.lastcastid2 = Player.castinginfo.castingid
+        end
+    end
 end
 
 function xivopeners_mnk.drawCall(event, tickcount)
@@ -179,27 +213,13 @@ function xivopeners_mnk.main(event, tickcount)
                     return
                 end
             end
+            xivopeners_mnk.lastcastid = -1
             xivopeners_mnk.dequeue()
             xivopeners_mnk.useNextAction(target)
         else
             xivopeners_mnk.useNextAction(target)
         end
     end
-end
-
-function xivopeners_mnk.queueOpener()
-    -- the only time this gets called is when the main script is toggled, so we can do more than just queue the opener
-    -- empty queue first
-    xivopeners_mnk.abilityQueue = {}
-    for _, action in pairs(xivopeners_mnk.getOpener()) do
-        xivopeners_mnk.enqueue(action)
-    end
-    --    xivopeners.log("queue:")
-    --    for _, v in pairs(xivopeners_mnk.abilityQueue) do
-    --        xivopeners.log(v.name)
-    --    end
-    xivopeners_mnk.lastCastFromQueue = nil
-    xivopeners_mnk.openerStarted = false
 end
 
 function xivopeners_mnk.enqueue(action)

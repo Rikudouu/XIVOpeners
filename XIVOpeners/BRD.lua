@@ -135,16 +135,18 @@ end
 
 function xivopeners_brd.updateLastCast()
 --    xivopeners.log(tostring(xivopeners_brd.lastcastid) .. ", " .. tostring(xivopeners_brd.lastcastid2) .. ", " .. tostring(Player.castinginfo.lastcastid))
-    if (xivopeners_brd.lastcastid == -1) then
-        -- compare the real castid and see if it changed, if it did, update from -1
-        if (xivopeners_brd.lastcastid2 ~= Player.castinginfo.castingid and Player.castinginfo.castingid ~= xivopeners_brd.openerAbilities.PitchPerfect.id) then
-            xivopeners.log("cast changed")
+    if (xivopeners_brd.lastCastFromQueue) then
+        if (xivopeners_brd.lastcastid == -1) then
+            -- compare the real castid and see if it changed, if it did, update from -1
+            if (xivopeners_brd.lastcastid2 ~= Player.castinginfo.castingid and Player.castinginfo.castingid ~= xivopeners_brd.openerAbilities.PitchPerfect.id and xivopeners_brd.lastCastFromQueue.cd > 0) then
+                xivopeners.log("cast changed")
+                xivopeners_brd.lastcastid = Player.castinginfo.castingid
+                xivopeners_brd.lastcastid2 = Player.castinginfo.castingid
+            end
+        elseif (xivopeners_brd.lastcastid ~= Player.castinginfo.castingid and xivopeners_brd.lastCastFromQueue.cd > 0) then
             xivopeners_brd.lastcastid = Player.castinginfo.castingid
             xivopeners_brd.lastcastid2 = Player.castinginfo.castingid
         end
-    elseif (xivopeners_brd.lastcastid ~= Player.castinginfo.castingid) then
-        xivopeners_brd.lastcastid = Player.castinginfo.castingid
-        xivopeners_brd.lastcastid2 = Player.castinginfo.castingid
     end
 end
 
