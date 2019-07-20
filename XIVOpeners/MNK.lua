@@ -34,7 +34,7 @@ xivopeners_mnk.openers = {
         xivopeners_mnk.openerAbilities.Sprint,
         xivopeners_mnk.openerAbilities.Demolish, -- back
         xivopeners_mnk.openerAbilities.Anatman,
-        -- xivopeners_mnk.openerAbilities.Potion, -- need to figure out how to call a potion
+        xivopeners_mnk.openerAbilities.Tincture,
         xivopeners_mnk.openerAbilities.TrueNorth,
         xivopeners_mnk.openerAbilities.DragonKick, -- flank
         xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
