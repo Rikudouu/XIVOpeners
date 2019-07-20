@@ -20,7 +20,7 @@ xivopeners_mnk.openerAbilities = {
     ElixirField = ActionList:Get(1, 3545),
     FistsOfWind = ActionList:Get(1, 73),
     TrueNorth = ActionList:Get(1, 7546),
-    Tincture = {name = "Tincture", id = 27787},
+    Tincture = {name = "Tincture", id = 27786},
     MedicineBuffID = 49,
 }
 
@@ -109,9 +109,9 @@ end
 function xivopeners_mnk.openerAvailable()
     -- check cooldowns
     for _, action in pairs(xivopeners_mnk.getOpener()) do
-        if (action == xivopeners_mch.openerAbilities.Tincture) then
-            local tincture = Inventory:Get(0):Get(xivopeners_mch.openerAbilities.Tincture.id)
-            if (tincture and xivopeners_mch.useTincture and  tincture:GetAction().cd >= 1.5) then
+        if (action == xivopeners_mnk.openerAbilities.Tincture) then
+            local tincture = Inventory:Get(0):Get(xivopeners_mnk.openerAbilities.Tincture.id)
+            if (tincture and xivopeners_mnk.useTincture and  tincture:GetAction().cd >= 1.5) then
                 return false
             end
         elseif (action.cd >= 1.5) then
@@ -122,12 +122,12 @@ function xivopeners_mnk.openerAvailable()
 end
 
 function xivopeners_mnk.drawCall(event, tickcount)
-    local tincture = Inventory:Get(0):Get(xivopeners_mch.openerAbilities.Tincture.id) -- don't know if this is resource-heavy or not
+    local tincture = Inventory:Get(0):Get(xivopeners_mnk.openerAbilities.Tincture.id) -- don't know if this is resource-heavy or not
     if (tincture) then
         GUI:BeginGroup()
         GUI:Text("Use Tincture")
         GUI:NextColumn()
-        xivopeners_mch.useTincture = GUI:Checkbox("##xivopeners_mch_tincturecheck", xivopeners_mch.useTincture)
+        xivopeners_mnk.useTincture = GUI:Checkbox("##xivopeners_mnk_tincturecheck", xivopeners_mnk.useTincture)
         GUI:EndGroup()
         GUI:NextColumn()
     end
@@ -140,9 +140,9 @@ function xivopeners_mnk.main(event, tickcount)
             return
         end
 
-        if (not Inventory:Get(0):Get(xivopeners_mch.openerAbilities.Tincture.id) and xivopeners_mch.useTincture) then
+        if (not Inventory:Get(0):Get(xivopeners_mnk.openerAbilities.Tincture.id) and xivopeners_mnk.useTincture) then
             -- if we don't have a tincture but the toggle is on, turn it off
-            xivopeners_mch.useTincture = false
+            xivopeners_mnk.useTincture = false
         end
 
         if (not xivopeners_mnk.openerAvailable() and not xivopeners_mnk.openerStarted) then
@@ -213,10 +213,10 @@ function xivopeners_mnk.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
     if (target and target.attackable and xivopeners_mnk.abilityQueue[1]) then
-        local tincture = Inventory:Get(0):Get(xivopeners_mch.openerAbilities.Tincture.id)
-        if (HasBuff(Player.id, xivopeners_mch.openerAbilities.MedicineBuffID) or not xivopeners_mch.useTincture or not tincture) then
+        local tincture = Inventory:Get(0):Get(xivopeners_mnk.openerAbilities.Tincture.id)
+        if (HasBuff(Player.id, xivopeners_mnk.openerAbilities.MedicineBuffID) or not xivopeners_mnk.useTincture or not tincture) then
             xivopeners.log("Tincture already used during opener, not enabled, or not available, dequeueing")
-            xivopeners_mch.dequeue()
+            xivopeners_mnk.dequeue()
             return
         end
         -- idk how to make it not spam console
