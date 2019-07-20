@@ -174,6 +174,9 @@ function xivopeners_mch.main(event, tickcount)
             xivopeners_mch.openerStarted = true
             xivopeners_mch.useNextAction(target)
         elseif (xivopeners_mch.lastCastFromQueue and Player.castinginfo.lastcastid == xivopeners_mch.lastCastFromQueue.id) then
+            if (xivopeners_mch.lastCastFromQueue == xivopeners_mch.openerAbilities.BarrelStabilizer and Player.gauge[1] < 50) then
+                return
+            end
             xivopeners_mch.dequeue()
             xivopeners_mch.useNextAction(target)
         else
