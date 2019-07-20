@@ -24,7 +24,7 @@ xivopeners_mch.openerAbilities = {
 }
 
 xivopeners_mch.openerInfo = {
-    listOpeners = {"Early WF", "Late WF"},
+    listOpeners = {"Early WF", "Late WF", "Top Parse"},
     currentOpenerIndex = 1,
 }
 
@@ -92,6 +92,37 @@ xivopeners_mch.openers = {
         xivopeners_mch.openerAbilities.SplitShot,
         xivopeners_mch.openerAbilities.Drill
     },
+
+    topParse = {
+        xivopeners_mch.openerAbilities.Tincture,
+        xivopeners_mch.openerAbilities.Drill,
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.SplitShot,
+        xivopeners_mch.openerAbilities.BarrelStabilizer,
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.SlugShot,
+        xivopeners_mch.openerAbilities.WildFire,
+        xivopeners_mch.openerAbilities.HyperCharge,
+        xivopeners_mch.openerAbilities.HeatBlast,
+        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.HeatBlast,
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.HeatBlast,
+        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.HeatBlast,
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.HeatBlast,
+        xivopeners_mch.openerAbilities.Reassemble,
+        xivopeners_mch.openerAbilities.AirAnchor,
+        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.CleanShot,
+        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.Drill,
+        xivopeners_mch.openerAbilities.Ricochet,
+    }
 }
 
 xivopeners_mch.abilityQueue = {}
@@ -103,8 +134,10 @@ xivopeners_mch.useTincture = false
 function xivopeners_mch.getOpener()
     if (xivopeners_mch.openerInfo.currentOpenerIndex == 1) then
         return xivopeners_mch.openers.earlyWF
-    else
+    elseif (xivopeners_mch.openerInfo.currentOpenerIndex == 2) then
         return xivopeners_mch.openers.lateWF
+    elseif (xivopeners_mch.openerInfo.currentOpenerIndex == 3) then
+        return xivopeners_mch.openers.topParse
     end
 end
 
@@ -175,6 +208,7 @@ function xivopeners_mch.main(event, tickcount)
             xivopeners_mch.useNextAction(target)
         elseif (xivopeners_mch.lastCastFromQueue and Player.castinginfo.lastcastid == xivopeners_mch.lastCastFromQueue.id) then
             if (xivopeners_mch.lastCastFromQueue == xivopeners_mch.openerAbilities.BarrelStabilizer and Player.gauge[1] < 50) then
+                xivopeners_mch.useNextAction(target)
                 return
             end
             xivopeners_mch.dequeue()
