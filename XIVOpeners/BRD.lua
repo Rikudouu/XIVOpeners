@@ -288,8 +288,8 @@ function xivopeners_brd.useNextAction(target)
             xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RefulgentArrow
             return
         end
-        -- tincture check
 
+        -- tincture check
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.Tincture) then
             local tincture = Inventory:Get(0):Get(xivopeners_brd.openerAbilities.Tincture.id)
             if (HasBuff(Player.id, xivopeners_brd.openerAbilities.MedicineBuffID) or not xivopeners_brd.useTincture or not tincture) then
