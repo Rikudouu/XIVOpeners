@@ -130,6 +130,11 @@ xivopeners_mch.lastCastFromQueue = nil -- might need this for some more complex 
 xivopeners_mch.openerStarted = false
 xivopeners_mch.useTincture = false
 
+function xivopeners_mch.getTincture()
+    local tincture = Inventory:Get(0):Get(xivopeners_mch.openerAbilities.Tincture.id)
+    return tincture
+end
+
 
 function xivopeners_mch.getOpener()
     if (xivopeners_mch.openerInfo.currentOpenerIndex == 1) then
@@ -153,7 +158,7 @@ function xivopeners_mch.openerAvailable()
     -- check cooldowns
     for _, action in pairs(xivopeners_mch.getOpener()) do
         if (action == xivopeners_mch.openerAbilities.Tincture) then
-            local tincture = Inventory:Get(0):Get(xivopeners_mch.openerAbilities.Tincture.id)
+            local tincture = xivopeners_mch.getTincture()
             if (tincture and xivopeners_mch.useTincture and  tincture:GetAction().cd >= 1.5) then
                 return false
             end
@@ -165,26 +170,24 @@ function xivopeners_mch.openerAvailable()
 end
 
 function xivopeners_mch.drawCall(event, tickcount)
-    local tincture = Inventory:Get(0):Get(xivopeners_mch.openerAbilities.Tincture.id) -- don't know if this is resource-heavy or not
-    if (tincture) then
-        GUI:BeginGroup()
-        GUI:Text("Use Tincture")
-        GUI:NextColumn()
-        xivopeners_mch.useTincture = GUI:Checkbox("##xivopeners_mch_tincturecheck", xivopeners_mch.useTincture)
-        GUI:EndGroup()
-        GUI:NextColumn()
-    end
+    GUI:BeginGroup()
+    GUI:Text("Use Tincture")
+    GUI:NextColumn()
+    xivopeners_mch.useTincture = GUI:Checkbox("##xivopeners_mch_tincturecheck", xivopeners_mch.useTincture)
+    GUI:EndGroup()
+    GUI:NextColumn()
 end
 
 function xivopeners_mch.main(event, tickcount)
     if (Player.level >= xivopeners_mch.supportedLevel) then
-        local target = Player:GetTarget()
-        if (not target) then return end
-
-        if (not Inventory:Get(0):Get(xivopeners_mch.openerAbilities.Tincture.id) and xivopeners_mch.useTincture) then
+        if (xivopeners_mch.useTincture and not xivopeners_mch.getTincture()) then
             -- if we don't have a tincture but the toggle is on, turn it off
             xivopeners_mch.useTincture = false
         end
+
+        local target = Player:GetTarget()
+
+        if (not target) then return end
 
         if (not xivopeners_mch.openerAvailable() and not xivopeners_mch.openerStarted) then return end -- don't start opener if it's not available, if it's already started then yolo
 
@@ -251,7 +254,7 @@ function xivopeners_mch.useNextAction(target)
     if (target and target.attackable and xivopeners_mch.abilityQueue[1]) then
         -- tincture check
         if (xivopeners_mch.abilityQueue[1] == xivopeners_mch.openerAbilities.Tincture) then
-            local tincture = Inventory:Get(0):Get(xivopeners_mch.openerAbilities.Tincture.id)
+            local tincture = xivopeners_mch.getTincture()
             if (HasBuff(Player.id, xivopeners_mch.openerAbilities.MedicineBuffID) or not xivopeners_mch.useTincture or not tincture) then
                 xivopeners.log("Tincture already used during opener, not enabled, or not available, dequeueing")
                 xivopeners_mch.dequeue()

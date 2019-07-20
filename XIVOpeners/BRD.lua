@@ -53,6 +53,7 @@ xivopeners_brd.openers = {
     },
 
     compatibility = {
+        xivopeners_brd.openerAbilities.Tincture,
         xivopeners_brd.openerAbilities.RagingStrikes,
         xivopeners_brd.openerAbilities.Stormbite,
         xivopeners_brd.openerAbilities.Bloodletter,
@@ -81,6 +82,11 @@ xivopeners_brd.useTincture = false
 xivopeners_brd.lastcastid = 0
 xivopeners_brd.lastcastid2 = 0
 
+function xivopeners_brd.getTincture()
+    local tincture = Inventory:Get(0):Get(xivopeners_brd.openerAbilities.Tincture.id)
+    return tincture
+end
+
 function xivopeners_brd.getOpener()
     if (xivopeners_brd.openerInfo.currentOpenerIndex == 1) then
         return xivopeners_brd.openers.recommended
@@ -101,7 +107,7 @@ function xivopeners_brd.openerAvailable()
     -- check cooldowns
     for _, action in pairs(xivopeners_brd.getOpener()) do
         if (action == xivopeners_brd.openerAbilities.Tincture) then
-            local tincture = Inventory:Get(0):Get(xivopeners_brd.openerAbilities.Tincture.id)
+            local tincture = xivopeners_brd.getTincture()
             if (tincture and xivopeners_brd.useTincture and  tincture:GetAction().cd >= 1.5) then
                 return false
             end
@@ -143,15 +149,12 @@ function xivopeners_brd.updateLastCast()
 end
 
 function xivopeners_brd.drawCall(event, tickcount)
-    local tincture = Inventory:Get(0):Get(xivopeners_brd.openerAbilities.Tincture.id) -- don't know if this is resource-heavy or not
-    if (tincture) then
-        GUI:BeginGroup()
-        GUI:Text("Use Tincture")
-        GUI:NextColumn()
-        xivopeners_brd.useTincture = GUI:Checkbox("##xivopeners_brd_tincturecheck", xivopeners_brd.useTincture)
-        GUI:EndGroup()
-        GUI:NextColumn()
-    end
+    GUI:BeginGroup()
+    GUI:Text("Use Tincture")
+    GUI:NextColumn()
+    xivopeners_brd.useTincture = GUI:Checkbox("##xivopeners_brd_tincturecheck", xivopeners_brd.useTincture)
+    GUI:EndGroup()
+    GUI:NextColumn()
 
     if (xivopeners_brd.debug) then
         GUI:Text("lastcastid")
@@ -192,13 +195,13 @@ end
 
 function xivopeners_brd.main(event, tickcount)
     if (Player.level >= xivopeners_brd.supportedLevel) then
-        local target = Player:GetTarget()
-        if (not target) then return end
-
-        if (not Inventory:Get(0):Get(xivopeners_brd.openerAbilities.Tincture.id) and xivopeners_brd.useTincture) then
+        if (xivopeners_brd.useTincture and not xivopeners_brd.getTincture()) then
             -- if we don't have a tincture but the toggle is on, turn it off
             xivopeners_brd.useTincture = false
         end
+
+        local target = Player:GetTarget()
+        if (not target) then return end
 
         if (not xivopeners_brd.openerAvailable() and not xivopeners_brd.openerStarted) then return end -- don't start opener if it's not available, if it's already started then yolo
 
@@ -291,7 +294,7 @@ function xivopeners_brd.useNextAction(target)
 
         -- tincture check
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.Tincture) then
-            local tincture = Inventory:Get(0):Get(xivopeners_brd.openerAbilities.Tincture.id)
+            local tincture = xivopeners_brd.getTincture()
             if (HasBuff(Player.id, xivopeners_brd.openerAbilities.MedicineBuffID) or not xivopeners_brd.useTincture or not tincture) then
                 xivopeners.log("Tincture already used during opener, not enabled, or not available, dequeueing")
                 xivopeners_brd.dequeue()
