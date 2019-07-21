@@ -198,16 +198,14 @@ function xivopeners_mnk.main(event, tickcount)
             return
         end
 
-        if (ActionList:IsCasting()) then
-            return
-        end
+        xivopeners_mnk.updateLastCast()
 
         if (not xivopeners_mnk.openerStarted) then
             -- technically, even if you use an ability from prepull, it should still work, since the next time this loop runs it'll jump to the elseif
             xivopeners.log("Starting opener")
             xivopeners_mnk.openerStarted = true
             xivopeners_mnk.useNextAction(target)
-        elseif (xivopeners_mnk.lastCastFromQueue and Player.castinginfo.lastcastid == xivopeners_mnk.lastCastFromQueue.id) then
+        elseif (xivopeners_mnk.lastCastFromQueue and xivopeners_mnk.lastcastid == xivopeners_mnk.lastCastFromQueue.id) then
             if (xivopeners_mnk.lastCastFromQueue == xivopeners_mnk.openerAbilities.Anatman) then
                 if Player.gauge[1] < 2 then
                     return

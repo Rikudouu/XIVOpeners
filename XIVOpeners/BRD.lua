@@ -218,8 +218,6 @@ function xivopeners_brd.main(event, tickcount)
             return
         end
 
-        if (ActionList:IsCasting()) then return end -- this doesn't even do anything, probably gonna remove it soon
-
         xivopeners_brd.updateLastCast()
 
         if (not xivopeners_brd.openerStarted) then

@@ -237,14 +237,14 @@ function xivopeners_mch.main(event, tickcount)
             return
         end
 
-        if (ActionList:IsCasting()) then return end
+        xivopeners_mch.updateLastCast()
 
         if (not xivopeners_mch.openerStarted) then
             -- technically, even if you use an ability from prepull, it should still work, since the next time this loop runs it'll jump to the elseif
             xivopeners.log("Starting opener")
             xivopeners_mch.openerStarted = true
             xivopeners_mch.useNextAction(target)
-        elseif (xivopeners_mch.lastCastFromQueue and Player.castinginfo.lastcastid == xivopeners_mch.lastCastFromQueue.id) then
+        elseif (xivopeners_mch.lastCastFromQueue and xivopeners_mch.lastcastid == xivopeners_mch.lastCastFromQueue.id) then
             if (xivopeners_mch.lastCastFromQueue == xivopeners_mch.openerAbilities.BarrelStabilizer and Player.gauge[1] < 50) then
                 xivopeners_mch.useNextAction(target)
                 return
