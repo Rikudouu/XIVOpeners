@@ -324,9 +324,10 @@ function xivopeners_smn.useNextAction(target)
 
         -- check for ruin 4 proc before using ruin 4
         if (xivopeners_smn.abilityQueue[1] == xivopeners_smn.openerAbilities.Ruin4 and not HasBuff(Player.id, xivopeners_smn.openerAbilities.Ruin4BuffID)) then
-            -- it's actually really bad if this happens because it means we miss a WW
-            xivopeners.log("Didn't have r4 proc for ruin 4 cast, dequeueing")
-            xivopeners_smn.dequeue()
+            -- it's actually really bad if this happens because it means we miss a WW, so let's recover with an r2 instead
+            xivopeners.log("Didn't have r4 proc for ruin 4 cast, casting r2 instead")
+            xivopeners_smn.openerAbilities.Ruin2:Cast(target.id)
+            xivopeners_smn.lastCastFromQueue = xivopeners_smn.openerAbilities.Ruin2
         end
 
                 -- idk how to make it not spam console
