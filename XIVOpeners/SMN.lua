@@ -18,6 +18,8 @@ xivopeners_smn.openerAbilities = {
     Ruin4 = ActionList:Get(1, 7426),
     EnkindleBahamut = ActionList:Get(1, 7429),
     SummonIfrit = ActionList:Get(1, 180),
+    Ruin4BuffID = 1212,
+    IfritPetID = 1402,
     Tincture = {name = "Tincture", id = 27787},
     MedicineBuffID = 49,
 }
@@ -36,13 +38,13 @@ xivopeners_smn.openers = {
         xivopeners_smn.openerAbilities.EnergyDrain,
         xivopeners_smn.openerAbilities.DreadwyrmTrance,
         xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Tincture,
+        xivopeners_smn.openerAbilities.EgiAssault2,
+        xivopeners_smn.openerAbilities.EgiAssault,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.EgiAssault,
         xivopeners_smn.openerAbilities.Aetherpact,
         xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.EgiAssault2,
-        xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.Tincture,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Enkindle,
         xivopeners_smn.openerAbilities.Fester,
@@ -69,11 +71,40 @@ xivopeners_smn.openers = {
 
     easyBahamut = {
         xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Tridisaster,
+        xivopeners_smn.openerAbilities.Ruin2,
+        xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.DreadwyrmTrance,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.EnergyDrain,
+        xivopeners_smn.openerAbilities.EgiAssault2,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.Aetherpact,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Tincture,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.EgiAssault2,
+        xivopeners_smn.openerAbilities.Enkindle,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Fester,
+        xivopeners_smn.openerAbilities.Tridisaster,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Deathflare,
+        xivopeners_smn.openerAbilities.SummonBahamut,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Ruin4,
+        xivopeners_smn.openerAbilities.EnkindleBahamut,
+        xivopeners_smn.openerAbilities.Fester,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Ruin4,
+        xivopeners_smn.openerAbilities.EnkindleBahamut,
+        xivopeners_smn.openerAbilities.Ruin4,
+        xivopeners_smn.openerAbilities.EnergyDrain,
+        xivopeners_smn.openerAbilities.Fester,
+        xivopeners_smn.openerAbilities.Ruin4,
     },
 }
 
@@ -81,6 +112,7 @@ xivopeners_smn.abilityQueue = {}
 xivopeners_smn.lastCastFromQueue = nil -- might need this for some more complex openers with conditions
 xivopeners_smn.openerStarted = false
 xivopeners_smn.useTincture = false
+xivopeners_smn.demiWaitTime = 300
 xivopeners_smn.lastcastid = 0
 xivopeners_smn.lastcastid2 = 0
 
@@ -169,6 +201,16 @@ function xivopeners_smn.drawCall(event, tickcount)
     xivopeners_smn.useTincture = GUI:Checkbox("##xivopeners_smn_tincturecheck", xivopeners_smn.useTincture)
     GUI:EndGroup()
     GUI:NextColumn()
+
+    GUI:BeginGroup()
+    GUI:Text("GCD Clip after Demi")
+    GUI:NextColumn()
+    xivopeners_smn.demiWaitTime = GUI:InputInt("##xivopeners_smn_demiwaittime", xivopeners_smn.demiWaitTime, 5, 50)
+    GUI:NextColumn()
+    GUI:EndGroup()
+    if (GUI:IsItemHovered()) then
+        GUI:SetTooltip("This is for the GCD clip after summoning bahamut that you have to do for Tokyo Drift. If this is set too low, the first r4 after summoning won't get a WW. If it's too high, you risk not getting 8 WW.")
+    end
 end
 
 function xivopeners_smn.main(event, tickcount)
@@ -249,7 +291,7 @@ function xivopeners_smn.useNextAction(target)
 
         -- summon ifrit if we haven't already
         if (xivopeners_smn.abilityQueue[1] == xivopeners_smn.openerAbilities.SummonIfrit) then
-            if (not Player.pet or Player.pet.id ~= 1073851718) then
+            if (not Player.pet or Player.pet.contentid ~= xivopeners_smn.openerAbilities.IfritPetID) then
                 xivopeners_smn.abilityQueue[1]:Cast(target.id)
                 xivopeners_smn.lastCastFromQueue = xivopeners_smn.abilityQueue[1]
             else
@@ -258,6 +300,28 @@ function xivopeners_smn.useNextAction(target)
             end
             return
         end
+
+        -- if we need to use r2 but we have an r4 proc, we need to dequeue r2
+        if (xivopeners_smn.abilityQueue[1] == xivopeners_smn.openerAbilities.Ruin2 and HasBuff(Player.id, xivopeners_smn.openerAbilities.Ruin4BuffID)) then
+            xivopeners.log("Has r4 proc during r2, adjusting lastcast")
+            xivopeners_smn.abilityQueue[1]:Cast(target.id)
+            xivopeners_smn.lastCastFromQueue = xivopeners_smn.openerAbilities.Ruin4
+            return
+        end
+
+        -- need to clip gcd for a split second here to make sure r4 procs WW
+        if (xivopeners_smn.abilityQueue[1] == xivopeners_smn.openerAbilities.Ruin4 and xivopeners_smn.lastCastFromQueue == xivopeners_smn.openerAbilities.SummonBahamut) then
+            if (Player.castinginfo.timesincecast >= xivopeners_smn.demiWaitTime) then
+                xivopeners.log("Clipped gcd, continuing with r4")
+                xivopeners_smn.abilityQueue[1]:Cast(target.id)
+                xivopeners_smn.lastCastFromQueue = xivopeners_smn.abilityQueue[1]
+            else
+                xivopeners.log("Waiting for gcd clip")
+            end
+            return
+        end
+
+
         -- idk how to make it not spam console
         --xivopeners.log("Casting " .. xivopeners_smn.abilityQueue[1].name)
         xivopeners_smn.abilityQueue[1]:Cast(target.id)
