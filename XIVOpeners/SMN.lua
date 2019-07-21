@@ -20,7 +20,7 @@ xivopeners_smn.openerAbilities = {
     SummonIfrit = ActionList:Get(1, 180),
     Ruin4BuffID = 1212,
     IfritPetID = 1402,
-    Tincture = {name = "Tincture", id = 27787},
+    Tincture = {name = "Tincture", id = 27789}, -- int
     MedicineBuffID = 49,
 }
 
