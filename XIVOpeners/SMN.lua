@@ -70,6 +70,7 @@ xivopeners_smn.openers = {
     },
 
     easyBahamut = {
+        xivopeners_smn.openerAbilities.SummonIfrit,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Tridisaster,
         xivopeners_smn.openerAbilities.Ruin2,
@@ -321,8 +322,14 @@ function xivopeners_smn.useNextAction(target)
             return
         end
 
+        -- check for ruin 4 proc before using ruin 4
+        if (xivopeners_smn.abilityQueue[1] == xivopeners_smn.openerAbilities.Ruin4 and not HasBuff(Player.id, xivopeners_smn.openerAbilities.Ruin4BuffID)) then
+            -- it's actually really bad if this happens because it means we miss a WW
+            xivopeners.log("Didn't have r4 proc for ruin 4 cast, dequeueing")
+            xivopeners_smn.dequeue()
+        end
 
-        -- idk how to make it not spam console
+                -- idk how to make it not spam console
         --xivopeners.log("Casting " .. xivopeners_smn.abilityQueue[1].name)
         xivopeners_smn.abilityQueue[1]:Cast(target.id)
         xivopeners_smn.lastCastFromQueue = xivopeners_smn.abilityQueue[1]
