@@ -209,7 +209,7 @@ function xivopeners_smn.drawCall(event, tickcount)
     GUI:NextColumn()
     GUI:EndGroup()
     if (GUI:IsItemHovered()) then
-        GUI:SetTooltip("This is for the GCD clip after summoning bahamut that you have to do for Tokyo Drift. If this is set too low, the first r4 after summoning won't get a WW. If it's too high, you risk not getting 8 WW.")
+        GUI:SetTooltip("This is for the GCD clip after summoning bahamut that you have to do for Tokyo Drift. If this is set too low, the first r4 after summoning won't get a WW. If it's too high, you risk not getting 8 WW. 28ms ping and 600ms delay should be able to get 8 WW")
     end
 end
 
