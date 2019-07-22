@@ -265,10 +265,20 @@ function xivopeners_mnk.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
     if (target and target.attackable and xivopeners_mnk.abilityQueue[1]) then
-        local tincture = xivopeners_mnk.getTincture()
-        if (HasBuff(Player.id, xivopeners_mnk.openerAbilities.MedicineBuffID) or not xivopeners_mnk.useTincture or not tincture) then
-            xivopeners.log("Tincture already used during opener, not enabled, or not available, dequeueing")
-            xivopeners_mnk.dequeue()
+        if (xivopeners_mnk.abilityQueue[1] == xivopeners_mnk.openerAbilities.Tincture) then
+            local tincture = xivopeners_mnk.getTincture()
+            if (HasBuff(Player.id, xivopeners_mnk.openerAbilities.MedicineBuffID) or not xivopeners_mnk.useTincture or not tincture) then
+                xivopeners.log("Tincture already used during opener, not enabled, or not available, dequeueing")
+                xivopeners_mnk.dequeue()
+                return
+            end
+
+            if (tincture) then
+                xivopeners.log("Casting tincture")
+                tincture:Cast()
+                xivopeners_mnk.lastCastFromQueue = tincture:GetAction()
+            end
+            -- don't want to continue past this point or we risk breaking shit
             return
         end
         -- idk how to make it not spam console
