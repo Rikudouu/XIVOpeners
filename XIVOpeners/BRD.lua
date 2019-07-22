@@ -134,7 +134,7 @@ function xivopeners_brd.queueOpener()
     --    end
     xivopeners_brd.lastCastFromQueue = nil
     xivopeners_brd.openerStarted = false
-    if (not xivopeners_brd.getTincture()) then
+    if (xivopeners_brd.useTincture and not xivopeners_brd.getTincture()) then
         xivopeners_brd.useTincture = false
     end
 end

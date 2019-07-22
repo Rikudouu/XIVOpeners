@@ -188,7 +188,7 @@ function xivopeners_mch.queueOpener()
     --    end
     xivopeners_mch.lastCastFromQueue = nil
     xivopeners_mch.openerStarted = false
-    if (not xivopeners_mch.getTincture()) then
+    if (xivopeners_mch.useTincture and not xivopeners_mch.getTincture()) then
         xivopeners_mch.useTincture = false
     end
 end
