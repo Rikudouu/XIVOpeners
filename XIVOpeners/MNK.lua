@@ -177,6 +177,32 @@ function xivopeners_mnk.drawCall(event, tickcount)
     GUI:NextColumn()
 end
 
+function xivopeners_mnk.drawPosWindow(event, tickcount)
+    if (Player.job == xivopeners.jobs.Monk) then
+        GUI:SetNextWindowSize(106, 70, GUI.SetCond_Always)
+        local flags = (GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoCollapse)
+        GUI:Begin("xivopeners_mnk_poswindow", true, flags)
+
+        -- change the color depending on positional
+        -- red
+        local childColor = {r = .1, g = 0, b = 0, a = .75 }
+        -- green
+        -- local childColor = {r = 0, g = .1, b = 0, a = .75 }
+
+        GUI:PushStyleColor(GUI.Col_ChildWindowBg, childColor.r, childColor.g, childColor.b, childColor.a)
+        GUI:Text("Opener pos")
+        GUI:Separator()
+        GUI:BeginChild("##xivopeners_mnk_poswindowdisplay", 90, 35, true)
+        GUI:AlignFirstTextHeightToWidgets()
+        GUI:Text("test")
+        GUI:EndChild()
+
+        GUI:PopStyleColor()
+
+        GUI:End()
+    end
+end
+
 function xivopeners_mnk.main(event, tickcount)
     if (Player.level >= xivopeners_mnk.supportedLevel) then
         local target = Player:GetTarget()
@@ -251,3 +277,5 @@ function xivopeners_mnk.useNextAction(target)
         xivopeners_mnk.lastCastFromQueue = xivopeners_mnk.abilityQueue[1]
     end
 end
+
+RegisterEventHandler("Gameloop.Draw", xivopeners_mnk.drawPosWindow, "xivopeners_mnk.drawPosWindow")
