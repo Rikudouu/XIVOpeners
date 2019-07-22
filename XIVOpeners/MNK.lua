@@ -1,7 +1,8 @@
--- mnk http://owo.sh/AgEymx7.png (normal)
+-- mnk http://owo.sh/AgEymx7.png (normal) {added back laster}
 -- https://docs.google.com/document/d/1BinBE0blUjt3z96MW5bbTA2_Pwgl9ET4UYJTaR6nMv8/edit# (optimal)
-
+-- http://ffxivrotations.com/26pj (six sided start)
 -- todo: trying to figure out how either do a positional window or get permission/instructions on how to hook into ace's arc.
+
 xivopeners_mnk = {}
 
 xivopeners_mnk.supportedLevel = 80
@@ -22,127 +23,94 @@ xivopeners_mnk.openerAbilities = {
     ElixirField = ActionList:Get(1, 3545),
     FistsOfWind = ActionList:Get(1, 73),
     TrueNorth = ActionList:Get(1, 7546),
+    SixSidedStar = ActionList:Get(1, 16476),
+    TornadoKick = ActionList:Get(1, 3543),
     Tincture = {name = "Tincture", id = 27786},
     MedicineBuffID = 49
 }
 
+xivopeners_mnk.rearPos = {
+    xivopeners_mnk.openerAbilities.Bootshine,
+    xivopeners_mnk.openerAbilities.TrueStrike,
+    xivopeners_mnk.openerAbilities.Demolish
+}
+
+xivopeners_mnk.flankPos = {
+    xivopeners_mnk.openerAbilities.SnapPunch,
+    xivopeners_mnk.openerAbilities.TwinSnakes,
+    xivopeners_mnk.openerAbilities.DragonKick
+}
+
 xivopeners_mnk.openerInfo = {
-    listOpeners = {"optimal", "normal", "optimal_no_pot", "normal_no_pot"},
+    listOpeners = {"optimal", "six sided star"},
     currentOpenerIndex = 1
 }
 
 xivopeners_mnk.openers = {
     optimal = {
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.Anatman,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.Tincture,
-        xivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.RiddleofFire,
-        xivopeners_mnk.openerAbilities.SnapPunch,
-        xivopeners_mnk.openerAbilities.Brotherhood,
-        xivopeners_mnk.openerAbilities.ForbiddenChakra,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.ElixirField,
-        xivopeners_mnk.openerAbilities.PerfectBalance,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.FistsOfWind,
-        xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.TrueStrike,
-        xivopeners_mnk.openerAbilities.SnapPunch,
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        ivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.Demolish
-    },
-    normal = {
-        xivopeners_mnk.openerAbilities.Sprint,
+        --   xivopeners_mnk.openerAbilities.ShoulderTackle,
         xivopeners_mnk.openerAbilities.Demolish, -- back
         xivopeners_mnk.openerAbilities.Anatman,
-        xivopeners_mnk.openerAbilities.Tincture,
-        xivopeners_mnk.openerAbilities.TrueNorth,
         xivopeners_mnk.openerAbilities.DragonKick, -- flank
+        --   xivopeners_mnk.openerAbilities.Tincture,
         xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
         xivopeners_mnk.openerAbilities.RiddleofFire,
         xivopeners_mnk.openerAbilities.SnapPunch, -- flank
         xivopeners_mnk.openerAbilities.Brotherhood,
         xivopeners_mnk.openerAbilities.ForbiddenChakra,
         xivopeners_mnk.openerAbilities.Bootshine, -- back
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.PerfectBalance,
-        xivopeners_mnk.openerAbilities.TrueNorth,
-        xivopeners_mnk.openerAbilities.DragonKick, -- flank
         xivopeners_mnk.openerAbilities.ElixirField,
-        xivopeners_mnk.openerAbilities.Bootshine, -- back
+        xivopeners_mnk.openerAbilities.PerfectBalance,
+        xivopeners_mnk.openerAbilities.DragonKick, -- flank
         xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.Bootshine, -- back
         xivopeners_mnk.openerAbilities.FistsOfWind,
         xivopeners_mnk.openerAbilities.Demolish, -- back
         xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
         xivopeners_mnk.openerAbilities.DragonKick, -- flank
         xivopeners_mnk.openerAbilities.Bootshine, -- back
         xivopeners_mnk.openerAbilities.TrueStrike, -- back
-        xivopeners_mnk.openerAbilities.SnapPunch -- flank
-    },
-    optimal_no_pot = {
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.Anatman,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.RiddleofFire,
-        xivopeners_mnk.openerAbilities.SnapPunch,
-        xivopeners_mnk.openerAbilities.Brotherhood,
-        xivopeners_mnk.openerAbilities.ForbiddenChakra,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.ElixirField,
-        xivopeners_mnk.openerAbilities.PerfectBalance,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.FistsOfWind,
-        xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.TrueStrike,
-        xivopeners_mnk.openerAbilities.SnapPunch,
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        ivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.Demolish
-    },
-    normal_no_pot = {
-        xivopeners_mnk.openerAbilities.Sprint,
-        xivopeners_mnk.openerAbilities.Demolish, -- back
-        xivopeners_mnk.openerAbilities.Anatman,
-        xivopeners_mnk.openerAbilities.TrueNorth,
-        xivopeners_mnk.openerAbilities.DragonKick, -- flank
-        xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
-        xivopeners_mnk.openerAbilities.RiddleofFire,
         xivopeners_mnk.openerAbilities.SnapPunch, -- flank
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.DragonKick, -- flank
+        xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
+        xivopeners_mnk.openerAbilities.Demolish -- back
+    },
+    -- http://ffxivrotations.com/26pj
+    sixSidedStar = {
+        xivopeners_mnk.openerAbilities.TrueNorth,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.ElixirField,
+        xivopeners_mnk.openerAbilities.SixSidedStar,
+        xivopeners_mnk.openerAbilities.Anatman,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.SnapPunch,
+        xivopeners_mnk.openerAbilities.Tincture,
+        xivopeners_mnk.openerAbilities.SixSidedStar,
+        xivopeners_mnk.openerAbilities.RiddleofFire,
         xivopeners_mnk.openerAbilities.Brotherhood,
         xivopeners_mnk.openerAbilities.ForbiddenChakra,
-        xivopeners_mnk.openerAbilities.Bootshine, -- back
+        xivopeners_mnk.openerAbilities.Bootshine,
         xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.PerfectBalance,
-        xivopeners_mnk.openerAbilities.TrueNorth,
-        xivopeners_mnk.openerAbilities.DragonKick, -- flank
+        xivopeners_mnk.openerAbilities.TrueStrike,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.SixSidedStar,
         xivopeners_mnk.openerAbilities.ElixirField,
-        xivopeners_mnk.openerAbilities.Bootshine, -- back
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.TornadoKick,
+        xivopeners_mnk.openerAbilities.SnapPunch,
+        xivopeners_mnk.openerAbilities.PerfectBalance,
+        xivopeners_mnk.openerAbilities.SnapPunch,
+        xivopeners_mnk.openerAbilities.SnapPunch,
+        xivopeners_mnk.openerAbilities.TrueStrike,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
         xivopeners_mnk.openerAbilities.FistsOfWind,
-        xivopeners_mnk.openerAbilities.Demolish, -- back
-        xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
-        xivopeners_mnk.openerAbilities.DragonKick, -- flank
-        xivopeners_mnk.openerAbilities.Bootshine, -- back
-        xivopeners_mnk.openerAbilities.TrueStrike, -- back
-        xivopeners_mnk.openerAbilities.SnapPunch -- flank
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.Bootshine
     }
 }
 
@@ -152,6 +120,9 @@ xivopeners_mnk.openerStarted = false
 xivopeners_mnk.useTincture = false
 xivopeners_mnk.lastcastid = 0
 xivopeners_mnk.lastcastid2 = 0
+xivopeners_mnk.rear = "rear"
+xivopeners_mnk.flank = "flank"
+xivopeners_mnk.nextPos = "any"
 
 function xivopeners_mnk.getTincture()
     for i = 0, 3 do
@@ -164,15 +135,13 @@ function xivopeners_mnk.getTincture()
 end
 
 function xivopeners_mnk.getOpener()
+    local opener
     if (xivopeners_mnk.openerInfo.currentOpenerIndex == 1) then
-        return xivopeners_mnk.openers.optimal
-    elseif (xivopeners_mnk.openerInfo.currentOpenerIndex == 2) then
-        return xivopeners_mnk.openers.normal
-    elseif (xivopeners_mnk.openerInfo.currentOpenerIndex == 3) then
-        return xivopeners_mnk.openers.optimal_no_pot
+        opener = xivopeners_mnk.openers.optimal
     else
-        return xivopeners_mnk.openers.normal_no_pot
+        opener = xivopeners_mnk.openers.sixSidedStar
     end
+    return opener
 end
 
 function xivopeners_mnk.checkOpenerIds()
@@ -316,7 +285,71 @@ function xivopeners_mnk.useNextAction(target)
         end
         -- idk how to make it not spam console
         --xivopeners.log("Casting " .. xivopeners_mnk.abilityQueue[1].name)
+
+        if xivopeners_mnk.rearPos[xivopeners_mnk.abilityQueue[1]] then
+            xivopeners.log("rear")
+            xivopeners_mnk.nextPos = xivopeners_mnk.rear
+        elseif xivopeners_mnk.flankPos[xivopeners_mnk.abilityQueue[1]] then
+            xivopeners.log("flank")
+            xivopeners_mnk.nextPos = xivopeners_mnk.flank
+        else
+            xivopeners.log("any")
+            xivopeners_mnk.nextPos = "any"
+        end
+
         xivopeners_mnk.abilityQueue[1]:Cast(target.id)
         xivopeners_mnk.lastCastFromQueue = xivopeners_mnk.abilityQueue[1]
     end
 end
+
+-- Draws a Window with a Slider:
+-- xivopeners_mnk.open = true
+-- xivopeners_mnk.visible = true
+-- xivopeners_mnk.hue = 125
+
+-- function xivopeners_mnk.Draw( event, ticks, positionalMode )
+
+--     --if ( xivopeners_mnk.open ) then
+
+--            GUI:SetNextWindowSize(250,400,GUI.SetCond_FirstUseEver) -- set the next window size, only on first ever, GUI.SetCond_FirstUseEver is one of many possible enums.
+
+--            --GUI:Begin takes in two arguments, the name of the window and the current "is open" bool. It returns "is visible/is not collapsed" and the "is open" bool again.
+--            --If the user would close our Window, "is open" would return "false", else it will keep returning "true" as long as the window is open.
+--        xivopeners_mnk.visible, xivopeners_mnk.open = GUI:Begin("My Fancy GUI", xivopeners_mnk.open)
+
+--            if ( xivopeners_mnk.visible ) then -- visible is true/false depending if the window is collapsed or not, we don't have to render anything in it when it is collapsed
+--                 -- Again the typical syntax, passing the current value "hue" to the function as argument and receiving back the (un-)changed value.
+--         xivopeners_mnk.hue = GUI:SliderInt("Master HUE",xivopeners_mnk.hue,0,255)
+--             d(xivopeners_mnk.hue)  -- spam print out the current value
+--        end
+--        GUI:End()  -- THIS IS IMPORTANT! For EVERY BEGIN() you NEED to ALWAYS call END(), it does not matter if the window is visible/open or not! Same goes with BeginChild() & EndChild() and others !
+--      --   end
+-- end
+
+function xivopeners_mnk.drawPosWindow(event, tickcount)
+    if (Player.job == xivopeners.jobs.Monk) then
+        GUI:SetNextWindowSize(106, 70, GUI.SetCond_Always)
+        local flags = (GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoCollapse)
+        GUI:Begin("xivopeners_mnk_poswindow", true, flags)
+
+        -- change the color depending on positional
+        -- red
+        local childColor = {r = .1, g = 0, b = 0, a = .75}
+        -- green
+        -- local childColor = {r = 0, g = .1, b = 0, a = .75 }
+
+        GUI:PushStyleColor(GUI.Col_ChildWindowBg, childColor.r, childColor.g, childColor.b, childColor.a)
+        GUI:Text("Opener pos")
+        GUI:Separator()
+        GUI:BeginChild("##xivopeners_mnk_poswindowdisplay", 90, 35, true)
+        GUI:AlignFirstTextHeightToWidgets()
+        GUI:Text(xivopeners_mnk.nextPos)
+        GUI:EndChild()
+
+        GUI:PopStyleColor()
+
+        GUI:End()
+    end
+end
+
+RegisterEventHandler("Gameloop.Draw", xivopeners_mnk.drawPosWindow, "xivopeners_mnk.drawPosWindow")
