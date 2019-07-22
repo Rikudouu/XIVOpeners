@@ -1,5 +1,7 @@
--- mnk http://owo.sh/AgEymx7.png
+-- mnk http://owo.sh/AgEymx7.png (normal)
+-- https://docs.google.com/document/d/1BinBE0blUjt3z96MW5bbTA2_Pwgl9ET4UYJTaR6nMv8/edit# (optimal)
 
+-- todo: trying to figure out how either do a positional window or get permission/instructions on how to hook into ace's arc.
 xivopeners_mnk = {}
 
 xivopeners_mnk.supportedLevel = 80
@@ -21,16 +23,45 @@ xivopeners_mnk.openerAbilities = {
     FistsOfWind = ActionList:Get(1, 73),
     TrueNorth = ActionList:Get(1, 7546),
     Tincture = {name = "Tincture", id = 27786},
-    MedicineBuffID = 49,
+    MedicineBuffID = 49
 }
 
 xivopeners_mnk.openerInfo = {
-    listOpeners = {"anatman", "normal"},
+    listOpeners = {"optimal", "normal", "optimal_no_pot", "normal_no_pot"},
     currentOpenerIndex = 1
 }
 
 xivopeners_mnk.openers = {
-    anatman = {
+    optimal = {
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.Anatman,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Tincture,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.RiddleofFire,
+        xivopeners_mnk.openerAbilities.SnapPunch,
+        xivopeners_mnk.openerAbilities.Brotherhood,
+        xivopeners_mnk.openerAbilities.ForbiddenChakra,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.ElixirField,
+        xivopeners_mnk.openerAbilities.PerfectBalance,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.FistsOfWind,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.TrueStrike,
+        xivopeners_mnk.openerAbilities.SnapPunch,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        ivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.Demolish
+    },
+    normal = {
         xivopeners_mnk.openerAbilities.Sprint,
         xivopeners_mnk.openerAbilities.Demolish, -- back
         xivopeners_mnk.openerAbilities.Anatman,
@@ -58,8 +89,10 @@ xivopeners_mnk.openers = {
         xivopeners_mnk.openerAbilities.TrueStrike, -- back
         xivopeners_mnk.openerAbilities.SnapPunch -- flank
     },
-    normal = {
+    optimal_no_pot = {
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
         xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.Anatman,
         xivopeners_mnk.openerAbilities.DragonKick,
         xivopeners_mnk.openerAbilities.TwinSnakes,
         xivopeners_mnk.openerAbilities.RiddleofFire,
@@ -67,19 +100,49 @@ xivopeners_mnk.openers = {
         xivopeners_mnk.openerAbilities.Brotherhood,
         xivopeners_mnk.openerAbilities.ForbiddenChakra,
         xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.ElixirField,
         xivopeners_mnk.openerAbilities.PerfectBalance,
         xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.ElixirField,
-        xivopeners_mnk.openerAbilities.Bootshine,
         xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.Bootshine,
         xivopeners_mnk.openerAbilities.FistsOfWind,
         xivopeners_mnk.openerAbilities.Demolish,
         xivopeners_mnk.openerAbilities.TwinSnakes,
         xivopeners_mnk.openerAbilities.DragonKick,
         xivopeners_mnk.openerAbilities.Bootshine,
         xivopeners_mnk.openerAbilities.TrueStrike,
-        xivopeners_mnk.openerAbilities.SnapPunch
+        xivopeners_mnk.openerAbilities.SnapPunch,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        ivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.Demolish
+    },
+    normal_no_pot = {
+        xivopeners_mnk.openerAbilities.Sprint,
+        xivopeners_mnk.openerAbilities.Demolish, -- back
+        xivopeners_mnk.openerAbilities.Anatman,
+        xivopeners_mnk.openerAbilities.TrueNorth,
+        xivopeners_mnk.openerAbilities.DragonKick, -- flank
+        xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
+        xivopeners_mnk.openerAbilities.RiddleofFire,
+        xivopeners_mnk.openerAbilities.SnapPunch, -- flank
+        xivopeners_mnk.openerAbilities.Brotherhood,
+        xivopeners_mnk.openerAbilities.ForbiddenChakra,
+        xivopeners_mnk.openerAbilities.Bootshine, -- back
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.PerfectBalance,
+        xivopeners_mnk.openerAbilities.TrueNorth,
+        xivopeners_mnk.openerAbilities.DragonKick, -- flank
+        xivopeners_mnk.openerAbilities.ElixirField,
+        xivopeners_mnk.openerAbilities.Bootshine, -- back
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.FistsOfWind,
+        xivopeners_mnk.openerAbilities.Demolish, -- back
+        xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
+        xivopeners_mnk.openerAbilities.DragonKick, -- flank
+        xivopeners_mnk.openerAbilities.Bootshine, -- back
+        xivopeners_mnk.openerAbilities.TrueStrike, -- back
+        xivopeners_mnk.openerAbilities.SnapPunch -- flank
     }
 }
 
@@ -93,19 +156,23 @@ xivopeners_mnk.lastcastid2 = 0
 function xivopeners_mnk.getTincture()
     for i = 0, 3 do
         local tincture = Inventory:Get(i):Get(xivopeners_mnk.openerAbilities.Tincture.id)
-        if (tincture) then return tincture end
+        if (tincture) then
+            return tincture
+        end
     end
     return nil
 end
 
 function xivopeners_mnk.getOpener()
-    local opener
     if (xivopeners_mnk.openerInfo.currentOpenerIndex == 1) then
-        opener = xivopeners_mnk.openers.anatman
+        return xivopeners_mnk.openers.optimal
+    elseif (xivopeners_mnk.openerInfo.currentOpenerIndex == 2) then
+        return xivopeners_mnk.openers.normal
+    elseif (xivopeners_mnk.openerInfo.currentOpenerIndex == 3) then
+        return xivopeners_mnk.openers.optimal_no_pot
     else
-        opener = xivopeners_mnk.openers.normal
+        return xivopeners_mnk.openers.normal_no_pot
     end
-    return opener
 end
 
 function xivopeners_mnk.checkOpenerIds()
@@ -203,7 +270,9 @@ function xivopeners_mnk.main(event, tickcount)
 
         xivopeners_mnk.updateLastCast()
 
-        if (ActionList:IsCasting()) then return end
+        if (ActionList:IsCasting()) then
+            return
+        end
 
         if (not xivopeners_mnk.openerStarted) then
             -- technically, even if you use an ability from prepull, it should still work, since the next time this loop runs it'll jump to the elseif
