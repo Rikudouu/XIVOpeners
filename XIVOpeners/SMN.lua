@@ -118,8 +118,11 @@ xivopeners_smn.lastcastid = 0
 xivopeners_smn.lastcastid2 = 0
 
 function xivopeners_smn.getTincture()
-    local tincture = Inventory:Get(0):Get(xivopeners_smn.openerAbilities.Tincture.id)
-    return tincture
+    for i = 0, 3 do
+        local tincture = Inventory:Get(i):Get(xivopeners_smn.openerAbilities.Tincture.id)
+        if (tincture) then return tincture end
+    end
+    return nil
 end
 
 
@@ -176,6 +179,9 @@ function xivopeners_smn.queueOpener()
     --    end
     xivopeners_smn.lastCastFromQueue = nil
     xivopeners_smn.openerStarted = false
+    if (not xivopeners_smn.getTincture()) then
+        xivopeners_smn.useTincture = false
+    end
 end
 
 function xivopeners_smn.updateLastCast()
@@ -216,11 +222,6 @@ end
 
 function xivopeners_smn.main(event, tickcount)
     if (Player.level >= xivopeners_smn.supportedLevel) then
-        if (xivopeners_smn.useTincture and not xivopeners_smn.getTincture()) then
-            -- if we don't have a tincture but the toggle is on, turn it off
-            xivopeners_smn.useTincture = false
-        end
-
         local target = Player:GetTarget()
 
         if (not target) then return end
