@@ -278,9 +278,6 @@ function xivopeners_mnk.main(event, tickcount)
 
         xivopeners_mnk.updateLastCast()
 
-        if (ActionList:IsCasting()) then
-            return
-        end
 
         if (not xivopeners_mnk.openerStarted) then
             -- technically, even if you use an ability from prepull, it should still work, since the next time this loop runs it'll jump to the elseif
