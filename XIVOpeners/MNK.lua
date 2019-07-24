@@ -56,10 +56,10 @@ xivopeners_mnk.openers = {
     optimal = {
         xivopeners_mnk.openerAbilities.ShoulderTackle,
         xivopeners_mnk.openerAbilities.Demolish, -- back
-       -- xivopeners_mnk.openerAbilities.Anatman,
+        xivopeners_mnk.openerAbilities.Anatman,
         xivopeners_mnk.openerAbilities.TrueNorth,
         xivopeners_mnk.openerAbilities.DragonKick, -- flank
-        --   xivopeners_mnk.openerAbilities.Tincture,
+        xivopeners_mnk.openerAbilities.Tincture,
         xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
         xivopeners_mnk.openerAbilities.RiddleofFire,
         xivopeners_mnk.openerAbilities.SnapPunch, -- flank
@@ -90,7 +90,7 @@ xivopeners_mnk.openers = {
         xivopeners_mnk.openerAbilities.Demolish,
         xivopeners_mnk.openerAbilities.ElixirField,
         xivopeners_mnk.openerAbilities.SixSidedStar,
-       -- xivopeners_mnk.openerAbilities.Anatman,
+        xivopeners_mnk.openerAbilities.Anatman,
         xivopeners_mnk.openerAbilities.DragonKick,
         xivopeners_mnk.openerAbilities.TwinSnakes,
         xivopeners_mnk.openerAbilities.SnapPunch,
@@ -321,15 +321,13 @@ end
 
 function xivopeners_mnk.useNextAction(target)
 
-xivopeners.log("Player.gauge[1] :: " ..tostring(Player.gauge[1]))
-
-    if(HasBuff(Player.id, xivopeners_mnk.openerAbilities.AnatmanBuffID) and Player.gauge[1] > 1) then
-
-
-        xivopeners.log("returned Player.gauge[1] :: " ..tostring(Player.gauge[1]))
-        xivopeners_mnk.dequeue()
-        return
-    end
+--    xivopeners.log("Player.gauge[1] :: " ..tostring(Player.gauge[1]))
+--
+--    if (HasBuff(Player.id, xivopeners_mnk.openerAbilities.AnatmanBuffID) and Player.gauge[1] > 1) then
+--        xivopeners.log("returned Player.gauge[1] :: " ..tostring(Player.gauge[1]))
+--        xivopeners_mnk.dequeue()
+--        return
+--    end
 
     -- do the actual opener
     -- the current implementation uses a queue system
@@ -351,8 +349,6 @@ xivopeners.log("Player.gauge[1] :: " ..tostring(Player.gauge[1]))
             return
         end
 
-
-
         if xivopeners_mnk.has_value(xivopeners_mnk.rearPos, xivopeners_mnk.abilityQueue[1]) then
          --   xivopeners.log("rear")
             xivopeners_mnk.nextPos = xivopeners_mnk.rear
@@ -365,7 +361,7 @@ xivopeners.log("Player.gauge[1] :: " ..tostring(Player.gauge[1]))
         end
 
         -- idk how to make it not spam console
-        xivopeners.log("Casting " .. xivopeners_mnk.abilityQueue[1].name)
+--        xivopeners.log("Casting " .. xivopeners_mnk.abilityQueue[1].name)
         xivopeners_mnk.abilityQueue[1]:Cast(target.id)
 
        -- xivopeners.log("lastCastFromQueue set")
