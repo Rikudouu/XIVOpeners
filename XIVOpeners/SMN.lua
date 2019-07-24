@@ -329,6 +329,7 @@ function xivopeners_smn.useNextAction(target)
             xivopeners.log("Didn't have r4 proc for ruin 4 cast, casting r2 instead")
             xivopeners_smn.openerAbilities.Ruin2:Cast(target.id)
             xivopeners_smn.lastCastFromQueue = xivopeners_smn.openerAbilities.Ruin2
+            return
         end
 
                 -- idk how to make it not spam console
