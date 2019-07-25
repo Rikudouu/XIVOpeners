@@ -306,6 +306,7 @@ function xivopeners_mnk.enqueue(action)
 end
 
 function xivopeners_mnk.dequeue()
+    xivopeners.log("Dequeing " .. xivopeners_mnk.abilityQueue[1].name)
     table.remove(xivopeners_mnk.abilityQueue, 1)
 end
 
