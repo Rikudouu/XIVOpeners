@@ -56,7 +56,7 @@ xivopeners_mnk.openers = {
     optimal = {
         xivopeners_mnk.openerAbilities.ShoulderTackle,
         xivopeners_mnk.openerAbilities.Demolish, -- back
-        xivopeners_mnk.openerAbilities.Anatman,
+--        xivopeners_mnk.openerAbilities.Anatman,
         xivopeners_mnk.openerAbilities.TrueNorth,
         xivopeners_mnk.openerAbilities.DragonKick, -- flank
         xivopeners_mnk.openerAbilities.Tincture,
@@ -90,7 +90,7 @@ xivopeners_mnk.openers = {
         xivopeners_mnk.openerAbilities.Demolish,
         xivopeners_mnk.openerAbilities.ElixirField,
         xivopeners_mnk.openerAbilities.SixSidedStar,
-        xivopeners_mnk.openerAbilities.Anatman,
+--        xivopeners_mnk.openerAbilities.Anatman,
         xivopeners_mnk.openerAbilities.DragonKick,
         xivopeners_mnk.openerAbilities.TwinSnakes,
         xivopeners_mnk.openerAbilities.SnapPunch,

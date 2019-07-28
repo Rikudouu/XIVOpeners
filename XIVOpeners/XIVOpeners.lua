@@ -69,6 +69,15 @@ xivopeners.supportedJobs = {
         checkOpenerIds = xivopeners_smn.checkOpenerIds,
         drawCall = xivopeners_smn.drawCall,
     },
+
+    [xivopeners.jobs.Samurai]  = {
+        main = xivopeners_sam.main,
+        openerInfo = xivopeners_sam.openerInfo,
+        queueOpener = xivopeners_sam.queueOpener,
+        openerAvailable = xivopeners_sam.openerAvailable,
+        checkOpenerIds = xivopeners_sam.checkOpenerIds,
+        drawCall = xivopeners_sam.drawCall,
+    },
 }
 xivopeners.oocEnable = false
 xivopeners.advancedMode = false
