@@ -1,7 +1,6 @@
 -- mnk http://owo.sh/AgEymx7.png (normal) {added back laster}
 -- https://docs.google.com/document/d/1BinBE0blUjt3z96MW5bbTA2_Pwgl9ET4UYJTaR6nMv8/edit# (optimal)
 -- http://ffxivrotations.com/26pj (six sided start)
--- todo: need to figure out how to dequeue Anatman without it breaking
 
 xivopeners_mnk = {}
 
@@ -55,33 +54,33 @@ xivopeners_mnk.openerInfo = {
 xivopeners_mnk.openers = {
     optimal = {
         xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.Demolish, -- back
+        xivopeners_mnk.openerAbilities.Demolish,
         xivopeners_mnk.openerAbilities.Anatman,
         xivopeners_mnk.openerAbilities.TrueNorth,
-        xivopeners_mnk.openerAbilities.DragonKick, -- flank
+        xivopeners_mnk.openerAbilities.DragonKick,
         xivopeners_mnk.openerAbilities.Tincture,
-        xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
+        xivopeners_mnk.openerAbilities.TwinSnakes,
         xivopeners_mnk.openerAbilities.RiddleofFire,
-        xivopeners_mnk.openerAbilities.SnapPunch, -- flank
+        xivopeners_mnk.openerAbilities.SnapPunch,
         xivopeners_mnk.openerAbilities.Brotherhood,
         xivopeners_mnk.openerAbilities.ForbiddenChakra,
-        xivopeners_mnk.openerAbilities.Bootshine, -- back
+        xivopeners_mnk.openerAbilities.Bootshine,
         xivopeners_mnk.openerAbilities.ElixirField,
         xivopeners_mnk.openerAbilities.PerfectBalance,
-        xivopeners_mnk.openerAbilities.DragonKick, -- flank
+        xivopeners_mnk.openerAbilities.DragonKick,
         xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.Bootshine, -- back
+        xivopeners_mnk.openerAbilities.Bootshine,
         xivopeners_mnk.openerAbilities.FistsOfWind,
-        xivopeners_mnk.openerAbilities.Demolish, -- back
-        xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
-        xivopeners_mnk.openerAbilities.DragonKick, -- flank
-        xivopeners_mnk.openerAbilities.Bootshine, -- back
-        xivopeners_mnk.openerAbilities.TrueStrike, -- back
-        xivopeners_mnk.openerAbilities.SnapPunch, -- flank
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.DragonKick, -- flank
-        xivopeners_mnk.openerAbilities.TwinSnakes, -- flank
-        xivopeners_mnk.openerAbilities.Demolish -- back
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.TwinSnakes, 
+        xivopeners_mnk.openerAbilities.DragonKick, 
+        xivopeners_mnk.openerAbilities.Bootshine, 
+        xivopeners_mnk.openerAbilities.TrueStrike, 
+        xivopeners_mnk.openerAbilities.SnapPunch, 
+      --  xivopeners_mnk.openerAbilities.ShoulderTackle, -- only removed because it can cause issues with innocence tethers
+        xivopeners_mnk.openerAbilities.DragonKick, 
+        xivopeners_mnk.openerAbilities.TwinSnakes, 
+        xivopeners_mnk.openerAbilities.Demolish 
     },
     -- http://ffxivrotations.com/26pj
     sixSidedStar = {
@@ -186,10 +185,7 @@ function xivopeners_mnk.queueOpener()
     for _, action in pairs(xivopeners_mnk.getOpener()) do
         xivopeners_mnk.enqueue(action)
     end
-    --    xivopeners.log("queue:")
-    --    for _, v in pairs(xivopeners_mnk.abilityQueue) do
-    --        xivopeners.log(v.name)
-    --    end
+
     xivopeners_mnk.lastCastFromQueue = nil
     xivopeners_mnk.openerStarted = false
 
@@ -200,15 +196,17 @@ function xivopeners_mnk.queueOpener()
 end
 
 function xivopeners_mnk.updateLastCast()
-    --    xivopeners.log(tostring(xivopeners_mnk.lastcastid) .. ", " .. tostring(xivopeners_mnk.lastcastid2) .. ", " .. tostring(Player.castinginfo.lastcastid))
     if (xivopeners_mnk.lastCastFromQueue) then
         if (xivopeners_mnk.lastcastid == -1) then
             -- compare the real castid and see if it changed, if it did, update from -1
             if (xivopeners_mnk.lastcastid2 ~= Player.castinginfo.castingid and xivopeners_mnk.lastCastFromQueue.cd > 0) then
-                xivopeners.log("cast changed")
                 xivopeners_mnk.lastcastid = Player.castinginfo.castingid
                 xivopeners_mnk.lastcastid2 = Player.castinginfo.castingid
             end
+        elseif (xivopeners_mnk.lastcastid == 0 and HasBuff(Player.id, xivopeners_mnk.openerAbilities.AnatmanBuffID)) then
+                xivopeners_mnk.lastcastid = xivopeners_mnk.openerAbilities.Anatman.id
+                xivopeners_mnk.lastcastid2 =  xivopeners_mnk.openerAbilities.Anatman.id
+                return
         elseif (xivopeners_mnk.lastcastid ~= Player.castinginfo.castingid and xivopeners_mnk.lastCastFromQueue.cd > 0) then
             xivopeners_mnk.lastcastid = Player.castinginfo.castingid
             xivopeners_mnk.lastcastid2 = Player.castinginfo.castingid
@@ -227,23 +225,14 @@ end
 
 function xivopeners_mnk.main(event, tickcount)
     if (Player.level >= xivopeners_mnk.supportedLevel) then
-
-       -- xivopeners.log("prefull" .. tostring(xivopeners_mnk.openerStarted) .. tostring(xivopeners_mnk.prepullSetup) .. tostring(HasBuff(Player.id, xivopeners_mnk.openerAbilities.FistsOfFireBuffID)))
-        -- prepull check before targing the boss
         if (xivopeners.running and not xivopeners_mnk.openerStarted and xivopeners_mnk.prepullSetup) then
             if (not HasBuff(Player.id, xivopeners_mnk.openerAbilities.FistsOfFireBuffID)) then
-             --    xivopeners.log("FistsOfFireBuffID")
                 xivopeners_mnk.openerAbilities.FistsOfFire:Cast()
            end
-
             if (Player.gauge[2] < 5) then
-             --   xivopeners.log("Meditation")
                 xivopeners_mnk.openerAbilities.Meditation:Cast()
             end
-
-           -- xivopeners.log("buff not :: " ..tostring(HasBuff(Player.id, xivopeners_mnk.openerAbilities.CoerlFormID)))
             if (not HasBuff(Player.id, xivopeners_mnk.openerAbilities.CoerlFormID)) then
-             --   xivopeners.log("CoerlFormID")
                 xivopeners_mnk.openerAbilities.FormShift:Cast()
             end
         end
@@ -321,15 +310,6 @@ function xivopeners_mnk.has_value (tab, val)
 end
 
 function xivopeners_mnk.useNextAction(target)
-
---    xivopeners.log("Player.gauge[1] :: " ..tostring(Player.gauge[1]))
---
---    if (HasBuff(Player.id, xivopeners_mnk.openerAbilities.AnatmanBuffID) and Player.gauge[1] > 1) then
---        xivopeners.log("returned Player.gauge[1] :: " ..tostring(Player.gauge[1]))
---        xivopeners_mnk.dequeue()
---        return
---    end
-
     -- do the actual opener
     -- the current implementation uses a queue system
     if (target and target.attackable and xivopeners_mnk.abilityQueue[1]) then
@@ -351,25 +331,20 @@ function xivopeners_mnk.useNextAction(target)
         end
 
         if xivopeners_mnk.has_value(xivopeners_mnk.rearPos, xivopeners_mnk.abilityQueue[1]) then
-         --   xivopeners.log("rear")
             xivopeners_mnk.nextPos = xivopeners_mnk.rear
         elseif xivopeners_mnk.has_value(xivopeners_mnk.flankPos, xivopeners_mnk.abilityQueue[1]) then
-           -- xivopeners.log("flank")
             xivopeners_mnk.nextPos = xivopeners_mnk.flank
         else
            -- xivopeners.log("any")
            --  xivopeners_mnk.nextPos = "any"
         end
 
-        -- idk how to make it not spam console
---        xivopeners.log("Casting " .. xivopeners_mnk.abilityQueue[1].name)
         xivopeners_mnk.abilityQueue[1]:Cast(target.id)
-
-       -- xivopeners.log("lastCastFromQueue set")
         xivopeners_mnk.lastCastFromQueue = xivopeners_mnk.abilityQueue[1]
     end
 end
 
+-- can move this over the ARC one, will disappear once opener is completed/stopped
 function xivopeners_mnk.drawPosWindow(event, tickcount)
     -- only show the positional window when the opener is actually running.
     if (Player.job == xivopeners.jobs.Monk and xivopeners.running) then
@@ -382,19 +357,16 @@ function xivopeners_mnk.drawPosWindow(event, tickcount)
 
         local childColor = xivopeners_mnk.redColor
         if xivopeners_mnk.nextPos == xivopeners_mnk.rear and IsBehind(target) then
-            -- xivopeners.log("rear-green")
             childColor = xivopeners_mnk.greenColor
         end
 
         if xivopeners_mnk.nextPos == xivopeners_mnk.flank and IsFlanking(target) then
-            -- xivopeners.log("flank--green")
             childColor = xivopeners_mnk.greenColor
         end
 
         GUI:PushStyleColor(GUI.Col_ChildWindowBg, childColor.r, childColor.g, childColor.b, childColor.a)
 
         GUI:BeginChild("##xivopeners_mnk_poswindowdisplay", 85, 30, true)
-       -- GUI:AlignFirstTextHeightToWidgets()
         GUI:Indent(GUI:Text(xivopeners_mnk.nextPos))
         GUI:EndChild()
 
