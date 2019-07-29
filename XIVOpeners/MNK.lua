@@ -131,8 +131,8 @@ xivopeners_mnk.count = 0
 xivopeners_mnk.rear = "rear"
 xivopeners_mnk.flank = "flank"
 xivopeners_mnk.nextPos = "any"
-xivopeners_mnk.redColor = {r = 255, g = 0, b = 0, a = .75}
-xivopeners_mnk.greenColor = {r = 0, g = .70, b = .70, a = .75}
+xivopeners_mnk.redColor = {r = .1, g = 0, b = 0, a = .75 }
+xivopeners_mnk.greenColor = {r = 0, g = .1, b = 0, a = .75 }
 xivopeners_mnk.anatmanActive = false
 
 function xivopeners_mnk.getTincture()
@@ -351,7 +351,7 @@ function xivopeners_mnk.drawPosWindow(event, tickcount)
 
         local target = Player:GetTarget()
 
-        GUI:SetNextWindowSize(85, 30, GUI.SetCond_Always)
+        GUI:SetNextWindowSize(106, 70, GUI.SetCond_Always)
         local flags = (GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoCollapse)
         GUI:Begin("xivopeners_mnk_poswindow", false, flags)
 
@@ -365,11 +365,12 @@ function xivopeners_mnk.drawPosWindow(event, tickcount)
         end
 
         GUI:PushStyleColor(GUI.Col_ChildWindowBg, childColor.r, childColor.g, childColor.b, childColor.a)
-
-        GUI:BeginChild("##xivopeners_mnk_poswindowdisplay", 85, 30, true)
-        GUI:Indent(GUI:Text(xivopeners_mnk.nextPos))
+        GUI:Text("Opener pos")
+        GUI:Separator()
+        GUI:BeginChild("##xivopeners_mnk_poswindowdisplay", 90, 35, true)
+        GUI:AlignFirstTextHeightToWidgets()
+        GUI:Text(xivopeners_mnk.nextPos)
         GUI:EndChild()
-
 
         GUI:PopStyleColor()
 
