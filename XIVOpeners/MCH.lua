@@ -32,42 +32,44 @@ xivopeners_mch.openers = {
     earlyWF = {
         xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.Drill,
-        xivopeners_mch.openerAbilities.BarrelStabilizer,
-        xivopeners_mch.openerAbilities.Ricochet,
-        xivopeners_mch.openerAbilities.SplitShot,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.SplitShot,
+        xivopeners_mch.openerAbilities.BarrelStabilizer,
+        xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.SlugShot,
         xivopeners_mch.openerAbilities.WildFire,
         xivopeners_mch.openerAbilities.HyperCharge,
         xivopeners_mch.openerAbilities.HeatBlast,
-        xivopeners_mch.openerAbilities.GaussRound,
-        xivopeners_mch.openerAbilities.HeatBlast,
         xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.HeatBlast,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.HeatBlast,
         xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.HeatBlast,
-        xivopeners_mch.openerAbilities.Reassemble,
-        xivopeners_mch.openerAbilities.AirAnchor,
         xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.HeatBlast,
         xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.CleanShot,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.AirAnchor,
+        xivopeners_mch.openerAbilities.Reassemble,
+        xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Drill,
-        xivopeners_mch.openerAbilities.GaussRound
-    },
+        xivopeners_mch.openerAbilities.Ricochet
+        },
 
     lateWF = {
         xivopeners_mch.openerAbilities.SplitShot,
-        xivopeners_mch.openerAbilities.SlugShot, -- a tincture is supposed to be used after this, but i can't be fucked adding logic for that right now
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.SlugShot,
         xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.CleanShot,
+        xivopeners_mch.openerAbilities.BarrelStabilizer,
         xivopeners_mch.openerAbilities.SplitShot,
         xivopeners_mch.openerAbilities.Reassemble,
-        xivopeners_mch.openerAbilities.BarrelStabilizer,
         xivopeners_mch.openerAbilities.Drill,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
@@ -90,7 +92,7 @@ xivopeners_mch.openers = {
         xivopeners_mch.openerAbilities.CleanShot,
         xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.SplitShot,
-        xivopeners_mch.openerAbilities.Drill
+        xivopeners_mch.openerAbilities.Drill,
     },
 
     topParse = {
@@ -164,7 +166,7 @@ function xivopeners_mch.openerAvailable()
     for _, action in pairs(xivopeners_mch.getOpener()) do
         if (action == xivopeners_mch.openerAbilities.Tincture) then
             local tincture = xivopeners_mch.getTincture()
-            if (tincture and xivopeners_mch.useTincture and  tincture:GetAction().cd >= 1.5) then
+            if (tincture and xivopeners_mch.useTincture and tincture:GetAction().cd >= 1.5) then
                 return false
             end
         elseif (action.cd >= 1.5) then
