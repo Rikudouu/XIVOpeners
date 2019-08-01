@@ -1,6 +1,7 @@
 -- mnk http://owo.sh/AgEymx7.png (normal) {added back laster}
 -- https://docs.google.com/document/d/1BinBE0blUjt3z96MW5bbTA2_Pwgl9ET4UYJTaR6nMv8/edit# (optimal)
 -- http://ffxivrotations.com/26pj (six sided start)
+-- potential 5.05 http://ffxivrotations.com/28ch
 
 xivopeners_mnk = {}
 
@@ -47,11 +48,43 @@ xivopeners_mnk.flankPos = {
 }
 
 xivopeners_mnk.openerInfo = {
-    listOpeners = {"optimal", "six sided star"},
+    listOpeners = {"fiveOfive", "optimal", "six sided star"},
     currentOpenerIndex = 1
 }
 
 xivopeners_mnk.openers = {
+    fiveOfive = {
+        xivopeners_mnk.openerAbilities.TrueNorth,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.SnapPunch,
+        xivopeners_mnk.openerAbilities.Anatman,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Tincture,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.RiddleofFire,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.ForbiddenChakra,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.Brotherhood,
+        xivopeners_mnk.openerAbilities.TrueStrike,
+        xivopeners_mnk.openerAbilities.FistsOfWind,
+        xivopeners_mnk.openerAbilities.SnapPunch, 
+        xivopeners_mnk.openerAbilities.ElixirField,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.TwinSnakes,        
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.PerfectBalance,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.SnapPunch
+    },
     optimal = {
         xivopeners_mnk.openerAbilities.ShoulderTackle,
         xivopeners_mnk.openerAbilities.Demolish,
@@ -77,7 +110,7 @@ xivopeners_mnk.openers = {
         xivopeners_mnk.openerAbilities.Bootshine, 
         xivopeners_mnk.openerAbilities.TrueStrike, 
         xivopeners_mnk.openerAbilities.SnapPunch, 
-      --  xivopeners_mnk.openerAbilities.ShoulderTackle, -- only removed because it can cause issues with innocence tethers
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
         xivopeners_mnk.openerAbilities.DragonKick, 
         xivopeners_mnk.openerAbilities.TwinSnakes, 
         xivopeners_mnk.openerAbilities.Demolish 
@@ -131,8 +164,8 @@ xivopeners_mnk.count = 0
 xivopeners_mnk.rear = "rear"
 xivopeners_mnk.flank = "flank"
 xivopeners_mnk.nextPos = "any"
-xivopeners_mnk.redColor = {r = .1, g = 0, b = 0, a = .75 }
-xivopeners_mnk.greenColor = {r = 0, g = .1, b = 0, a = .75 }
+xivopeners_mnk.redColor = {r = 255, g = 0, b = 0, a = .75}
+xivopeners_mnk.greenColor = {r = 0, g = .70, b = .70, a = .75}
 xivopeners_mnk.anatmanActive = false
 
 function xivopeners_mnk.getTincture()
@@ -148,6 +181,8 @@ end
 function xivopeners_mnk.getOpener()
     local opener
     if (xivopeners_mnk.openerInfo.currentOpenerIndex == 1) then
+        opener = xivopeners_mnk.openers.fiveOfive
+    elseif (xivopeners_mnk.openerInfo.currentOpenerIndex == 2) then
         opener = xivopeners_mnk.openers.optimal
     else
         opener = xivopeners_mnk.openers.sixSidedStar
