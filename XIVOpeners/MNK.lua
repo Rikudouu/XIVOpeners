@@ -35,18 +35,6 @@ xivopeners_mnk.openerAbilities = {
     CoerlFormID = 109
 }
 
-xivopeners_mnk.rearPos = {
-    xivopeners_mnk.openerAbilities.Bootshine,
-    xivopeners_mnk.openerAbilities.TrueStrike,
-    xivopeners_mnk.openerAbilities.Demolish
-}
-
-xivopeners_mnk.flankPos = {
-    xivopeners_mnk.openerAbilities.SnapPunch,
-    xivopeners_mnk.openerAbilities.TwinSnakes,
-    xivopeners_mnk.openerAbilities.DragonKick
-}
-
 xivopeners_mnk.openerInfo = {
     listOpeners = {"fiveOfive", "optimal", "six sided star"},
     currentOpenerIndex = 1
@@ -156,17 +144,33 @@ xivopeners_mnk.openers = {
 xivopeners_mnk.abilityQueue = {}
 xivopeners_mnk.lastCastFromQueue = nil -- might need this for some more complex openers with conditions
 xivopeners_mnk.openerStarted = false
-xivopeners_mnk.prepullSetup = true
 xivopeners_mnk.useTincture = false
 xivopeners_mnk.lastcastid = 0
 xivopeners_mnk.lastcastid2 = 0
-xivopeners_mnk.count = 0
-xivopeners_mnk.rear = "rear"
-xivopeners_mnk.flank = "flank"
-xivopeners_mnk.nextPos = "any"
-xivopeners_mnk.redColor = {r = 255, g = 0, b = 0, a = .75}
-xivopeners_mnk.greenColor = {r = 0, g = .70, b = .70, a = .75}
-xivopeners_mnk.anatmanActive = false
+
+xivopeners_mnk.prepullSetup = true
+
+xivopeners_mnk.redColor = {r = .1, g = 0, b = 0, a = .75}
+xivopeners_mnk.greenColor = {r = 0, g = .1, b = 0, a = .75}
+
+
+xivopeners_mnk.positionals = {
+    rear = "rear",
+    flank = "flank",
+    any = "any",
+    nextPos = "any"
+}
+
+-- rear
+xivopeners_mnk.openerAbilities.Bootshine.pos = xivopeners_mnk.positionals.rear
+xivopeners_mnk.openerAbilities.TrueStrike.pos = xivopeners_mnk.positionals.rear
+xivopeners_mnk.openerAbilities.Demolish.pos = xivopeners_mnk.positionals.rear
+
+-- flank
+xivopeners_mnk.openerAbilities.SnapPunch.pos = xivopeners_mnk.positionals.flank
+xivopeners_mnk.openerAbilities.TwinSnakes.pos = xivopeners_mnk.positionals.flank
+xivopeners_mnk.openerAbilities.DragonKick.pos = xivopeners_mnk.positionals.flank
+
 
 function xivopeners_mnk.getTincture()
     for i = 0, 3 do
@@ -334,16 +338,6 @@ function xivopeners_mnk.dequeue()
     table.remove(xivopeners_mnk.abilityQueue, 1)
 end
 
-function xivopeners_mnk.has_value (tab, val)
-    for index, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
-    end
-
-    return false
-end
-
 function xivopeners_mnk.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
@@ -365,14 +359,14 @@ function xivopeners_mnk.useNextAction(target)
             return
         end
 
-        if xivopeners_mnk.has_value(xivopeners_mnk.rearPos, xivopeners_mnk.abilityQueue[1]) then
-            xivopeners_mnk.nextPos = xivopeners_mnk.rear
-        elseif xivopeners_mnk.has_value(xivopeners_mnk.flankPos, xivopeners_mnk.abilityQueue[1]) then
-            xivopeners_mnk.nextPos = xivopeners_mnk.flank
-        else
-           -- xivopeners.log("any")
-           --  xivopeners_mnk.nextPos = "any"
-        end
+--        if (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.rear) then
+--            xivopeners_mnk.positionals.nextPos = xivopeners_mnk.positionals.rear
+--        elseif (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.flank) then
+--            xivopeners_mnk.positionals.nextPos = xivopeners_mnk.positionals.flank
+--        else
+--           -- xivopeners.log("any")
+--           --  xivopeners_mnk.nextPos = "any"
+--        end
 
         xivopeners_mnk.abilityQueue[1]:Cast(target.id)
         xivopeners_mnk.lastCastFromQueue = xivopeners_mnk.abilityQueue[1]
@@ -391,20 +385,22 @@ function xivopeners_mnk.drawPosWindow(event, tickcount)
         GUI:Begin("xivopeners_mnk_poswindow", false, flags)
 
         local childColor = xivopeners_mnk.redColor
-        if xivopeners_mnk.nextPos == xivopeners_mnk.rear and IsBehind(target) then
+        if (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.rear and IsBehind(target)) then
+            childColor = xivopeners_mnk.greenColor
+        elseif (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.flank and IsFlanking(target)) then
+            childColor = xivopeners_mnk.greenColor
+        elseif (not xivopeners_mnk.abilityQueue[1].pos) then
             childColor = xivopeners_mnk.greenColor
         end
 
-        if xivopeners_mnk.nextPos == xivopeners_mnk.flank and IsFlanking(target) then
-            childColor = xivopeners_mnk.greenColor
-        end
+        local nextPos = xivopeners_mnk.abilityQueue[1].pos ~= nil and xivopeners_mnk.abilityQueue[1].pos or "any"
 
         GUI:PushStyleColor(GUI.Col_ChildWindowBg, childColor.r, childColor.g, childColor.b, childColor.a)
         GUI:Text("Opener pos")
         GUI:Separator()
         GUI:BeginChild("##xivopeners_mnk_poswindowdisplay", 90, 35, true)
         GUI:AlignFirstTextHeightToWidgets()
-        GUI:Text(xivopeners_mnk.nextPos)
+        GUI:Text(nextPos)
         GUI:EndChild()
 
         GUI:PopStyleColor()
