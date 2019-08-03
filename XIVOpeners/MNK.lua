@@ -377,20 +377,24 @@ function xivopeners_mnk.drawPosWindow(event, tickcount)
         GUI:Begin("xivopeners_mnk_poswindow", false, flags)
 
         local childColor
-        if (HasBuff(Player.id, xivopeners_mnk.openerAbilities.TrueNorthBuffID) or HasBuff(Player.id, xivopeners_mnk.openerAbilities.RiddleOfEarthBuffID)) then
+        if (not xivopeners_mnk.abilityQueue[1]) then
             childColor = xivopeners_mnk.greenColor
-        elseif (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.rear and IsBehind(target)) then
+        elseif (HasBuff(Player.id, xivopeners_mnk.openerAbilities.TrueNorthBuffID) or HasBuff(Player.id, xivopeners_mnk.openerAbilities.RiddleOfEarthBuffID)) then -- check for positional nullifying bufffs
+            childColor = xivopeners_mnk.greenColor
+        elseif (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.rear and IsBehind(target)) then -- poositional check
             childColor = xivopeners_mnk.greenColor
         elseif (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.flank and IsFlanking(target)) then
             childColor = xivopeners_mnk.greenColor
-        elseif (not xivopeners_mnk.abilityQueue[1].pos) then
+        elseif (not xivopeners_mnk.abilityQueue[1].pos) then -- check if no positional
             childColor = xivopeners_mnk.greenColor
-        else
+        else -- at this point we are not at the right positional
             childColor = xivopeners_mnk.redColor
         end
 
         local nextPos
-        if (HasBuff(Player.id, xivopeners_mnk.openerAbilities.TrueNorthBuffID) or HasBuff(Player.id, xivopeners_mnk.openerAbilities.RiddleOfEarthBuffID) or xivopeners_mnk.abilityQueue[1].pos == nil) then
+        if (not xivopeners_mnk.abilityQueue[1]) then
+            nextPos = xivopeners_mnk.positionals.any
+        elseif (HasBuff(Player.id, xivopeners_mnk.openerAbilities.TrueNorthBuffID) or HasBuff(Player.id, xivopeners_mnk.openerAbilities.RiddleOfEarthBuffID) or xivopeners_mnk.abilityQueue[1].pos == nil) then
             nextPos = xivopeners_mnk.positionals.any
         elseif (xivopeners_mnk.abilityQueue[1].pos) then
             nextPos = xivopeners_mnk.abilityQueue[1].pos
