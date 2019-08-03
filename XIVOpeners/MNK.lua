@@ -391,6 +391,7 @@ function xivopeners_mnk.drawPosWindow(event, tickcount)
             childColor = xivopeners_mnk.redColor
         end
 
+        -- it's possible to merge this section with the childColor section, but imo it's harder to read the code that way, this one is simple and easy to understand
         local nextPos
         if (not xivopeners_mnk.abilityQueue[1]) then -- empty queue, display should be off at this point but handle it regardless
             nextPos = xivopeners_mnk.positionals.any
