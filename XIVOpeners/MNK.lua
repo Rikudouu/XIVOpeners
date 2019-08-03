@@ -32,7 +32,9 @@ xivopeners_mnk.openerAbilities = {
     MedicineBuffID = 49,
     AnatmanBuffID = 1862,
     FistsOfFireBuffID = 103,
-    CoerlFormID = 109
+    CoerlFormID = 109,
+    RiddleOfEarthBuffID = 1180,
+    TrueNorthBuffID = 1250,
 }
 
 xivopeners_mnk.openerInfo = {
@@ -158,7 +160,6 @@ xivopeners_mnk.positionals = {
     rear = "rear",
     flank = "flank",
     any = "any",
-    nextPos = "any"
 }
 
 -- rear
@@ -359,15 +360,6 @@ function xivopeners_mnk.useNextAction(target)
             return
         end
 
---        if (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.rear) then
---            xivopeners_mnk.positionals.nextPos = xivopeners_mnk.positionals.rear
---        elseif (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.flank) then
---            xivopeners_mnk.positionals.nextPos = xivopeners_mnk.positionals.flank
---        else
---           -- xivopeners.log("any")
---           --  xivopeners_mnk.nextPos = "any"
---        end
-
         xivopeners_mnk.abilityQueue[1]:Cast(target.id)
         xivopeners_mnk.lastCastFromQueue = xivopeners_mnk.abilityQueue[1]
     end
@@ -384,17 +376,27 @@ function xivopeners_mnk.drawPosWindow(event, tickcount)
         local flags = (GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoCollapse)
         GUI:Begin("xivopeners_mnk_poswindow", false, flags)
 
-        local childColor = xivopeners_mnk.redColor
-        if (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.rear and IsBehind(target)) then
+        local childColor
+        if (HasBuff(Player.id, xivopeners_mnk.openerAbilities.TrueNorthBuffID) or HasBuff(Player.id, xivopeners_mnk.openerAbilities.RiddleOfEarthBuffID)) then
+            childColor = xivopeners_mnk.greenColor
+        elseif (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.rear and IsBehind(target)) then
             childColor = xivopeners_mnk.greenColor
         elseif (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.flank and IsFlanking(target)) then
             childColor = xivopeners_mnk.greenColor
         elseif (not xivopeners_mnk.abilityQueue[1].pos) then
             childColor = xivopeners_mnk.greenColor
+        else
+            childColor = xivopeners_mnk.redColor
         end
 
-        local nextPos = xivopeners_mnk.abilityQueue[1].pos ~= nil and xivopeners_mnk.abilityQueue[1].pos or "any"
-
+        local nextPos
+        if (HasBuff(Player.id, xivopeners_mnk.openerAbilities.TrueNorthBuffID) or HasBuff(Player.id, xivopeners_mnk.openerAbilities.RiddleOfEarthBuffID) or xivopeners_mnk.abilityQueue[1].pos == nil) then
+            nextPos = xivopeners_mnk.positionals.any
+        elseif (xivopeners_mnk.abilityQueue[1].pos) then
+            nextPos = xivopeners_mnk.abilityQueue[1].pos
+        else
+            nextPos = xivopeners_mnk.positionals.any
+        end
         GUI:PushStyleColor(GUI.Col_ChildWindowBg, childColor.r, childColor.g, childColor.b, childColor.a)
         GUI:Text("Opener pos")
         GUI:Separator()
