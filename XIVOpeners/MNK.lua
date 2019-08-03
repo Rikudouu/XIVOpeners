@@ -377,7 +377,7 @@ function xivopeners_mnk.drawPosWindow(event, tickcount)
         GUI:Begin("xivopeners_mnk_poswindow", false, flags)
 
         local childColor
-        if (not xivopeners_mnk.abilityQueue[1]) then
+        if (not xivopeners_mnk.abilityQueue[1]) then -- empty queue, display should be off at this point but handle it regardless
             childColor = xivopeners_mnk.greenColor
         elseif (HasBuff(Player.id, xivopeners_mnk.openerAbilities.TrueNorthBuffID) or HasBuff(Player.id, xivopeners_mnk.openerAbilities.RiddleOfEarthBuffID)) then -- check for positional nullifying bufffs
             childColor = xivopeners_mnk.greenColor
@@ -392,7 +392,7 @@ function xivopeners_mnk.drawPosWindow(event, tickcount)
         end
 
         local nextPos
-        if (not xivopeners_mnk.abilityQueue[1]) then
+        if (not xivopeners_mnk.abilityQueue[1]) then -- empty queue, display should be off at this point but handle it regardless
             nextPos = xivopeners_mnk.positionals.any
         elseif (HasBuff(Player.id, xivopeners_mnk.openerAbilities.TrueNorthBuffID) or HasBuff(Player.id, xivopeners_mnk.openerAbilities.RiddleOfEarthBuffID) or xivopeners_mnk.abilityQueue[1].pos == nil) then
             nextPos = xivopeners_mnk.positionals.any
