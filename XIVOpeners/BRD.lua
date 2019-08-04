@@ -111,7 +111,11 @@ function xivopeners_brd.openerAvailable()
     for _, action in pairs(xivopeners_brd.getOpener()) do
         if (action == xivopeners_brd.openerAbilities.Tincture) then
             local tincture = xivopeners_brd.getTincture()
-            if (tincture and xivopeners_brd.useTincture and  tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_mch.openerAbilities.MedicineBuffID)) then
+            if (tincture and xivopeners_brd.useTincture and  tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_brd.openerAbilities.MedicineBuffID)) then
+                return false
+            end
+        elseif (action == xivopeners_brd.openerAbilities.RagingStrikes) then
+            if (action.cd >= 1.5 and not HasBuff(Player.id, xivopeners_brd.openerAbilities.RagingStrikesBuffID)) then
                 return false
             end
         elseif (action.cd >= 1.5) then
