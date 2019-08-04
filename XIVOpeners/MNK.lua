@@ -208,7 +208,7 @@ function xivopeners_mnk.openerAvailable()
     for _, action in pairs(xivopeners_mnk.getOpener()) do
         if (action == xivopeners_mnk.openerAbilities.Tincture) then
             local tincture = xivopeners_mnk.getTincture()
-            if (tincture and xivopeners_mnk.useTincture and tincture:GetAction().cd >= 1.5) then
+            if (tincture and xivopeners_mnk.useTincture and tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_mch.openerAbilities.MedicineBuffID)) then
                 return false
             end
         elseif (action.cd >= 1.5) then
@@ -255,6 +255,7 @@ function xivopeners_mnk.updateLastCast()
 end
 
 function xivopeners_mnk.drawCall(event, tickcount)
+    GUI:AlignFirstTextHeightToWidgets()
     GUI:BeginGroup()
     GUI:Text("Use Tincture")
     GUI:NextColumn()
@@ -402,6 +403,7 @@ function xivopeners_mnk.drawPosWindow(event, tickcount)
         else
             nextPos = xivopeners_mnk.positionals.any
         end
+
         GUI:PushStyleColor(GUI.Col_ChildWindowBg, childColor.r, childColor.g, childColor.b, childColor.a)
         GUI:Text("Opener pos")
         GUI:Separator()

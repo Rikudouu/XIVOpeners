@@ -202,6 +202,7 @@ function xivopeners_smn.updateLastCast()
 end
 
 function xivopeners_smn.drawCall(event, tickcount)
+    GUI:AlignFirstTextHeightToWidgets()
     GUI:BeginGroup()
     GUI:Text("Use Tincture")
     GUI:NextColumn()
@@ -209,6 +210,7 @@ function xivopeners_smn.drawCall(event, tickcount)
     GUI:EndGroup()
     GUI:NextColumn()
 
+    GUI:AlignFirstTextHeightToWidgets()
     GUI:BeginGroup()
     GUI:Text("GCD Clip after Demi (ms)")
     GUI:NextColumn()

@@ -111,7 +111,7 @@ function xivopeners_brd.openerAvailable()
     for _, action in pairs(xivopeners_brd.getOpener()) do
         if (action == xivopeners_brd.openerAbilities.Tincture) then
             local tincture = xivopeners_brd.getTincture()
-            if (tincture and xivopeners_brd.useTincture and  tincture:GetAction().cd >= 1.5) then
+            if (tincture and xivopeners_brd.useTincture and  tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_mch.openerAbilities.MedicineBuffID)) then
                 return false
             end
         elseif (action.cd >= 1.5) then
@@ -157,6 +157,7 @@ function xivopeners_brd.updateLastCast()
 end
 
 function xivopeners_brd.drawCall(event, tickcount)
+    GUI:AlignFirstTextHeightToWidgets()
     GUI:BeginGroup()
     GUI:Text("Use Tincture")
     GUI:NextColumn()
@@ -165,27 +166,32 @@ function xivopeners_brd.drawCall(event, tickcount)
     GUI:NextColumn()
 
     if (xivopeners_brd.debug) then
+        GUI:AlignFirstTextHeightToWidgets()
         GUI:Text("lastcastid")
         GUI:NextColumn()
         GUI:InputText("##xivopeners_brd_lastcastid_display", tostring(xivopeners_brd.lastcastid))
         GUI:NextColumn()
 
+        GUI:AlignFirstTextHeightToWidgets()
         GUI:Text("lastcastid2")
         GUI:NextColumn()
         GUI:InputText("##xivopeners_brd_lastcastid2_display", tostring(xivopeners_brd.lastcastid2))
         GUI:NextColumn()
 
+        GUI:AlignFirstTextHeightToWidgets()
         GUI:Text("lastcastid_o")
         GUI:NextColumn()
         GUI:InputText("##xivopeners_brd_lastcastid_original_display", tostring(Player.castinginfo.lastcastid))
         GUI:NextColumn()
 
+        GUI:AlignFirstTextHeightToWidgets()
         GUI:Text("castingid")
         GUI:NextColumn()
         GUI:InputText("##xivopeners_brd_castingid", tostring(Player.castinginfo.castingid))
         GUI:NextColumn()
 
         if (xivopeners_brd.abilityQueue[1]) then
+            GUI:AlignFirstTextHeightToWidgets()
             GUI:Text("queue[1]")
             GUI:NextColumn()
             GUI:InputText("##xivopeners_brd_queue[1]", xivopeners_brd.abilityQueue[1].name)
@@ -193,6 +199,7 @@ function xivopeners_brd.drawCall(event, tickcount)
         end
 
         if (xivopeners_brd.lastCastFromQueue) then
+            GUI:AlignFirstTextHeightToWidgets()
             GUI:Text("lastCastFromQueue")
             GUI:NextColumn()
             GUI:InputText("##xivopeners_brd_lastcastfromqueue", xivopeners_brd.lastCastFromQueue.name)

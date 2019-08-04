@@ -2,8 +2,8 @@ xivopeners = {}
 
 xivopeners.version = {
     major = 0,
-    minor = 8,
-    patch = 3,
+    minor = 9,
+    patch = 0,
 }
 
 xivopeners.GUI = {
@@ -167,8 +167,8 @@ function xivopeners.drawMainFull(event, ticks)
         if (GUI:ImageButton("##xivopeners_drawmode_collapse", ml_global_information.path .. "\\GUI\\UI_Textures\\collapse.png", 14, 14)) then
             xivopeners.GUI.drawMode = 0
         end
-        GUI:AlignFirstTextHeightToWidgets()
 
+        GUI:AlignFirstTextHeightToWidgets()
         GUI:Columns(2, "##xivopeners_cols", true)
         GUI:BeginGroup()
         GUI:Text("Advanced Mode")
@@ -182,6 +182,7 @@ function xivopeners.drawMainFull(event, ticks)
         GUI:NextColumn()
 
         if (xivopeners.advancedMode) then
+            GUI:AlignFirstTextHeightToWidgets()
             GUI:BeginGroup()
             GUI:Text("Professional Static Mode")
             GUI:NextColumn()
@@ -198,6 +199,7 @@ function xivopeners.drawMainFull(event, ticks)
 
         if (xivopeners.supportedJobs[Player.job]) then
             -- TODO: move this to a drawcall that's opener specific so they can have custom options, can also get rid of openerInfo that way
+            GUI:AlignFirstTextHeightToWidgets()
             GUI:Text("Opener")
             GUI:NextColumn()
             GUI:PushItemWidth(-1)
@@ -287,7 +289,10 @@ function xivopeners.OnUpdate(event, tickcount)
             if (FFXIV_Common_BotRunning) then
                 ml_global_information.ToggleRun() -- toggle bot to off if opener is running
             end
+
+            if (not gStartCombat and not Player.incombat) then return end -- combat check
             xivopeners.supportedJobs[Player.job].main(event, tickcount) -- call main for job
+
         elseif (xivopeners.oocEnable and not Player.incombat and not xivopeners.running) then
             xivopeners.ToggleRun()
         end
