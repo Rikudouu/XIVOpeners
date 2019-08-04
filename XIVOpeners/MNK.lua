@@ -1,7 +1,4 @@
--- mnk http://owo.sh/AgEymx7.png (normal) {added back laster}
--- https://docs.google.com/document/d/1BinBE0blUjt3z96MW5bbTA2_Pwgl9ET4UYJTaR6nMv8/edit# (optimal)
--- http://ffxivrotations.com/26pj (six sided start)
--- potential 5.05 http://ffxivrotations.com/28ch
+-- https://docs.google.com/document/d/1BinBE0blUjt3z96MW5bbTA2_Pwgl9ET4UYJTaR6nMv8/preview
 
 xivopeners_mnk = {}
 
@@ -20,6 +17,7 @@ xivopeners_mnk.openerAbilities = {
     PerfectBalance = ActionList:Get(1, 69),
     Meditation = ActionList:Get(1, 3546),
     RiddleofFire = ActionList:Get(1, 7395),
+    RiddleofEarth = ActionList:Get(1, 7394),
     ShoulderTackle = ActionList:Get(1, 71),
     SixSidedStar = ActionList:Get(1, 16476),
     SnapPunch = ActionList:Get(1, 56),
@@ -38,15 +36,44 @@ xivopeners_mnk.openerAbilities = {
 }
 
 xivopeners_mnk.openerInfo = {
-    listOpeners = {"fiveOfive", "optimal", "six sided star"},
+    listOpeners = {"optimal", "moderate"},
     currentOpenerIndex = 1
 }
 
 xivopeners_mnk.openers = {
-    fiveOfive = {
+    optimal = {
         xivopeners_mnk.openerAbilities.TrueNorth,
         xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.Anatman,        
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Tincture,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.RiddleofFire,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.Brotherhood,
+        xivopeners_mnk.openerAbilities.ForbiddenChakra,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.FistsOfWind,
+        xivopeners_mnk.openerAbilities.PerfectBalance,
         xivopeners_mnk.openerAbilities.SnapPunch,
+        xivopeners_mnk.openerAbilities.ElixirField,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.DragonKick, 
+        xivopeners_mnk.openerAbilities.ShoulderTackle
+    }, 
+    moderate = {
+        xivopeners_mnk.openerAbilities.TrueNorth,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.Demolish,
         xivopeners_mnk.openerAbilities.Anatman,
         xivopeners_mnk.openerAbilities.DragonKick,
         xivopeners_mnk.openerAbilities.Tincture,
@@ -70,76 +97,9 @@ xivopeners_mnk.openers = {
         xivopeners_mnk.openerAbilities.Demolish,
         xivopeners_mnk.openerAbilities.DragonKick,
         xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.SnapPunch
-    },
-    optimal = {
         xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.Anatman,
-        xivopeners_mnk.openerAbilities.TrueNorth,
         xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.Tincture,
-        xivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.RiddleofFire,
-        xivopeners_mnk.openerAbilities.SnapPunch,
-        xivopeners_mnk.openerAbilities.Brotherhood,
-        xivopeners_mnk.openerAbilities.ForbiddenChakra,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.ElixirField,
-        xivopeners_mnk.openerAbilities.PerfectBalance,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.FistsOfWind,
-        xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.TwinSnakes, 
-        xivopeners_mnk.openerAbilities.DragonKick, 
-        xivopeners_mnk.openerAbilities.Bootshine, 
-        xivopeners_mnk.openerAbilities.TrueStrike, 
-        xivopeners_mnk.openerAbilities.SnapPunch, 
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.DragonKick, 
-        xivopeners_mnk.openerAbilities.TwinSnakes, 
-        xivopeners_mnk.openerAbilities.Demolish 
-    },
-    -- http://ffxivrotations.com/26pj
-    sixSidedStar = {
-        xivopeners_mnk.openerAbilities.TrueNorth,
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.ElixirField,
-        xivopeners_mnk.openerAbilities.SixSidedStar,
-        xivopeners_mnk.openerAbilities.Anatman,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.SnapPunch,
-        xivopeners_mnk.openerAbilities.Tincture,
-        xivopeners_mnk.openerAbilities.SixSidedStar,
-        xivopeners_mnk.openerAbilities.RiddleofFire,
-        xivopeners_mnk.openerAbilities.Brotherhood,
-        xivopeners_mnk.openerAbilities.ForbiddenChakra,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.TrueStrike,
-        xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.SixSidedStar,
-        xivopeners_mnk.openerAbilities.ElixirField,
-        xivopeners_mnk.openerAbilities.TornadoKick,
-        xivopeners_mnk.openerAbilities.SnapPunch,
-        xivopeners_mnk.openerAbilities.PerfectBalance,
-        xivopeners_mnk.openerAbilities.SnapPunch,
-        xivopeners_mnk.openerAbilities.SnapPunch,
-        xivopeners_mnk.openerAbilities.TrueStrike,
-        xivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.FistsOfWind,
-        xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.Bootshine
+        xivopeners_mnk.openerAbilities.DragonKick
     }
 }
 
@@ -154,7 +114,6 @@ xivopeners_mnk.prepullSetup = true
 
 xivopeners_mnk.redColor = {r = .1, g = 0, b = 0, a = .75}
 xivopeners_mnk.greenColor = {r = 0, g = .1, b = 0, a = .75}
-
 
 xivopeners_mnk.positionals = {
     rear = "rear",
@@ -186,11 +145,9 @@ end
 function xivopeners_mnk.getOpener()
     local opener
     if (xivopeners_mnk.openerInfo.currentOpenerIndex == 1) then
-        opener = xivopeners_mnk.openers.fiveOfive
-    elseif (xivopeners_mnk.openerInfo.currentOpenerIndex == 2) then
         opener = xivopeners_mnk.openers.optimal
     else
-        opener = xivopeners_mnk.openers.sixSidedStar
+        opener = xivopeners_mnk.openers.moderate
     end
     return opener
 end
