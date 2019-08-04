@@ -2,8 +2,8 @@ xivopeners = {}
 
 xivopeners.version = {
     major = 0,
-    minor = 8,
-    patch = 3,
+    minor = 9,
+    patch = 0,
 }
 
 xivopeners.GUI = {
@@ -83,6 +83,15 @@ xivopeners.supportedJobs = {
         openerAvailable = xivopeners_sam.openerAvailable,
         checkOpenerIds = xivopeners_sam.checkOpenerIds,
         drawCall = xivopeners_sam.drawCall,
+    },
+
+    [xivopeners.jobs.Scholar]  = {
+        main = xivopeners_sch.main,
+        openerInfo = xivopeners_sch.openerInfo,
+        queueOpener = xivopeners_sch.queueOpener,
+        openerAvailable = xivopeners_sch.openerAvailable,
+        checkOpenerIds = xivopeners_sch.checkOpenerIds,
+        drawCall = xivopeners_sch.drawCall,
     },
 }
 xivopeners.oocEnable = false
