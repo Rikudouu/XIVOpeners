@@ -298,8 +298,8 @@ function xivopeners.OnUpdate(event, tickcount)
             if (FFXIV_Common_BotRunning) then
                 ml_global_information.ToggleRun() -- toggle bot to off if opener is running
             end
-
-            if (not gStartCombat and not Player.incombat) then return end -- combat check
+            local target = Player:GetTarget()
+            if (not gStartCombat and target and not target.incombat) then return end -- combat check
             xivopeners.supportedJobs[Player.job].main(event, tickcount) -- call main for job
 
         elseif (xivopeners.oocEnable and not Player.incombat and not xivopeners.running) then
