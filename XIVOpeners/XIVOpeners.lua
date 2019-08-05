@@ -2,8 +2,8 @@ xivopeners = {}
 
 xivopeners.version = {
     major = 0,
-    minor = 9,
-    patch = 2,
+    minor = 10,
+    patch = 0,
 }
 
 xivopeners.GUI = {

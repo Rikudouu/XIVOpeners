@@ -189,19 +189,16 @@ function xivopeners_nin.queueOpener()
 end
 
 function xivopeners_nin.updateLastCast()
-    --    xivopeners.log(tostring(xivopeners_nin.lastcastid) .. ", " .. tostring(xivopeners_nin.lastcastid2) .. ", " .. tostring(Player.castinginfo.lastcastid))
+--    xivopeners.log(tostring(xivopeners_nin.lastcastid) .. ", " .. tostring(xivopeners_nin.lastcastid2) .. ", " .. tostring(Player.castinginfo.lastcastid) .. "," .. tostring(Player.castinginfo.castingid))
     if (xivopeners_nin.lastCastFromQueue) then
         if (xivopeners_nin.lastcastid == -1) then
             -- compare the real castid and see if it changed, if it did, update from -1
-            if (xivopeners_nin.lastcastid2 ~= Player.castinginfo.castingid and xivopeners_nin.lastCastFromQueue.cd > 0) then
+            if (xivopeners_nin.lastcastid2 ~= Player.castinginfo.castingid) then
                 xivopeners.log("cast changed")
                 xivopeners_nin.lastcastid = Player.castinginfo.castingid
                 xivopeners_nin.lastcastid2 = Player.castinginfo.castingid
             end
-        elseif (IsMudraSkill(xivopeners_nin.lastCastFromQueue.id)) then
-            xivopeners_nin.lastcastid = Player.castinginfo.lastcastid
-            xivopeners_nin.lastcastid2 = Player.castinginfo.lastcastid
-        elseif (xivopeners_nin.lastcastid ~= Player.castinginfo.castingid and xivopeners_nin.lastCastFromQueue.cd > 0) then
+        elseif (xivopeners_nin.lastcastid ~= Player.castinginfo.castingid) then
             xivopeners_nin.lastcastid = Player.castinginfo.castingid
             xivopeners_nin.lastcastid2 = Player.castinginfo.castingid
         end
@@ -286,6 +283,18 @@ function xivopeners_nin.useNextAction(target)
             -- don't want to continue past this point or we risk breaking shit
             return
         end
+
+        if (IsMudraSkill(xivopeners_nin.abilityQueue[1].id)) then
+            if (Player.castinginfo.timesincecast >= 150) then
+                xivopeners_nin.abilityQueue[1]:Cast(target.id)
+                xivopeners_nin.lastCastFromQueue = xivopeners_nin.abilityQueue[1]
+            else
+                xivopeners.log("Waiting for mudra delay")
+            end
+            return
+        end
+
+
         -- idk how to make it not spam console
 --        xivopeners.log("Casting " .. xivopeners_nin.abilityQueue[1].name)
         xivopeners_nin.abilityQueue[1]:Cast(target.id)
