@@ -38,11 +38,6 @@ xivopeners_nin.openerInfo = {
 
 xivopeners_nin.openers = {
     doton = {
-        xivopeners_nin.openerAbilities.Jin,
-        xivopeners_nin.openerAbilities.Chi,
-        xivopeners_nin.openerAbilities.Ten,
-        xivopeners_nin.openerAbilities.Huton,
-        xivopeners_nin.openerAbilities.Hide,
         xivopeners_nin.openerAbilities.Ten,
         xivopeners_nin.openerAbilities.Chi,
         xivopeners_nin.openerAbilities.Jin,
@@ -81,11 +76,6 @@ xivopeners_nin.openers = {
     },
 
     raiton = {
-        xivopeners_nin.openerAbilities.Jin,
-        xivopeners_nin.openerAbilities.Chi,
-        xivopeners_nin.openerAbilities.Ten,
-        xivopeners_nin.openerAbilities.Huton,
-        xivopeners_nin.openerAbilities.Hide,
         xivopeners_nin.openerAbilities.Tincture,
         xivopeners_nin.openerAbilities.Ten,
         xivopeners_nin.openerAbilities.Chi,
@@ -123,6 +113,14 @@ xivopeners_nin.openers = {
         xivopeners_nin.openerAbilities.Bhavacakra,
         xivopeners_nin.openerAbilities.SpinningEdge,
         xivopeners_nin.openerAbilities.ShadowFang,
+    },
+
+    prepull = {
+        xivopeners_nin.openerAbilities.Jin,
+        xivopeners_nin.openerAbilities.Chi,
+        xivopeners_nin.openerAbilities.Ten,
+        xivopeners_nin.openerAbilities.Huton,
+        xivopeners_nin.openerAbilities.Hide,
     }
 }
 
@@ -132,6 +130,8 @@ xivopeners_nin.openerStarted = false
 xivopeners_nin.useTincture = false
 xivopeners_nin.lastcastid = 0
 xivopeners_nin.lastcastid2 = 0
+
+xivopeners_nin.prepullSetup = false
 
 function xivopeners_nin.getTincture()
     for i = 0, 3 do
@@ -225,13 +225,38 @@ end
 
 function xivopeners_nin.main(event, tickcount)
     if (Player.level >= xivopeners_nin.supportedLevel) then
-        local target = Player:GetTarget()
+        if (xivopeners.running and not xivopeners_nin.openerStarted and xivopeners_nin.prepullSetup) then
+            if (Player.gauge[2] < 30000) then
+                xivopeners_nin.abilityQueue = {}
+                for _, action in pairs(xivopeners_nin.openers.prepull) do
+                    xivopeners_nin.enqueue(action)
+                end
+                xivopeners.log("Starting prepull huton")
+                xivopeners_nin.openerStarted = true
+                xivopeners_nin.useNextAction(Player)
+            else
+                xivopeners_nin.prepullSetup = false
+            end
+        end
 
-        if (not target) then return end
+        local target = Player:GetTarget() or Player
+
+        if (not Player:GetTarget() and not xivopeners_nin.prepullSetup) then
+            xivopeners_nin.prepullSetup = true
+            return
+        end
 
         if (not xivopeners_nin.openerAvailable() and not xivopeners_nin.openerStarted) then return end -- don't start opener if it's not available, if it's already started then yolo
 
         if (xivopeners_nin.openerStarted and next(xivopeners_nin.abilityQueue) == nil) then
+            -- check for prepull
+            if (xivopeners_nin.prepullSetup) then
+                xivopeners.log("Casted prepull huton")
+                xivopeners_nin.openerStarted = false
+                xivopeners_nin.prepullSetup = false
+                xivopeners_nin.queueOpener()
+                return
+            end
             -- opener is finished, pass control to ACR
             xivopeners.log("Finished openers, handing control to ACR")
             xivopeners_nin.openerStarted = false
@@ -273,7 +298,7 @@ end
 function xivopeners_nin.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
-    if (target and target.attackable and xivopeners_nin.abilityQueue[1]) then
+    if (xivopeners_nin.abilityQueue[1]) then
         -- tincture check
         if (xivopeners_nin.abilityQueue[1] == xivopeners_nin.openerAbilities.Tincture) then
             local tincture = xivopeners_nin.getTincture()
