@@ -85,13 +85,13 @@ xivopeners.supportedJobs = {
         drawCall = xivopeners_sam.drawCall,
     },
 
-    [xivopeners.jobs.Scholar]  = {
-        main = xivopeners_sch.main,
-        openerInfo = xivopeners_sch.openerInfo,
-        queueOpener = xivopeners_sch.queueOpener,
-        openerAvailable = xivopeners_sch.openerAvailable,
-        checkOpenerIds = xivopeners_sch.checkOpenerIds,
-        drawCall = xivopeners_sch.drawCall,
+    [xivopeners.jobs.Ninja]  = {
+        main = xivopeners_nin.main,
+        openerInfo = xivopeners_nin.openerInfo,
+        queueOpener = xivopeners_nin.queueOpener,
+        openerAvailable = xivopeners_nin.openerAvailable,
+        checkOpenerIds = xivopeners_nin.checkOpenerIds,
+        drawCall = xivopeners_nin.drawCall,
     },
 }
 xivopeners.oocEnable = false
