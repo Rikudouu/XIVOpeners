@@ -20,7 +20,7 @@ xivopeners_brd.openerAbilities = {
     StraightShotReadyBuffID = 122,
     RagingStrikesBuffID = 125,
     BarrageBuffID = 128,
-    Tincture = {name = "Tincture", id = 27787},
+    Tincture = {name = "Tincture", ids = {27996, 27787}},
     MedicineBuffID = 49,
 }
 
@@ -84,8 +84,10 @@ xivopeners_brd.lastcastid2 = 0
 
 function xivopeners_brd.getTincture()
     for i = 0, 3 do
-        local tincture = Inventory:Get(i):Get(xivopeners_brd.openerAbilities.Tincture.id)
-        if (tincture) then return tincture end
+        for _, id in pairs(xivopeners_brd.openerAbilities.Tincture.ids) do
+            local tincture = Inventory:Get(i):Get(id)
+            if (tincture) then return tincture end
+        end
     end
     return nil
 end

@@ -21,7 +21,7 @@ xivopeners_sam.openerAbilities = {
     Senei = ActionList:Get(1, 16481),
     Ikishoten = ActionList:Get(1, 16482),
     KaeshiSetsugekka = ActionList:Get(1, 16486),
-    Tincture = {name = "Tincture", id = 27786},
+    Tincture = {name = "Tincture", ids = {27995, 27786}},
     MedicineBuffID = 49
 }
 
@@ -89,8 +89,10 @@ xivopeners_sam.flank = "flank"
 
 function xivopeners_sam.getTincture()
     for i = 0, 3 do
-        local tincture = Inventory:Get(i):Get(xivopeners_sam.openerAbilities.Tincture.id)
-        if (tincture) then return tincture end
+        for _, id in pairs(xivopeners_sam.openerAbilities.Tincture.ids) do
+            local tincture = Inventory:Get(i):Get(id)
+            if (tincture) then return tincture end
+        end
     end
     return nil
 end

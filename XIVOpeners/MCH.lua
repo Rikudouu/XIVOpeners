@@ -19,7 +19,7 @@ xivopeners_mch.openerAbilities = {
     Reassemble = ActionList:Get(1, 2876),
     AirAnchor = ActionList:Get(1, 16500),
     CleanShot = ActionList:Get(1, 7413),
-    Tincture = {name = "Tincture", id = 27787},
+    Tincture = {name = "Tincture", ids = {27996, 27787}},
     MedicineBuffID = 49,
 }
 
@@ -168,8 +168,10 @@ xivopeners_mch.lastcastid2 = 0
 
 function xivopeners_mch.getTincture()
     for i = 0, 3 do
-        local tincture = Inventory:Get(i):Get(xivopeners_mch.openerAbilities.Tincture.id)
-        if (tincture) then return tincture end
+        for _, id in pairs(xivopeners_mch.openerAbilities.Tincture.ids) do
+            local tincture = Inventory:Get(i):Get(id)
+            if (tincture) then return tincture end
+        end
     end
     return nil
 end

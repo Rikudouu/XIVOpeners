@@ -26,7 +26,7 @@ xivopeners_mnk.openerAbilities = {
     TornadoKick = ActionList:Get(1, 3543),
     TwinSnakes = ActionList:Get(1, 61),
     Sprint = ActionList:Get(1, 3),
-    Tincture = {name = "Tincture", id = 27786},
+    Tincture = {name = "Tincture", ids = {27995, 27786}},
     MedicineBuffID = 49,
     AnatmanBuffID = 1862,
     FistsOfFireBuffID = 103,
@@ -134,9 +134,9 @@ xivopeners_mnk.openerAbilities.DragonKick.pos = xivopeners_mnk.positionals.flank
 
 function xivopeners_mnk.getTincture()
     for i = 0, 3 do
-        local tincture = Inventory:Get(i):Get(xivopeners_mnk.openerAbilities.Tincture.id)
-        if (tincture) then
-            return tincture
+        for _, id in pairs(xivopeners_mnk.openerAbilities.Tincture.ids) do
+            local tincture = Inventory:Get(i):Get(id)
+            if (tincture) then return tincture end
         end
     end
     return nil

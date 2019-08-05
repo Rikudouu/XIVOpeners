@@ -27,7 +27,7 @@ xivopeners_nin.openerAbilities = {
     Bunshin = ActionList:Get(1, 16493),
     Hide = ActionList:Get(1, 2245),
     Meisui = ActionList:Get(1, 16489),
-    Tincture = {name = "Tincture", id = 27786},
+    Tincture = {name = "Tincture", ids = {27996, 27787}},
     MedicineBuffID = 49,
 }
 
@@ -135,8 +135,10 @@ xivopeners_nin.lastcastid2 = 0
 
 function xivopeners_nin.getTincture()
     for i = 0, 3 do
-        local tincture = Inventory:Get(i):Get(xivopeners_nin.openerAbilities.Tincture.id)
-        if (tincture) then return tincture end
+        for _, id in pairs(xivopeners_nin.openerAbilities.Tincture.ids) do
+            local tincture = Inventory:Get(i):Get(id)
+            if (tincture) then return tincture end
+        end
     end
     return nil
 end

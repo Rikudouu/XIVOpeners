@@ -76,6 +76,15 @@ xivopeners.supportedJobs = {
         drawCall = xivopeners_smn.drawCall,
     },
 
+    [xivopeners.jobs.Scholar]  = {
+        main = xivopeners_sch.main,
+        openerInfo = xivopeners_sch.openerInfo,
+        queueOpener = xivopeners_sch.queueOpener,
+        openerAvailable = xivopeners_sch.openerAvailable,
+        checkOpenerIds = xivopeners_sch.checkOpenerIds,
+        drawCall = xivopeners_sch.drawCall,
+    },
+
     [xivopeners.jobs.Samurai]  = {
         main = xivopeners_sam.main,
         openerInfo = xivopeners_sam.openerInfo,

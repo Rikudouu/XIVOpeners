@@ -20,7 +20,7 @@ xivopeners_smn.openerAbilities = {
     SummonIfrit = ActionList:Get(1, 180),
     Ruin4BuffID = 1212,
     IfritPetID = 1402,
-    Tincture = {name = "Tincture", id = 27789}, -- int
+    Tincture = {name = "Tincture", ids = {27998, 27789}}, -- int
     MedicineBuffID = 49,
 }
 
@@ -119,8 +119,10 @@ xivopeners_smn.lastcastid2 = 0
 
 function xivopeners_smn.getTincture()
     for i = 0, 3 do
-        local tincture = Inventory:Get(i):Get(xivopeners_smn.openerAbilities.Tincture.id)
-        if (tincture) then return tincture end
+        for _, id in pairs(xivopeners_smn.openerAbilities.Tincture.ids) do
+            local tincture = Inventory:Get(i):Get(id)
+            if (tincture) then return tincture end
+        end
     end
     return nil
 end
