@@ -36,7 +36,7 @@ xivopeners_mnk.openerAbilities = {
 }
 
 xivopeners_mnk.openerInfo = {
-    listOpeners = {"optimal", "moderate"},
+    listOpeners = {"optimal", "standard", "moderate"},
     currentOpenerIndex = 1
 }
 
@@ -69,7 +69,39 @@ xivopeners_mnk.openers = {
         xivopeners_mnk.openerAbilities.Demolish,
         xivopeners_mnk.openerAbilities.DragonKick, 
         xivopeners_mnk.openerAbilities.ShoulderTackle
-    }, 
+    },
+    standard = {
+        xivopeners_mnk.openerAbilities.TrueNorth,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.Anatman,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Tincture,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.RiddleofFire,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.Brotherhood,
+        xivopeners_mnk.openerAbilities.ForbiddenChakra,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.ElixirField,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.FistsOfWind,
+        xivopeners_mnk.openerAbilities.SnapPunch,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.PerfectBalance,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.SnapPunch,
+        xivopeners_mnk.openerAbilities.DragonKick
+    },
     moderate = {
         xivopeners_mnk.openerAbilities.TrueNorth,
         xivopeners_mnk.openerAbilities.ShoulderTackle,
@@ -80,26 +112,24 @@ xivopeners_mnk.openers = {
         xivopeners_mnk.openerAbilities.TwinSnakes,
         xivopeners_mnk.openerAbilities.RiddleofFire,
         xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.Brotherhood,
         xivopeners_mnk.openerAbilities.ForbiddenChakra,
         xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.Brotherhood,
-        xivopeners_mnk.openerAbilities.TrueStrike,
         xivopeners_mnk.openerAbilities.FistsOfWind,
-        xivopeners_mnk.openerAbilities.SnapPunch, 
+        xivopeners_mnk.openerAbilities.PerfectBalance,
+        xivopeners_mnk.openerAbilities.SnapPunch,
         xivopeners_mnk.openerAbilities.ElixirField,
         xivopeners_mnk.openerAbilities.DragonKick,
         xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.TwinSnakes,        
         xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.PerfectBalance,
         xivopeners_mnk.openerAbilities.DragonKick,
         xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
         xivopeners_mnk.openerAbilities.Demolish,
         xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.DragonKick
+        xivopeners_mnk.openerAbilities.ShoulderTackle
     }
 }
 
@@ -146,6 +176,8 @@ function xivopeners_mnk.getOpener()
     local opener
     if (xivopeners_mnk.openerInfo.currentOpenerIndex == 1) then
         opener = xivopeners_mnk.openers.optimal
+    elseif (xivopeners_mnk.openerInfo.currentOpenerIndex == 2) then
+        opener = xivopeners_mnk.openers.standard
     else
         opener = xivopeners_mnk.openers.moderate
     end
@@ -232,7 +264,13 @@ function xivopeners_mnk.main(event, tickcount)
             end
             if (not HasBuff(Player.id, xivopeners_mnk.openerAbilities.CoerlFormID)) then
                 xivopeners_mnk.openerAbilities.FormShift:Cast()
+            else
+                -- in prepull turn on riddle of earth (savage and ex fights typically have an aoe in the first 20 seconds)
+                -- myself and other monk's streams/youtube do not set this until after Coerl form has been established
+                -- aka should be the last thing cast
+                xivopeners_mnk.openerAbilities.RiddleofEarth:Cast()
             end
+
         end
 
         local target = Player:GetTarget()
