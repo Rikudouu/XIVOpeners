@@ -67,7 +67,7 @@ xivopeners.supportedJobs = {
         drawCall = xivopeners_mnk.drawCall,
     },
 
-    [xivopeners.jobs.Summoner]  = {
+    [xivopeners.jobs.Summoner] = {
         main = xivopeners_smn.main,
         openerInfo = xivopeners_smn.openerInfo,
         queueOpener = xivopeners_smn.queueOpener,
@@ -76,7 +76,7 @@ xivopeners.supportedJobs = {
         drawCall = xivopeners_smn.drawCall,
     },
 
-    [xivopeners.jobs.Scholar]  = {
+    [xivopeners.jobs.Scholar] = {
         main = xivopeners_sch.main,
         openerInfo = xivopeners_sch.openerInfo,
         queueOpener = xivopeners_sch.queueOpener,
@@ -85,7 +85,7 @@ xivopeners.supportedJobs = {
         drawCall = xivopeners_sch.drawCall,
     },
 
-    [xivopeners.jobs.Samurai]  = {
+    [xivopeners.jobs.Samurai] = {
         main = xivopeners_sam.main,
         openerInfo = xivopeners_sam.openerInfo,
         queueOpener = xivopeners_sam.queueOpener,
@@ -94,13 +94,22 @@ xivopeners.supportedJobs = {
         drawCall = xivopeners_sam.drawCall,
     },
 
-    [xivopeners.jobs.Ninja]  = {
+    [xivopeners.jobs.Ninja] = {
         main = xivopeners_nin.main,
         openerInfo = xivopeners_nin.openerInfo,
         queueOpener = xivopeners_nin.queueOpener,
         openerAvailable = xivopeners_nin.openerAvailable,
         checkOpenerIds = xivopeners_nin.checkOpenerIds,
         drawCall = xivopeners_nin.drawCall,
+    },
+
+    [xivopeners.jobs.BlackMage] = {
+        main = xivopeners_blm.main,
+        openerInfo = xivopeners_blm.openerInfo,
+        queueOpener = xivopeners_blm.queueOpener,
+        openerAvailable = xivopeners_blm.openerAvailable,
+        checkOpenerIds = xivopeners_blm.checkOpenerIds,
+        drawCall = xivopeners_blm.drawCall,
     },
 }
 xivopeners.oocEnable = false
