@@ -1,6 +1,6 @@
 xivopeners = {}
 
-xivopeners.version = semver(0,10,2,"beta")
+xivopeners.version = semver(1,0,0)
 
 xivopeners.GUI = {
     open = false,
@@ -34,7 +34,22 @@ xivopeners.jobs = {
     Dancer = 38
 }
 
--- only supports mch and brd for now
+function xivopeners.log(string)
+    d("[XIVOpeners] " .. string)
+end
+
+-- load all the jobs
+if (FolderExists(ml_global_information.path .. "\\LuaMods\\XIVOpeners\\Jobs")) then
+    local fileList = FolderList(ml_global_information.path .. "\\LuaMods\\XIVOpeners\\Jobs", [[(.*).lua$]])
+    if (table.valid(fileList)) then
+        for _, v in pairs(fileList) do
+            xivopeners.log("Loading " .. v)
+            local f = loadfile(ml_global_information.path .. "\\LuaMods\\XIVOpeners\\Jobs\\" .. v)
+            f()
+        end
+    end
+end
+
 xivopeners.supportedJobs = {
     [xivopeners.jobs.Machinist] = {
         main = xivopeners_mch.main,
@@ -111,9 +126,6 @@ xivopeners.supportedJobs = {
 xivopeners.oocEnable = false
 xivopeners.advancedMode = false
 
-function xivopeners.log(string)
-    d("[XIVOpeners] " .. string)
-end
 
 function xivopeners.ToggleRun()
     xivopeners.running = not xivopeners.running
