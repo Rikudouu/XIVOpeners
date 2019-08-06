@@ -1,10 +1,6 @@
 xivopeners = {}
 
-xivopeners.version = {
-    major = 0,
-    minor = 10,
-    patch = 1,
-}
+xivopeners.version = semver(0,10,2,"beta")
 
 xivopeners.GUI = {
     open = false,
@@ -115,14 +111,6 @@ xivopeners.supportedJobs = {
 xivopeners.oocEnable = false
 xivopeners.advancedMode = false
 
-function xivopeners.version:getNumber()
-    return self.major + self.minor * 10^(-1) + self.patch * 10^(-2)
-end
-
-function xivopeners.version:getString()
-    return tostring(self.major) .. "." .. tostring(self.minor) .. "." .. tostring(self.patch)
-end
-
 function xivopeners.log(string)
     d("[XIVOpeners] " .. string)
 end
@@ -136,14 +124,7 @@ function xivopeners.ToggleRun()
 end
 
 function xivopeners.Init()
-    -- just some shit that could be useful in the future
-    setmetatable(xivopeners.version, {
-        __eq = function(a, b) return a:getNumber() == b:getNumber() end, -- faster than converting a string
-        __lt = function(a, b) return a:getNumber() < b:getNumber() end,
-        __le = function(a, b) return a:getNumber() <= b:getNumber() end
-    })
-
-    xivopeners.log("Initializing XIVOpeners v" .. xivopeners.version:getString())
+    xivopeners.log("Initializing XIVOpeners v" .. tostring(xivopeners.version))
     if (xivopeners.supportedJobs[Player.job] ~= nil) then
         xivopeners.supportedJobs[Player.job].checkOpenerIds()
         xivopeners.supportedJobs[Player.job].queueOpener()
@@ -167,7 +148,7 @@ end
 
 function xivopeners.drawMainFull(event, ticks)
     GUI:SetNextWindowSize(400, 150, GUI.SetCond_FirstUseEver)
-    xivopeners.GUI.visible, xivopeners.GUI.open = GUI:Begin("XIVOpeners v" .. xivopeners.version:getString(), xivopeners.GUI.open)
+    xivopeners.GUI.visible, xivopeners.GUI.open = GUI:Begin("XIVOpeners v" .. tostring(xivopeners.version), xivopeners.GUI.open)
     if (xivopeners.GUI.visible) then
         local x, y = GUI:GetWindowPos()
         local width, height = GUI:GetWindowSize()

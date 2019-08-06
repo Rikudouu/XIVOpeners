@@ -4,15 +4,16 @@ This is a WIP addon that will do your opener and handle control back to the main
 **Currently, it is in early alpha, and it can stop working mid opener and ruin your parse.** I have been using it throughout Eden 1-4 savage, and have had absolutely zero issues with it stalling. If it's stalling for you, it's highly likely that it's not the addon, and other foreign forces are the cause.
 
 ## Status
-|     **Job**     |   **Status**  |
-|:---------------:|:-------------:|
-|       BRD       |     Fully Working     |
-|       MCH       |     Fully Working     |
-|       MNK       |     Fully Working     |
-|       SMN       |     Fully Working     |
-|       SAM       |     Fully Working     |
-|       SCH       |     Fully Working     |
-|       NIN       |     Alpha     |
+|     **Job**     |    **Status**   |
+|:---------------:|:---------------:|
+|       BRD       |  Fully Working  |
+|       MCH       |  Fully Working  |
+|       MNK       |  Fully Working  |
+|       SMN       |  Fully Working  |
+|       SAM       |  Fully Working  |
+|       SCH       |  Fully Working  |
+|       NIN       |      Alpha      |
+|       BLM       | Not Implemented |
 | Everything Else | Not Implemented |
 
 **Alpha**: Implemented and tested against a dummy, but not in an actual raid environment
