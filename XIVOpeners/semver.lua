@@ -1,4 +1,4 @@
-local semver = {
+semver = {
     _VERSION     = '1.2.1',
     _DESCRIPTION = 'semver for Lua',
     _URL         = 'https://github.com/kikito/semver.lua',
