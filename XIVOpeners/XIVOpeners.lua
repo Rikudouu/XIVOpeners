@@ -1,6 +1,6 @@
 xivopeners = {}
 
-xivopeners.version = semver(1,0,0)
+xivopeners.version = semver(1,0,0,"alpha")
 
 xivopeners.GUI = {
     open = false,
@@ -37,6 +37,10 @@ xivopeners.jobs = {
 function xivopeners.log(string)
     d("[XIVOpeners] " .. string)
 end
+
+-- load autoupdate script
+loadfile(ml_global_information.path .. "\\LuaMods\\XIVOpeners\\AutoUpdate.lua")()
+xivopeners_AutoUpdate.checkUpdate()
 
 -- load all the jobs
 if (FolderExists(ml_global_information.path .. "\\LuaMods\\XIVOpeners\\Jobs")) then
