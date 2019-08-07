@@ -127,7 +127,7 @@ xivopeners.supportedJobs = {
         drawCall = xivopeners_blm.drawCall,
     },
 
-    [xivopeners.jobs.Dragoon] = {
+    [4] = {
         main = xivopeners_drg.main,
         openerInfo = xivopeners_drg.openerInfo,
         queueOpener = xivopeners_drg.queueOpener,
