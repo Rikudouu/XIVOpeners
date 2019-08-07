@@ -157,6 +157,17 @@ xivopeners.supportedJobs = {
 xivopeners.oocEnable = false
 xivopeners.advancedMode = false
 
+function xivopeners.version:getNumber()
+    return self.major + self.minor * 10^(-1) + self.patch * 10^(-2)
+end
+
+function xivopeners.version:getString()
+    return tostring(self.major) .. "." .. tostring(self.minor) .. "." .. tostring(self.patch)
+end
+
+function xivopeners.log(string)
+    d("[XIVOpeners] " .. string)
+end
 
 function xivopeners.ToggleRun()
     xivopeners.running = not xivopeners.running
