@@ -12,7 +12,7 @@ This is a WIP addon that will do your opener and handle control back to the main
 |       SMN       |     Fully Working     |
 |       SAM       |     Fully Working     |
 |       SCH       |     Fully Working     |
-|       NIN       |     Alpha     |
+|       NIN       |     Fully Working     |
 |       DRG       |     Alpha     |
 |       PLD       |     Alpha     |
 | Everything Else | Not Implemented |
