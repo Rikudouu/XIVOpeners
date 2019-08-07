@@ -18,6 +18,7 @@ xivopeners_smn.openerAbilities = {
     Ruin4 = ActionList:Get(1, 7426),
     EnkindleBahamut = ActionList:Get(1, 7429),
     SummonIfrit = ActionList:Get(1, 180),
+    Swiftcast = ActionList:Get(1, 7561),
     Ruin4BuffID = 1212,
     IfritPetID = 1402,
     Tincture = {name = "Tincture", ids = {27998, 27789}}, -- int
@@ -25,31 +26,30 @@ xivopeners_smn.openerAbilities = {
 }
 
 xivopeners_smn.openerInfo = {
-    listOpeners = {"Tokyo Drift", "Easy Bahamut"},
+    listOpeners = {"1.55 ED Miyabi", "4.05 ED Miyabi Modified", "Easy Bahamut"},
     currentOpenerIndex = 1,
 }
 
 xivopeners_smn.openers = {
-    tokyoDrift = {
-        xivopeners_smn.openerAbilities.SummonIfrit,
+    edMiyabiOriginal = {
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Tridisaster,
-        xivopeners_smn.openerAbilities.Ruin2,
+        xivopeners_smn.openerAbilities.Ruin2, -- supposed to be clipped by 0.5s, why?
         xivopeners_smn.openerAbilities.EnergyDrain,
         xivopeners_smn.openerAbilities.DreadwyrmTrance,
         xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.EgiAssault2,
+        xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Tincture,
         xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.EgiAssault,
         xivopeners_smn.openerAbilities.Aetherpact,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.EgiAssault2,
-        xivopeners_smn.openerAbilities.EgiAssault,
-        xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Enkindle,
-        xivopeners_smn.openerAbilities.Fester,
         xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.EgiAssault,
         xivopeners_smn.openerAbilities.EgiAssault2,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Fester,
         xivopeners_smn.openerAbilities.Tridisaster,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Deathflare,
@@ -65,6 +65,45 @@ xivopeners_smn.openers = {
         xivopeners_smn.openerAbilities.EnkindleBahamut,
         xivopeners_smn.openerAbilities.EnergyDrain,
         xivopeners_smn.openerAbilities.Ruin4,
+        xivopeners_smn.openerAbilities.Fester,
+        xivopeners_smn.openerAbilities.Ruin4
+    },
+
+    edMiyabiModified = {
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Tridisaster,
+        xivopeners_smn.openerAbilities.Ruin2,
+        xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.DreadwyrmTrance,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.EnergyDrain,
+        xivopeners_smn.openerAbilities.EgiAssault2,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.Aetherpact,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Tincture,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.EgiAssault2,
+        xivopeners_smn.openerAbilities.Enkindle,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Fester,
+        xivopeners_smn.openerAbilities.Tridisaster,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Deathflare,
+        xivopeners_smn.openerAbilities.SummonBahamut,
+        xivopeners_smn.openerAbilities.Ruin4,
+        xivopeners_smn.openerAbilities.EnkindleBahamut,
+        xivopeners_smn.openerAbilities.Fester,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Ruin4,
+        xivopeners_smn.openerAbilities.EnkindleBahamut,
+        xivopeners_smn.openerAbilities.Swiftcast,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.EnergyDrain,
         xivopeners_smn.openerAbilities.Fester,
         xivopeners_smn.openerAbilities.Ruin4,
     },
@@ -113,7 +152,7 @@ xivopeners_smn.abilityQueue = {}
 xivopeners_smn.lastCastFromQueue = nil -- might need this for some more complex openers with conditions
 xivopeners_smn.openerStarted = false
 xivopeners_smn.useTincture = false
-xivopeners_smn.demiWaitTime = 300
+xivopeners_smn.demiWaitTime = 500 -- balance recommends 0.5s
 xivopeners_smn.lastcastid = 0
 xivopeners_smn.lastcastid2 = 0
 
@@ -130,8 +169,10 @@ end
 
 function xivopeners_smn.getOpener()
     if (xivopeners_smn.openerInfo.currentOpenerIndex == 1) then
-        return xivopeners_smn.openers.tokyoDrift
+        return xivopeners_smn.openers.edMiyabiOriginal
     elseif (xivopeners_smn.openerInfo.currentOpenerIndex == 2) then
+        return xivopeners_smn.openers.edMiyabiModified
+    elseif (xivopeners_smn.openerInfo.currentOpenerIndex == 3) then
         return xivopeners_smn.openers.easyBahamut
     else
         return {}
