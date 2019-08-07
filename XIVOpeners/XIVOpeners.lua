@@ -127,13 +127,22 @@ xivopeners.supportedJobs = {
         drawCall = xivopeners_blm.drawCall,
     },
 
-    [4] = {
+    [xivopeners.jobs.Dragoon] = {
         main = xivopeners_drg.main,
         openerInfo = xivopeners_drg.openerInfo,
         queueOpener = xivopeners_drg.queueOpener,
         openerAvailable = xivopeners_drg.openerAvailable,
         checkOpenerIds = xivopeners_drg.checkOpenerIds,
         drawCall = xivopeners_drg.drawCall,
+    },
+
+    [xivopeners.jobs.Paladin] = {
+        main = xivopeners_pld.main,
+        openerInfo = xivopeners_pld.openerInfo,
+        queueOpener = xivopeners_pld.queueOpener,
+        openerAvailable = xivopeners_pld.openerAvailable,
+        checkOpenerIds = xivopeners_pld.checkOpenerIds,
+        drawCall = xivopeners_pld.drawCall,
     },
 }
 xivopeners.oocEnable = false
