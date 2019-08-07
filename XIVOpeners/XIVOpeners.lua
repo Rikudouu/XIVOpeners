@@ -118,7 +118,7 @@ xivopeners.supportedJobs = {
         drawCall = xivopeners_nin.drawCall,
     },
 
-    [xivopeners.jobs.BlackMage] = {
+    [7] = {
         main = xivopeners_blm.main,
         openerInfo = xivopeners_blm.openerInfo,
         queueOpener = xivopeners_blm.queueOpener,
@@ -127,7 +127,7 @@ xivopeners.supportedJobs = {
         drawCall = xivopeners_blm.drawCall,
     },
 
-    [xivopeners.jobs.Dragoon] = {
+    [4] = {
         main = xivopeners_drg.main,
         openerInfo = xivopeners_drg.openerInfo,
         queueOpener = xivopeners_drg.queueOpener,
