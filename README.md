@@ -14,7 +14,7 @@ This is a WIP addon that will do your opener and handle control back to the main
 |       SCH       |     Fully Working     |
 |       NIN       |     Alpha     |
 |       DRG       |     Alpha     |
-|       PLD       |     Mostly Working     |
+|       PLD       |     Alpha     |
 | Everything Else | Not Implemented |
 
 **Alpha**: Implemented and tested against a dummy, but not in an actual raid environment
