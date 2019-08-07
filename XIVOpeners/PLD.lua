@@ -259,6 +259,16 @@ function xivopeners_pld.useNextAction(target)
             return
         end
 
+        if (xivopeners_pld.abilityQueue[1] == xivopeners_pld.openerAbilities.Requiescat) then
+            -- wait until there's 0.9s on the gcd
+            if (xivopeners_pld.openerAbilities.FastBlade.cdmax - xivopeners_pld.openerAbilities.FastBlade.cd < 0.9) then
+                xivopeners_pld.abilityQueue[1]:Cast(target.id)
+                xivopeners_pld.lastCastFromQueue = xivopeners_pld.abilityQueue[1]
+            end
+
+            return
+        end
+
         xivopeners_pld.abilityQueue[1]:Cast(target.id)
         xivopeners_pld.lastCastFromQueue = xivopeners_pld.abilityQueue[1]
     end
