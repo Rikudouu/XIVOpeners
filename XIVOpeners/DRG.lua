@@ -20,7 +20,6 @@ xivopeners_drg.openerAbilities = {
     MirageDive = ActionList:Get(1, 7399),
     FullThrust = ActionList:Get(1, 84),
     DragonfireDive = ActionList:Get(1, 96),
-    BloodOfTheDragonBuffID = 0,
     Tincture = {name = "Tincture", ids = {27995, 27786}},
     MedicineBuffID = 49
 }
@@ -86,9 +85,8 @@ xivopeners_drg.openerStarted = false
 xivopeners_drg.useTincture = false
 xivopeners_drg.lastcastid = 0
 xivopeners_drg.lastcastid2 = 0
-xivopeners_drg.nextPos = "any"
-xivopeners_drg.rear = "rear"
-xivopeners_drg.flank = "flank"
+
+xivopeners_drg.eyeParterIndex = 1
 
 function xivopeners_drg.getTincture()
     for i = 0, 3 do
@@ -109,6 +107,28 @@ function xivopeners_drg.getOpener()
     return {}
 end
 
+function xivopeners_drg.getParty(name)
+    -- name is a bool used to get the names instead of the player objects themselves
+    local party = {}
+    if (next(EntityList.myparty) ~= nil) then
+        if (name) then
+            for k, v in pairs(EntityList.myparty) do
+                party[k] = v.name
+            end
+        else
+            party = EntityList.myparty
+        end
+    else
+        party[1] = name and Player.name or Player
+    end
+    return party
+end
+
+function xivopeners_drg.getEyePartner()
+    return xivopeners_drg.getParty()[xivopeners_drg.eyeParterIndex]
+end
+
+
 function xivopeners_drg.checkOpenerIds()
     for key, action in pairs(xivopeners_drg.getOpener()) do
         if (action == nil) then
@@ -126,7 +146,7 @@ function xivopeners_drg.openerAvailable()
                 return false
             end
         elseif (action == xivopeners_drg.openerAbilities.BloodOfTheDragon) then
-            if (action.cd >= 1.5 and not HasBuff(Player.id, xivopeners_drg.openerAbilities.BloodOfTheDragonBuffID)) then
+            if (action.cd >= 1.5 and Player.gauge[3] < 1000) then
                 return false
             end
         elseif (action.cd >= 1.5) then
@@ -181,6 +201,16 @@ function xivopeners_drg.drawCall(event, tickcount)
     xivopeners_drg.useTincture = GUI:Checkbox("##xivopeners_drg_tincturecheck", xivopeners_drg.useTincture)
     GUI:EndGroup()
     GUI:NextColumn()
+
+    GUI:AlignFirstTextHeightToWidgets()
+    GUI:BeginGroup()
+    GUI:Text("Dragonsight Partner")
+    GUI:NextColumn()
+    GUI:PushItemWidth(-1)
+    xivopeners_drg.eyeParterIndex = GUI:Combo("##xivopeners_drg_eyepartner", xivopeners_drg.eyeParterIndex, xivopeners_drg.getParty(true))
+    GUI:EndGroup()
+    GUI:NextColumn()
+    GUI:PopItemWidth()
 end
 
 function xivopeners_drg.main(event, tickcount)
@@ -258,13 +288,20 @@ function xivopeners_drg.useNextAction(target)
         end
         
         -- check for prepull blood of the dragon
-        if (xivopeners_drg.abilityQueue[1] == xivopeners_drg.openerAbilities.BloodOfTheDragon and HasBuff(Player.id, xivopeners_drg.openerAbilities.BloodOfTheDragonBuffID)) then
+        if (xivopeners_drg.abilityQueue[1] == xivopeners_drg.openerAbilities.BloodOfTheDragon and Player.gauge[3] > 1000) then
             xivopeners.log("Player already used botd prepull, continue with opener")
             xivopeners_drg.dequeue()
             return
         end
 
-
+        -- dragon sight partner check
+        if (xivopeners_drg.abilityQueue[1] == xivopeners_drg.openerAbilities.DragonSight) then
+            if (xivopeners_drg.abilityQueue[1]:IsReady(xivopeners_drg.getEyePartner().id)) then
+                xivopeners_drg.abilityQueue[1]:Cast(xivopeners_drg.getEyePartner().id)
+                xivopeners_drg.lastCastFromQueue = xivopeners_drg.abilityQueue[1]
+            end
+            return
+        end
 
         -- idk how to make it not spam console
         --xivopeners.log("Casting " .. xivopeners_drg.abilityQueue[1].name)
