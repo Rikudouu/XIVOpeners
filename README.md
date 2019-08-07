@@ -13,6 +13,7 @@ This is a WIP addon that will do your opener and handle control back to the main
 |       SAM       |     Fully Working     |
 |       SCH       |     Fully Working     |
 |       NIN       |     Alpha     |
+|       DRG       |     Alpha     |
 | Everything Else | Not Implemented |
 
 **Alpha**: Implemented and tested against a dummy, but not in an actual raid environment
