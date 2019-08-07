@@ -1,6 +1,6 @@
 xivopeners_nin = {}
 
-xivopeners_nin.supportedLevel = 50
+xivopeners_nin.supportedLevel = 80
 xivopeners_nin.openerAbilities = {
     Ten = ActionList:Get(1, 2259),
     Jin = ActionList:Get(1, 2263),
