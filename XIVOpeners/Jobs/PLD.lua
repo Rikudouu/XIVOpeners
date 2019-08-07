@@ -1,4 +1,3 @@
-
 xivopeners_pld = {}
 
 xivopeners_pld.supportedLevel = 80

@@ -15,6 +15,7 @@ This is a WIP addon that will do your opener and handle control back to the main
 |       NIN       |  Fully Working  |
 |       DRG       |      Alpha      |
 |       PLD       |      Alpha      |
+|       GNB       |      Alpha      |
 |       BLM       | Not Implemented |
 | Everything Else | Not Implemented |
 
