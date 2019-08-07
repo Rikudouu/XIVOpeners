@@ -2,7 +2,7 @@ xivopeners = {}
 
 xivopeners.version = {
     major = 0,
-    minor = 11,
+    minor = 12,
     patch = 0,
 }
 
