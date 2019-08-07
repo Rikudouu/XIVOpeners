@@ -1,6 +1,6 @@
 [Module]
 Name=XIVOpeners
 Version=1
-Files=PLD.lua,DRG.lua,BLM.lua,NIN.lua,SCH.lua,SAM.lua,SMN.lua,MNK.lua,MCH.lua,BRD.lua,XIVOpeners.lua
+Files=GNB.lua,PLD.lua,DRG.lua,BLM.lua,NIN.lua,SCH.lua,SAM.lua,SMN.lua,MNK.lua,MCH.lua,BRD.lua,XIVOpeners.lua
 Enabled=1
 Dependencies=minionlib

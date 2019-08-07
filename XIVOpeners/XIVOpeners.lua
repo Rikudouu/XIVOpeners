@@ -2,7 +2,7 @@ xivopeners = {}
 
 xivopeners.version = {
     major = 0,
-    minor = 12,
+    minor = 13,
     patch = 0,
 }
 
@@ -128,6 +128,15 @@ xivopeners.supportedJobs = {
         openerAvailable = xivopeners_pld.openerAvailable,
         checkOpenerIds = xivopeners_pld.checkOpenerIds,
         drawCall = xivopeners_pld.drawCall,
+    },
+
+    [xivopeners.jobs.Gunbreaker] = {
+        main = xivopeners_gnb.main,
+        openerInfo = xivopeners_gnb.openerInfo,
+        queueOpener = xivopeners_gnb.queueOpener,
+        openerAvailable = xivopeners_gnb.openerAvailable,
+        checkOpenerIds = xivopeners_gnb.checkOpenerIds,
+        drawCall = xivopeners_gnb.drawCall,
     },
 }
 xivopeners.oocEnable = false
