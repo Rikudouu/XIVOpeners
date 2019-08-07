@@ -83,9 +83,6 @@ xivopeners_sam.openerStarted = false
 xivopeners_sam.useTincture = false
 xivopeners_sam.lastcastid = 0
 xivopeners_sam.lastcastid2 = 0
-xivopeners_sam.nextPos = "any"
-xivopeners_sam.rear = "rear"
-xivopeners_sam.flank = "flank"
 
 function xivopeners_sam.getTincture()
     for i = 0, 3 do

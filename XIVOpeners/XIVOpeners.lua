@@ -126,6 +126,15 @@ xivopeners.supportedJobs = {
         checkOpenerIds = xivopeners_blm.checkOpenerIds,
         drawCall = xivopeners_blm.drawCall,
     },
+
+    [xivopeners.jobs.Dragoon] = {
+        main = xivopeners_drg.main,
+        openerInfo = xivopeners_drg.openerInfo,
+        queueOpener = xivopeners_drg.queueOpener,
+        openerAvailable = xivopeners_drg.openerAvailable,
+        checkOpenerIds = xivopeners_drg.checkOpenerIds,
+        drawCall = xivopeners_drg.drawCall,
+    },
 }
 xivopeners.oocEnable = false
 xivopeners.advancedMode = false
@@ -232,6 +241,7 @@ function xivopeners.drawMainFull(event, ticks)
             if (openerIndexChanged) then
                 xivopeners.supportedJobs[Player.job].queueOpener()
             end
+            GUI:PopItemWidth()
             GUI:NextColumn()
             xivopeners.supportedJobs[Player.job].drawCall(event, ticks)
         end
