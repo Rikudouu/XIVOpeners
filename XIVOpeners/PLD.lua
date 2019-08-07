@@ -260,7 +260,7 @@ function xivopeners_pld.useNextAction(target)
         end
 
         -- delay buff until end of gcd so we can get the highest amount of gcds inside the buff window
-        if (xivopeners_pld.abilityQueue[1] == xivopeners_pld.openerAbilities.Requiescat) then
+        if (xivopeners_pld.abilityQueue[1] == xivopeners_pld.openerAbilities.Requiescat or xivopeners_pld.abilityQueue[1] == xivopeners_pld.openerAbilities.FightOrFlight) then
             -- wait until there's 0.9s on the gcd
             if (xivopeners_pld.openerAbilities.FastBlade.cdmax - xivopeners_pld.openerAbilities.FastBlade.cd < 0.9) then
                 xivopeners_pld.abilityQueue[1]:Cast(target.id)
