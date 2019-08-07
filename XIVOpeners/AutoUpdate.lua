@@ -1,10 +1,19 @@
 xivopeners_AutoUpdate = {}
 
 function xivopeners_AutoUpdate.checkUpdate()
-    local prog = assert(io.popen([[Powershell.exe -executionpolicy remotesigned -WarningAction SilentlyContinue -ErrorAction SilentlyContinue -command "$R = Invoke-WebRequest -URI http://www.bing.com?q=how+many+feet+in+a+mile; $R.InputFields | Where-Object{ $_.name -like '* Value' } |Select-Object Name, Value"]]))
---    local output = prog:read("*a")
---    prog:close()
+    local prog = assert(io.popen([[Powershell.exe -executionpolicy remotesigned -command "$R = Invoke-RestMethod -URI https://api.github.com/repos/Rikudouu/XIVOpeners/releases/latest; $R.tag_name"]]))
+    local latestRelease
     for line in prog:lines() do
-        xivopeners.log(line)
+        local status, latestRelease = pcall(semver, string.sub(line, 2))
+        if (status) then
+            xivopeners.log("Latest version is: " .. tostring(latestRelease))
+            prog:close()
+            if (latestRelease > xivopeners.version) then
+                xivopeners.log("New version available")
+                return true
+            end
+            return false
+        end
     end
+    return false
 end
