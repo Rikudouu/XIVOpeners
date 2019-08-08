@@ -4,7 +4,7 @@ xivopeners_blm.supportedLevel = 80
 xivopeners_blm.openerAbilities = {
     BlizzardIII = ActionList:Get(1, 154),
     Enochian = ActionList:Get(1, 3575),
-    ThunderIII = ActionList:Get(1, 144),
+    ThunderIII = ActionList:Get(1, 153),
     BlizzardIV = ActionList:Get(1, 3576),
     FireIII = ActionList:Get(1, 152),
     Tincture = {name = "Tincture", ids = {27998, 27789}}, -- int
@@ -104,7 +104,7 @@ end
 
 function xivopeners_blm.updateLastCast()
     if (xivopeners_blm.lastCastFromQueue) then
-        xivopeners.log(tostring(xivopeners_blm.lastcastid) .. ", " .. tostring(xivopeners_blm.lastcastid2) .. ", " .. tostring(Player.castinginfo.lastcastid) .. ", " .. tostring(Player.castinginfo.castingid))
+--        xivopeners.log(tostring(xivopeners_blm.lastcastid) .. ", " .. tostring(xivopeners_blm.lastcastid2) .. ", " .. tostring(Player.castinginfo.lastcastid) .. ", " .. tostring(Player.castinginfo.castingid))
         if (xivopeners_blm.lastcastid == -1) then
             -- compare the real castid and see if it changed, if it did, update from -1
             if (xivopeners_blm.lastcastid2 ~= Player.castinginfo.castingid) then
