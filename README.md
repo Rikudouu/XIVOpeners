@@ -55,6 +55,7 @@ For melee jobs, I recommend taking a look at the ``MNK.lua`` file, in which you'
 
 ### Adding a custom opener
 **This will get changed in v1.0.0**
+
 Replace ``JOB`` with the name of the job you're adding.
 
 Once you've made your ``JOB.lua`` file, make sure it's in the same folder as ``XIVOpeners.lua``. In ``module.def``, add ``JOB.lua`` to the _start_ of ``Files=...``. You should see all the other jobs listed there as well. Finally, inside ``XIVOpeners.lua``, append your job to the ``xivopeners.supportedJobs`` table, following the format of the other jobs.
