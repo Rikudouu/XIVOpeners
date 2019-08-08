@@ -26,7 +26,7 @@ xivopeners_blm.openerInfo = {
 }
 
 xivopeners_blm.openers = {
-    Test = {
+    test = {
         xivopeners_blm.openerAbilities.BlizzardIII,
         xivopeners_blm.openerAbilities.Enochian,
         xivopeners_blm.openerAbilities.ThunderIII,
