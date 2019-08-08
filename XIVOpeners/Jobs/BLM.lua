@@ -222,6 +222,13 @@ function xivopeners_blm.useNextAction(target)
             return
         end
 
+        -- leylines can't be casted on the target, so cast on self
+        if (xivopeners_blm.abilityQueue[1] == xivopeners_blm.openerAbilities.LeyLines) then
+            xivopeners_blm.abilityQueue[1]:Cast(Player.id)
+            xivopeners_blm.lastCastFromQueue = xivopeners_blm.abilityQueue[1]
+            return
+        end
+
         -- idk how to make it not spam console
         --xivopeners.log("Casting " .. xivopeners_blm.abilityQueue[1].name)
         xivopeners_blm.abilityQueue[1]:Cast(target.id)
