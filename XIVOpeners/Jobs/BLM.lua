@@ -6,7 +6,16 @@ xivopeners_blm.openerAbilities = {
     Enochian = ActionList:Get(1, 3575),
     ThunderIII = ActionList:Get(1, 153),
     BlizzardIV = ActionList:Get(1, 3576),
+    TripleCast = ActionList:Get(1,7421),
     FireIII = ActionList:Get(1, 152),
+    FireIV = ActionList:Get(1, 3577),
+    LeyLines = ActionList:Get(1, 3573),
+    FireIV = ActionList:Get(1, 3577),
+    SwiftCast = ActionList:Get(1, 7561),
+    Despair = ActionList:Get(1, 3577),
+    ManaFont = ActionList:Get(1, 158),
+    Fire = ActionList:Get(1, 141),
+    SharpCast = ActionList:Get(1, 3574),
     Tincture = {name = "Tincture", ids = {27998, 27789}}, -- int
     MedicineBuffID = 49,
 }
@@ -17,12 +26,25 @@ xivopeners_blm.openerInfo = {
 }
 
 xivopeners_blm.openers = {
-    test = {
+    Test = {
         xivopeners_blm.openerAbilities.BlizzardIII,
         xivopeners_blm.openerAbilities.Enochian,
         xivopeners_blm.openerAbilities.ThunderIII,
-        xivopeners_blm.openerAbilities.BlizzardIV,
-        xivopeners_blm.openerAbilities.FireIII
+        xivopeners_blm.openerAbilities.FireIII,
+        xivopeners_blm.openerAbilities.TripleCast,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.Tincture,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.LeyLines,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.SwiftCast,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.Despair,
+        xivopeners_blm.openerAbilities.ThunderIII,
+        xivopeners_blm.openerAbilities.ManaFont,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.Despair
     }
 }
 
