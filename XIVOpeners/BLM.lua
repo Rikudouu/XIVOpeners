@@ -107,12 +107,12 @@ function xivopeners_blm.updateLastCast()
         --        xivopeners.log(tostring(xivopeners_blm.lastcastid) .. ", " .. tostring(xivopeners_blm.lastcastid2) .. ", " .. tostring(Player.castinginfo.lastcastid))
         if (xivopeners_blm.lastcastid == -1) then
             -- compare the real castid and see if it changed, if it did, update from -1
-            if (xivopeners_blm.lastcastid2 ~= Player.castinginfo.castingid and xivopeners_blm.lastCastFromQueue.cd > 0) then
+            if (xivopeners_blm.lastcastid2 ~= Player.castinginfo.castingid) then
                 xivopeners.log("cast changed")
                 xivopeners_blm.lastcastid = Player.castinginfo.castingid
                 xivopeners_blm.lastcastid2 = Player.castinginfo.castingid
             end
-        elseif (xivopeners_blm.lastcastid ~= Player.castinginfo.castingid and xivopeners_blm.lastCastFromQueue.cd > 0) then
+        elseif (xivopeners_blm.lastcastid ~= Player.castinginfo.castingid) then
             xivopeners_blm.lastcastid = Player.castinginfo.castingid
             xivopeners_blm.lastcastid2 = Player.castinginfo.castingid
         end
