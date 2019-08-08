@@ -39,8 +39,9 @@ function xivopeners.log(string)
 end
 
 -- load autoupdate script
-loadfile(ml_global_information.path .. "\\LuaMods\\XIVOpeners\\AutoUpdate.lua")()
-xivopeners_AutoUpdate.checkUpdate()
+-- code isn't really finished yet, ignore for now
+--loadfile(ml_global_information.path .. "\\LuaMods\\XIVOpeners\\AutoUpdate.lua")()
+--xivopeners_AutoUpdate.checkUpdate()
 
 -- load all the jobs
 if (FolderExists(ml_global_information.path .. "\\LuaMods\\XIVOpeners\\Jobs")) then
@@ -118,7 +119,7 @@ xivopeners.supportedJobs = {
         drawCall = xivopeners_nin.drawCall,
     },
 
-    [7] = {
+    [xivopeners.jobs.BlackMage] = {
         main = xivopeners_blm.main,
         openerInfo = xivopeners_blm.openerInfo,
         queueOpener = xivopeners_blm.queueOpener,
@@ -127,7 +128,7 @@ xivopeners.supportedJobs = {
         drawCall = xivopeners_blm.drawCall,
     },
 
-    [4] = {
+    [xivopeners.jobs.Dragoon] = {
         main = xivopeners_drg.main,
         openerInfo = xivopeners_drg.openerInfo,
         queueOpener = xivopeners_drg.queueOpener,
