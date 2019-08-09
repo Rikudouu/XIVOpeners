@@ -292,7 +292,7 @@ function xivopeners_brd.useNextAction(target)
             xivopeners_brd.dequeue()
             return
         end
-        if (Player.gauge[2] >= 3 and xivopeners_brd.abilityQueue[1] ~= xivopeners_brd.openerAbilities.PitchPerfect) then
+        if (Player.gauge[2] >= 3) then
             -- don't want to dequeue here
             xivopeners.log("Using PP3 proc")
             xivopeners_brd.openerAbilities.PitchPerfect:Cast(target.id)

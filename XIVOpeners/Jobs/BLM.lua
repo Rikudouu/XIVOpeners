@@ -15,7 +15,7 @@ xivopeners_blm.openerAbilities = {
     ManaFont = ActionList:Get(1, 158),
     Fire = ActionList:Get(1, 141),
     SharpCast = ActionList:Get(1, 3574),
-    SharpCastBuffID = 3574,
+    SharpCastBuffID = 867,
     Tincture = {name = "Tincture", ids = {27998, 27789}}, -- int
     MedicineBuffID = 49,
 }
@@ -48,11 +48,54 @@ xivopeners_blm.openers = {
     },
 
     doubleSharp = {
-
+        xivopeners_blm.openerAbilities.BlizzardIII,
+        xivopeners_blm.openerAbilities.Enochian,
+        xivopeners_blm.openerAbilities.ThunderIII,
+        xivopeners_blm.openerAbilities.BlizzardIV,
+        xivopeners_blm.openerAbilities.FireIII,
+        xivopeners_blm.openerAbilities.TripleCast,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.Tincture,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.LeyLines,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.ThunderIII,
+        xivopeners_blm.openerAbilities.SharpCast,
+        xivopeners_blm.openerAbilities.Fire,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.FireIII,
+        xivopeners_blm.openerAbilities.SwiftCast,
+        xivopeners_blm.openerAbilities.Despair,
+        xivopeners_blm.openerAbilities.ManaFont,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.Despair
     },
 
     sharpFire = {
-
+        xivopeners_blm.openerAbilities.BlizzardIII,
+        xivopeners_blm.openerAbilities.Enochian,
+        xivopeners_blm.openerAbilities.ThunderIII,
+        xivopeners_blm.openerAbilities.BlizzardIV,
+        xivopeners_blm.openerAbilities.FireIII,
+        xivopeners_blm.openerAbilities.TripleCast,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.Tincture,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.SharpCast,
+        xivopeners_blm.openerAbilities.LeyLines,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.Fire,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.FireIII,
+        xivopeners_blm.openerAbilities.SwiftCast,
+        xivopeners_blm.openerAbilities.Despair,
+        xivopeners_blm.openerAbilities.ManaFont,
+        xivopeners_blm.openerAbilities.FireIV,
+        xivopeners_blm.openerAbilities.Despair
     },
 }
 
