@@ -151,6 +151,10 @@ function xivopeners_blm.openerAvailable()
             if (tincture and xivopeners_blm.useTincture and  tincture:GetAction().cd >= 1.5) then
                 return false
             end
+        elseif (action == xivopeners_blm.openerAbilities.SharpCast) then
+            if (action.cd >= 1.5 and not HasBuff(Player.id, xivopeners_blm.openerAbilities.SharpCastBuffID)) then
+                return false
+            end
         elseif (action.cd >= 1.5) then
             return false
         end
