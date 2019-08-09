@@ -363,10 +363,10 @@ end
 
 -- can move this over the ARC one, will disappear once opener is completed/stopped
 function xivopeners_mnk.drawPosWindow(event, tickcount)
+    local target = Player:GetTarget()
+    
     -- only show the positional window when the opener is actually running.
-    if (Player.job == xivopeners.jobs.Monk and xivopeners.running) then
-
-        local target = Player:GetTarget()
+    if (target and target.attackable and Player.job == xivopeners.jobs.Monk and xivopeners.running) then      
 
         GUI:SetNextWindowSize(106, 70, GUI.SetCond_Always)
         local flags = (GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoCollapse)
