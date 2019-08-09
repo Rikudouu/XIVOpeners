@@ -15,17 +15,18 @@ xivopeners_blm.openerAbilities = {
     ManaFont = ActionList:Get(1, 158),
     Fire = ActionList:Get(1, 141),
     SharpCast = ActionList:Get(1, 3574),
+    SharpCastBuffID = 3574,
     Tincture = {name = "Tincture", ids = {27998, 27789}}, -- int
     MedicineBuffID = 49,
 }
 
 xivopeners_blm.openerInfo = {
-    listOpeners = {"Test"},
+    listOpeners = {"No B4", "Double Sharp", "Sharp Fire"},
     currentOpenerIndex = 1,
 }
 
 xivopeners_blm.openers = {
-    test = {
+    nob4 = {
         xivopeners_blm.openerAbilities.BlizzardIII,
         xivopeners_blm.openerAbilities.Enochian,
         xivopeners_blm.openerAbilities.ThunderIII,
@@ -44,7 +45,15 @@ xivopeners_blm.openers = {
         xivopeners_blm.openerAbilities.ManaFont,
         xivopeners_blm.openerAbilities.FireIV,
         xivopeners_blm.openerAbilities.Despair
-    }
+    },
+
+    doubleSharp = {
+
+    },
+
+    sharpFire = {
+
+    },
 }
 
 xivopeners_blm.abilityQueue = {}
@@ -67,9 +76,11 @@ end
 
 function xivopeners_blm.getOpener()
     if (xivopeners_blm.openerInfo.currentOpenerIndex == 1) then
-        return xivopeners_blm.openers.test
---    elseif (xivopeners_blm.openerInfo.currentOpenerIndex == 2) then
---        return xivopeners_blm.openers.easyBahamut
+        return xivopeners_blm.openers.nob4
+    elseif (xivopeners_blm.openerInfo.currentOpenerIndex == 2) then
+        return xivopeners_blm.openers.doubleSharp
+    elseif (xivopeners_blm.openerInfo.currentOpenerIndex == 3) then
+        return xivopeners_blm.openers.sharpFire
     else
         return {}
     end
@@ -218,6 +229,13 @@ function xivopeners_blm.useNextAction(target)
                 xivopeners_blm.lastCastFromQueue = tincture:GetAction()
             end
             -- don't want to continue past this point or we risk breaking shit
+            return
+        end
+
+        -- check for prepull sharpcast
+        if (xivopeners_blm.abilityQueue[1] == xivopeners_blm.openerAbilities.SharpCast and HasBuff(Player.id, xivopeners_blm.openerAbilities.SharpCastBuffID)) then
+            xivopeners.log("Player already used sharpcast prepull, continue with opener")
+            xivopeners_blm.dequeue()
             return
         end
 
