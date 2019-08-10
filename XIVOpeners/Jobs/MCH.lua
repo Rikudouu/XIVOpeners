@@ -19,6 +19,7 @@ xivopeners_mch.openerAbilities = {
     Reassemble = ActionList:Get(1, 2876),
     AirAnchor = ActionList:Get(1, 16500),
     CleanShot = ActionList:Get(1, 7413),
+    ReassembleBuffID = 851,
     Tincture = {name = "Tincture", ids = {27996, 27787}},
     MedicineBuffID = 49,
 }
@@ -61,7 +62,7 @@ xivopeners_mch.openers = {
     },
 
     earlyWF = {
-        xivopeners_mch.openerAbilities.Tincture,
+        xivopeners_mch.openerAbilities.Reassemble,
         xivopeners_mch.openerAbilities.Drill,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
@@ -85,18 +86,16 @@ xivopeners_mch.openers = {
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.AirAnchor,
-        xivopeners_mch.openerAbilities.Reassemble,
         xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.Drill,
-        xivopeners_mch.openerAbilities.Ricochet
-        },
+    },
 
     lateWF = {
         xivopeners_mch.openerAbilities.SplitShot,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.SlugShot,
-        xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.CleanShot,
         xivopeners_mch.openerAbilities.BarrelStabilizer,
         xivopeners_mch.openerAbilities.SplitShot,
@@ -239,13 +238,16 @@ function xivopeners_mch.openerAvailable()
             if (tincture and xivopeners_mch.useTincture and tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_mch.openerAbilities.MedicineBuffID)) then
                 return false
             end
+        elseif (action == xivopeners_mch.openerAbilities.RagingStrikes) then
+            if (action.cd >= 1.5 and not HasBuff(Player.id, xivopeners_mch.openerAbilities.ReassembleBuffID)) then
+                return false
+            end
         elseif (action.cd >= 1.5) then
             return false
         end
     end
     return true
 end
-
 
 function xivopeners_mch.queueOpener()
     -- the only time this gets called is when the main script is toggled, so we can do more than just queue the opener
@@ -364,6 +366,14 @@ function xivopeners_mch.useNextAction(target)
             -- don't want to continue past this point or we risk breaking shit
             return
         end
+        
+        -- prepull reassemble
+        if (xivopeners_mch.abilityQueue[1] == xivopeners_mch.openerAbilities.Reassemble and HasBuff(Player.id, xivopeners_mch.openerAbilities.ReassembleBuffID)) then
+            xivopeners.log("Player already used reassemble prepull, continue with opener")
+            xivopeners_mch.dequeue()
+            return
+        end
+    
         -- idk how to make it not spam console
         --xivopeners.log("Casting " .. xivopeners_mch.abilityQueue[1].name)
         xivopeners_mch.abilityQueue[1]:Cast(target.id)
