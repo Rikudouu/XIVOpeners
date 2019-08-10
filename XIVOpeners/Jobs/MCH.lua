@@ -24,11 +24,42 @@ xivopeners_mch.openerAbilities = {
 }
 
 xivopeners_mch.openerInfo = {
-    listOpeners = {"Early WF", "Late WF", "Top Parse", "Late Hypercharge"},
+    listOpeners = {"General", "Early WF", "Late WF", "Top Parse", "Late Hypercharge"},
     currentOpenerIndex = 1,
 }
 
 xivopeners_mch.openers = {
+    general = {
+        xivopeners_mch.openerAbilities.Reassemble,
+        xivopeners_mch.openerAbilities.Drill,
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.SplitShot,
+        xivopeners_mch.openerAbilities.Reassemble,
+        xivopeners_mch.openerAbilities.AirAnchor,
+        xivopeners_mch.openerAbilities.SlugShot,
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.CleanShot,
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.HyperCharge,
+        xivopeners_mch.openerAbilities.HeatBlast,
+        xivopeners_mch.openerAbilities.Wildfire,
+        xivopeners_mch.openerAbilities.HeatBlast,
+        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.HeatBlast,
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.HeatBlast,
+        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.HeatBlast,
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.Drill,
+        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.SplitShot,
+        xivopeners_mch.openerAbilities.Ricochet,
+    },
+
     earlyWF = {
         xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.Drill,
@@ -176,15 +207,16 @@ function xivopeners_mch.getTincture()
     return nil
 end
 
-
 function xivopeners_mch.getOpener()
     if (xivopeners_mch.openerInfo.currentOpenerIndex == 1) then
-        return xivopeners_mch.openers.earlyWF
+        return xivopeners_mch.openers.general
     elseif (xivopeners_mch.openerInfo.currentOpenerIndex == 2) then
-        return xivopeners_mch.openers.lateWF
+        return xivopeners_mch.openers.earlyWF
     elseif (xivopeners_mch.openerInfo.currentOpenerIndex == 3) then
-        return xivopeners_mch.openers.topParse
+        return xivopeners_mch.openers.lateWF
     elseif (xivopeners_mch.openerInfo.currentOpenerIndex == 4) then
+        return xivopeners_mch.openers.topParse
+    elseif (xivopeners_mch.openerInfo.currentOpenerIndex == 5) then
         return xivopeners_mch.openers.lateHypercharge
     else
         return {}
