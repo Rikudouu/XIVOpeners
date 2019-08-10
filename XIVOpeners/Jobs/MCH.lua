@@ -35,7 +35,7 @@ xivopeners_mch.openers = {
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.SplitShot,
-        xivopeners_mch.openerAbilities.Reassemble,
+        xivopeners_mch.openerAbilities.BarrelStabilizer,
         xivopeners_mch.openerAbilities.AirAnchor,
         xivopeners_mch.openerAbilities.SlugShot,
         xivopeners_mch.openerAbilities.GaussRound,
