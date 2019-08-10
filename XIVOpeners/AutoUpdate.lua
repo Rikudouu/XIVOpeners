@@ -1,3 +1,5 @@
+-- this will probably never get implemented to the fullest extent, i'll probably just use checkupdate and prompt the
+-- user to manually update, since there can be local changes and handling that can be messy
 xivopeners_AutoUpdate = {}
 
 function xivopeners_AutoUpdate.checkUpdate()
