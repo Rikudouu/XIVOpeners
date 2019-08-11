@@ -275,12 +275,16 @@ function xivopeners_mch.getOpener()
     if (xivopeners_mch.openerInfo.currentOpenerIndex == 1) then
         return xivopeners_mch.openers.general
     elseif (xivopeners_mch.openerInfo.currentOpenerIndex == 2) then
-        return xivopeners_mch.openers.earlyWF
+        return xivopeners_mch.openers.quick
     elseif (xivopeners_mch.openerInfo.currentOpenerIndex == 3) then
-        return xivopeners_mch.openers.lateWF
+        return xivopeners_mch.openers.earlycdh
     elseif (xivopeners_mch.openerInfo.currentOpenerIndex == 4) then
-        return xivopeners_mch.openers.topParse
+        return xivopeners_mch.openers.latecdh
     elseif (xivopeners_mch.openerInfo.currentOpenerIndex == 5) then
+        return xivopeners_mch.openers.latemultiplier
+    elseif (xivopeners_mch.openerInfo.currentOpenerIndex == 6) then
+        return xivopeners_mch.openers.delayedmultiplier
+    elseif (xivopeners_mch.openerInfo.currentOpenerIndex == 7) then
         return xivopeners_mch.openers.lateHypercharge
     else
         return {}
