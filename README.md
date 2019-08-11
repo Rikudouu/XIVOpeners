@@ -17,6 +17,7 @@ This is a WIP addon that will do your opener and handle control back to the main
 |       PLD       |  Fully Working  |
 |       GNB       |  Fully Working  |
 |       BLM       |      Alpha      |
+|       DNC       |      Alpha      |
 | Everything Else | Not Implemented |
 
 **Alpha**: Implemented and tested against a dummy, but not in an actual raid environment
