@@ -307,7 +307,7 @@ function xivopeners_mch.openerAvailable()
             if (tincture and xivopeners_mch.useTincture and tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_mch.openerAbilities.MedicineBuffID)) then
                 return false
             end
-        elseif (action == xivopeners_mch.openerAbilities.RagingStrikes) then
+        elseif (action == xivopeners_mch.openerAbilities.Reassemble) then
             if (action.cd >= 1.5 and not HasBuff(Player.id, xivopeners_mch.openerAbilities.ReassembleBuffID)) then
                 return false
             end
