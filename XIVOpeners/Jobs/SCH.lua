@@ -20,13 +20,14 @@ xivopeners_sch.openerAbilities = {
 }
 
 xivopeners_sch.openerInfo = {
-    listOpeners = {"Standard"},
+    listOpeners = {"Standard", "Non-Dissipation"},
     currentOpenerIndex = 1,
 }
 
 xivopeners_sch.openers = {
     standard = {
         xivopeners_sch.openerAbilities.SummonSelene,
+        xivopeners_sch.openerAbilities.Tincture,
         xivopeners_sch.openerAbilities.Broil3,
         xivopeners_sch.openerAbilities.Biolysis,
         xivopeners_sch.openerAbilities.Aetherflow,
@@ -51,6 +52,24 @@ xivopeners_sch.openers = {
         xivopeners_sch.openerAbilities.Broil3,
         xivopeners_sch.openerAbilities.Biolysis
     },
+
+    nonDissipation = {
+        xivopeners_sch.openerAbilities.SummonSelene,
+        xivopeners_sch.openerAbilities.Tincture,
+        xivopeners_sch.openerAbilities.Broil3,
+        xivopeners_sch.openerAbilities.Biolysis,
+        xivopeners_sch.openerAbilities.Aetherflow,
+        xivopeners_sch.openerAbilities.EnergyDrain,
+        xivopeners_sch.openerAbilities.Broil3,
+        xivopeners_sch.openerAbilities.Ruin2,
+        xivopeners_sch.openerAbilities.Swiftcast,
+        xivopeners_sch.openerAbilities.ChainStratagem,
+        xivopeners_sch.openerAbilities.Broil3,
+        xivopeners_sch.openerAbilities.EnergyDrain,
+        xivopeners_sch.openerAbilities.Broil3,
+        xivopeners_sch.openerAbilities.Broil3,
+        xivopeners_sch.openerAbilities.Broil3,
+    }
 }
 
 xivopeners_sch.abilityQueue = {}
