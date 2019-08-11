@@ -94,6 +94,8 @@ end
 function xivopeners_sch.getOpener()
     if (xivopeners_sch.openerInfo.currentOpenerIndex == 1) then
         return xivopeners_sch.openers.standard
+    elseif (xivopeners_sch.openerInfo.currentOpenerIndex == 2) then
+        return xivopeners_sch.openers.nonDissipation
     else
         return {}
     end
