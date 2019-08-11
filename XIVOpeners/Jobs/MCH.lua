@@ -31,8 +31,8 @@ xivopeners_mch.openerInfo = {
 
 xivopeners_mch.openers = {
     general = {
-        xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.Reassemble,
+        xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.Drill,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
@@ -63,8 +63,8 @@ xivopeners_mch.openers = {
     },
 
     quick = {
-        xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.Reassemble,
+        xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.Drill,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
@@ -94,8 +94,8 @@ xivopeners_mch.openers = {
     },
 
     earlycdh = {
-        xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.Reassemble,
+        xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.Drill,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
@@ -125,8 +125,8 @@ xivopeners_mch.openers = {
     },
 
     latecdh = {
-        xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.Reassemble,
+        xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.Drill,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
@@ -223,8 +223,8 @@ xivopeners_mch.openers = {
     },
 
     lateHypercharge = {
-        xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.Reassemble,
+        xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.Drill,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Ricochet,
