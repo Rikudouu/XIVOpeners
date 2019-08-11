@@ -159,7 +159,7 @@ function xivopeners_sch.main(event, tickcount)
     if (Player.level >= xivopeners_sch.supportedLevel) then
         local target = Player:GetTarget()
 
-        if (not target) then return end
+        if (not target or not target.attackable) then return end
 
         if (not xivopeners_sch.openerAvailable() and not xivopeners_sch.openerStarted) then return end -- don't start opener if it's not available, if it's already started then yolo
 

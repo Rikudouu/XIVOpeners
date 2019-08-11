@@ -274,7 +274,7 @@ function xivopeners_mnk.main(event, tickcount)
         end
 
         local target = Player:GetTarget()
-        if (not target) then
+        if (not target or not target.attackable) then
             -- hopefully this handles resets correctly
             xivopeners_mnk.prepullSetup = true
             return

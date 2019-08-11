@@ -188,7 +188,7 @@ end
 function xivopeners_pld.main(event, tickcount)
     if (Player.level >= xivopeners_pld.supportedLevel) then
         local target = Player:GetTarget()
-        if (not target) then return end
+        if (not target or not target.attackable) then return end
 
         -- don't start opener if it's not available
         if (not xivopeners_pld.openerAvailable() and not xivopeners_pld.openerStarted) then

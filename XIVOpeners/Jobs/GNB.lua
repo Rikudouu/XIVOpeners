@@ -192,7 +192,8 @@ end
 function xivopeners_gnb.main(event, tickcount)
     if (Player.level >= xivopeners_gnb.supportedLevel) then
         local target = Player:GetTarget()
-        if (not target) then return end
+
+        if (not target or not target.attackable) then return end
 
         -- don't start opener if it's not available
         if (not xivopeners_gnb.openerAvailable() and not xivopeners_gnb.openerStarted) then

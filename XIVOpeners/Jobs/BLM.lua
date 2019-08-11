@@ -212,7 +212,7 @@ function xivopeners_blm.main(event, tickcount)
     if (Player.level >= xivopeners_blm.supportedLevel) then
         local target = Player:GetTarget()
 
-        if (not target) then return end
+        if (not target or not target.attackable) then return end
 
         if (not xivopeners_blm.openerAvailable() and not xivopeners_blm.openerStarted) then return end -- don't start opener if it's not available, if it's already started then yolo
 

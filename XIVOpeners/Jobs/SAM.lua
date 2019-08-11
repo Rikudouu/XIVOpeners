@@ -181,7 +181,7 @@ function xivopeners_sam.main(event, tickcount)
             return
         end
 
-        if (not xivopeners_sam.openerAvailable() and not xivopeners_sam.openerStarted) then
+        if ((not xivopeners_sam.openerAvailable() or not target.attackable) and not xivopeners_sam.openerStarted) then
             return
         end -- don't start opener if it's not available, if it's already started then yolo
 

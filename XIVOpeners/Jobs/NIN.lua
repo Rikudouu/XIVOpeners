@@ -241,7 +241,7 @@ function xivopeners_nin.main(event, tickcount)
 
         local target = Player:GetTarget() or Player
 
-        if (not Player:GetTarget() and not xivopeners_nin.prepullSetup) then
+        if ((not Player:GetTarget() or not target.attackable) and not xivopeners_nin.prepullSetup) then
             xivopeners_nin.prepullSetup = true
             return
         end

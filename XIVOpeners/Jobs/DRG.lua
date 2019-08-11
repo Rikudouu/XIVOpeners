@@ -216,9 +216,8 @@ end
 function xivopeners_drg.main(event, tickcount)
     if (Player.level >= xivopeners_drg.supportedLevel) then
         local target = Player:GetTarget()
-        if (not target) then
-            return
-        end
+
+        if (not target or not target.attackable) then return end
 
         if (not xivopeners_drg.openerAvailable() and not xivopeners_drg.openerStarted) then
             return
