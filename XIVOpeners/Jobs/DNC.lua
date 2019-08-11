@@ -24,7 +24,7 @@ xivopeners_dnc.openerAbilities = {
 }
 
 xivopeners_dnc.openerInfo = {
-    listOpeners = {"Preferred", "Preferred Trick Attack"},
+    listOpeners = {"Preferred", "Early Devilment"},
     currentOpenerIndex = 1,
 }
 
@@ -45,11 +45,20 @@ xivopeners_dnc.openers = {
         xivopeners_dnc.openerAbilities.Devilment,
     },
 
-    preferredTA = { -- delays a gcd for ta alignment
+    earlyDevilment = {
         xivopeners_dnc.openerAbilities.StandardStep,
         xivopeners_dnc.openerAbilities.StandardDance,
         xivopeners_dnc.openerAbilities.StandardDance,
         xivopeners_dnc.openerAbilities.StandardFinish,
+        xivopeners_dnc.openerAbilities.Devilment,
+        xivopeners_dnc.openerAbilities.TechnicalStep,
+        xivopeners_dnc.openerAbilities.TechnicalDance,
+        xivopeners_dnc.openerAbilities.TechnicalDance,
+        xivopeners_dnc.openerAbilities.TechnicalDance,
+        xivopeners_dnc.openerAbilities.TechnicalDance,
+        xivopeners_dnc.openerAbilities.TechnicalFinish,
+        xivopeners_dnc.openerAbilities.Flourish,
+        xivopeners_dnc.openerAbilities.RisingWindmill,
     }
 }
 
@@ -83,7 +92,7 @@ function xivopeners_dnc.getOpener()
     if (xivopeners_dnc.openerInfo.currentOpenerIndex == 1) then
         return xivopeners_dnc.openers.preferred
     else
-        return xivopeners_dnc.openers.preferredTA
+        return xivopeners_dnc.openers.earlyDevilment
     end
 end
 
@@ -226,20 +235,20 @@ function xivopeners_dnc.main(event, tickcount)
             xivopeners.log("Starting opener")
             xivopeners_dnc.openerStarted = true
             xivopeners_dnc.useNextAction(target)
-        -- rewrite this to be for dnc procs
---        elseif (xivopeners_dnc.abilityQueue[1] == xivopeners_dnc.openerAbilities.RefulgentArrow and xivopeners_dnc.abilityQueue[2] == xivopeners_dnc.openerAbilities.Barrage and (xivopeners_dnc.abilityQueue[1].cdmax - xivopeners_dnc.abilityQueue[1].cd < 1.5) and not HasBuff(Player.id, xivopeners_dnc.openerAbilities.StraightShotReadyBuffID)) then
---            xivopeners.log("Didn't get RA proc before Barrage, dequeuing")
---            -- need to insert burst shot back in between Sidewinder and BL
---            -- i could just do table.insert(queue, 5, burstshot) and it would be faster than looping through, but looping would be more reliable and flexible to opener changes in the future
---            for k, v in ipairs(xivopeners_dnc.abilityQueue) do
---                if (v == xivopeners_dnc.openerAbilities.Sidewinder) then
---                    xivopeners.log("Added BurstShot back")
---                    table.insert(xivopeners_dnc.abilityQueue, k + 1, xivopeners_dnc.openerAbilities.BurstShot)
---                    break
---                end
---            end
---            xivopeners_dnc.dequeue()
---            xivopeners_dnc.useNextAction(target)
+            -- rewrite this to be for dnc procs
+            --        elseif (xivopeners_dnc.abilityQueue[1] == xivopeners_dnc.openerAbilities.RefulgentArrow and xivopeners_dnc.abilityQueue[2] == xivopeners_dnc.openerAbilities.Barrage and (xivopeners_dnc.abilityQueue[1].cdmax - xivopeners_dnc.abilityQueue[1].cd < 1.5) and not HasBuff(Player.id, xivopeners_dnc.openerAbilities.StraightShotReadyBuffID)) then
+            --            xivopeners.log("Didn't get RA proc before Barrage, dequeuing")
+            --            -- need to insert burst shot back in between Sidewinder and BL
+            --            -- i could just do table.insert(queue, 5, burstshot) and it would be faster than looping through, but looping would be more reliable and flexible to opener changes in the future
+            --            for k, v in ipairs(xivopeners_dnc.abilityQueue) do
+            --                if (v == xivopeners_dnc.openerAbilities.Sidewinder) then
+            --                    xivopeners.log("Added BurstShot back")
+            --                    table.insert(xivopeners_dnc.abilityQueue, k + 1, xivopeners_dnc.openerAbilities.BurstShot)
+            --                    break
+            --                end
+            --            end
+            --            xivopeners_dnc.dequeue()
+            --            xivopeners_dnc.useNextAction(target)
         elseif (xivopeners_dnc.lastCastFromQueue and xivopeners_dnc.lastcastid == xivopeners_dnc.lastCastFromQueue.id) then
             xivopeners_dnc.lastcastid = -1
             xivopeners_dnc.dequeue()
