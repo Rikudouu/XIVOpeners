@@ -11,8 +11,8 @@ xivopeners_dnc.openerAbilities = {
     Entrechat = ActionList:Get(1, 16000),
     Jete = ActionList:Get(1, 16001),
     Pirouette = ActionList:Get(1, 16002),
-    TechnicalStep = ActionList:Get(1, 0),
-    TechnicalFinish = ActionList:Get(1, 0),
+    TechnicalStep = ActionList:Get(1, 15998),
+    TechnicalFinish = ActionList:Get(1, 16196),
     TechnicalDance = {name = "Technical Dance", id = 0, cd = 0, cdmax = 0};
     Flourish = ActionList:Get(1, 16013),
     RisingWindmill = ActionList:Get(1, 15995),
@@ -53,7 +53,7 @@ xivopeners_dnc.openers = {
     }
 }
 
-xivopeners_dnc.standardStepCombo = {
+xivopeners_dnc.danceStepCombo = {
     -- gauge 3 is first one, gauge 4 is second one, gauge 7 tells the current index
     xivopeners_dnc.openerAbilities.Emboite,
     xivopeners_dnc.openerAbilities.Entrechat,
@@ -226,7 +226,7 @@ function xivopeners_dnc.main(event, tickcount)
             xivopeners.log("Starting opener")
             xivopeners_dnc.openerStarted = true
             xivopeners_dnc.useNextAction(target)
-            -- this code isn't working because the buff gets applied after the BS cast has gone off, but the script dequeues BS the moment the animation happens
+        -- rewrite this to be for dnc procs
         elseif (xivopeners_dnc.abilityQueue[1] == xivopeners_dnc.openerAbilities.RefulgentArrow and xivopeners_dnc.abilityQueue[2] == xivopeners_dnc.openerAbilities.Barrage and (xivopeners_dnc.abilityQueue[1].cdmax - xivopeners_dnc.abilityQueue[1].cd < 1.5) and not HasBuff(Player.id, xivopeners_dnc.openerAbilities.StraightShotReadyBuffID)) then
             xivopeners.log("Didn't get RA proc before Barrage, dequeuing")
             -- need to insert burst shot back in between Sidewinder and BL
@@ -238,15 +238,10 @@ function xivopeners_dnc.main(event, tickcount)
                     break
                 end
             end
-
-            --            table.insert(xivopeners_dnc.abilityQueue, 5, xivopeners_dnc.openerAbilities.BurstShot)
             xivopeners_dnc.dequeue()
             xivopeners_dnc.useNextAction(target)
         elseif (xivopeners_dnc.lastCastFromQueue and xivopeners_dnc.lastcastid == xivopeners_dnc.lastCastFromQueue.id) then
             xivopeners_dnc.lastcastid = -1
-            if (xivopeners_dnc.lastCastFromQueue ~= xivopeners_dnc.openerAbilities.PitchPerfect) then
-                xivopeners_dnc.dequeue()
-            end
             xivopeners_dnc.useNextAction(target)
         else
             xivopeners_dnc.useNextAction(target)
@@ -275,8 +270,20 @@ function xivopeners_dnc.getNextStdStep()
         Player.gauge[3],
         Player.gauge[4],
     }
-    return xivopeners_dnc.standardStepCombo[stepIndexes[Player.gauge[7] + 1]]
+    return xivopeners_dnc.danceStepCombo[stepIndexes[Player.gauge[7] + 1]]
 end
+
+function xivopeners_dnc.getNextTechStep()
+    -- gauge 3 is first one, gauge 4 is second one, gauge 7 tells the current index
+    local stepIndexes = {
+        Player.gauge[3],
+        Player.gauge[4],
+        Player.gauge[5],
+        Player.gauge[6],
+    }
+    return xivopeners_dnc.danceStepCombo[stepIndexes[Player.gauge[7] + 1]]
+end
+
 
 function xivopeners_dnc.useNextAction(target)
     -- do the actual opener
@@ -307,7 +314,7 @@ function xivopeners_dnc.useNextAction(target)
             return
         end
 
-        -- handle steps
+        -- handle std steps
         if (xivopeners_dnc.abilityQueue[1] == xivopeners_dnc.openerAbilities.StandardDance) then
             -- dequeue all steps if we've already done
             if (Player.gauge[7] == 2) then
@@ -316,6 +323,22 @@ function xivopeners_dnc.useNextAction(target)
             end
 
             local nextDanceStep = xivopeners_dnc.getNextStdStep()
+            if (nextDanceStep) then
+                nextDanceStep:Cast(target.id)
+                xivopeners_dnc.lastCastFromQueue = nextDanceStep
+            end
+            return
+        end
+
+        -- handle tech steps
+        if (xivopeners_dnc.abilityQueue[1] == xivopeners_dnc.openerAbilities.TechnicalDance) then
+            -- dequeue all steps if we've already done
+            if (Player.gauge[7] == 4) then
+                xivopeners_dnc.dequeue()
+                return
+            end
+
+            local nextDanceStep = xivopeners_dnc.getNextTechStep()
             if (nextDanceStep) then
                 nextDanceStep:Cast(target.id)
                 xivopeners_dnc.lastCastFromQueue = nextDanceStep
