@@ -1,6 +1,6 @@
 xivopeners = {}
 
-xivopeners.version = semver(1,2,1)
+xivopeners.version = semver(1,2,2)
 
 xivopeners.GUI = {
     open = false,
