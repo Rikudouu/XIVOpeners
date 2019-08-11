@@ -1,6 +1,6 @@
 xivopeners = {}
 
-xivopeners.version = semver(1,1,0)
+xivopeners.version = semver(1,2,0)
 
 xivopeners.GUI = {
     open = false,
@@ -162,6 +162,15 @@ xivopeners.supportedJobs = {
         openerAvailable = xivopeners_dnc.openerAvailable,
         checkOpenerIds = xivopeners_dnc.checkOpenerIds,
         drawCall = xivopeners_dnc.drawCall,
+    },
+
+    [xivopeners.jobs.Warrior] = {
+        main = xivopeners_war.main,
+        openerInfo = xivopeners_war.openerInfo,
+        queueOpener = xivopeners_war.queueOpener,
+        openerAvailable = xivopeners_war.openerAvailable,
+        checkOpenerIds = xivopeners_war.checkOpenerIds,
+        drawCall = xivopeners_war.drawCall,
     },
 }
 xivopeners.oocEnable = false
