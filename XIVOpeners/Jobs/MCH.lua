@@ -25,7 +25,7 @@ xivopeners_mch.openerAbilities = {
 }
 
 xivopeners_mch.openerInfo = {
-    listOpeners = {"General", "Quick", "Early Crit DH Buffs", "Late Crit DH Buffs", "Multiplier Buffs", "Delayed Burst (Late WF)", "Late Hypercharge"},
+    listOpeners = {"General", "Quick", "Early Crit DH Buffs", "Late Crit DH Buffs", "Multiplier Buffs", "Delayed Burst", "Late Hypercharge"},
     currentOpenerIndex = 1,
 }
 
