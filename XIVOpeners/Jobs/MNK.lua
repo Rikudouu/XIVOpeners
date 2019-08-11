@@ -285,7 +285,7 @@ function xivopeners_mnk.main(event, tickcount)
         end
 
         local target = Player:GetTarget()
-        if (not target) then
+        if (not target or not target.attackable) then
             -- if no target is selected, cannot start the opener         
             return
         end
