@@ -33,43 +33,15 @@ xivopeners_mnk.openerAbilities = {
     CoerlFormID = 109,
     RiddleOfEarthBuffID = 1180,
     TrueNorthBuffID = 1250,
+    PerfectBalanceBuffID = 110,    
 }
 
 xivopeners_mnk.openerInfo = {
-    listOpeners = {"optimal", "standard", "moderate"},
+    listOpeners = {"standard", "situational", "high latency"},
     currentOpenerIndex = 1
 }
 
 xivopeners_mnk.openers = {
-    optimal = {
-        xivopeners_mnk.openerAbilities.TrueNorth,
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.Anatman,        
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.Tincture,
-        xivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.RiddleofFire,
-        xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.Brotherhood,
-        xivopeners_mnk.openerAbilities.ForbiddenChakra,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.FistsOfWind,
-        xivopeners_mnk.openerAbilities.PerfectBalance,
-        xivopeners_mnk.openerAbilities.SnapPunch,
-        xivopeners_mnk.openerAbilities.ElixirField,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.ShoulderTackle,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.DragonKick,
-        xivopeners_mnk.openerAbilities.Bootshine,
-        xivopeners_mnk.openerAbilities.TwinSnakes,
-        xivopeners_mnk.openerAbilities.Demolish,
-        xivopeners_mnk.openerAbilities.DragonKick, 
-        xivopeners_mnk.openerAbilities.ShoulderTackle
-    },
     standard = {
         xivopeners_mnk.openerAbilities.TrueNorth,
         xivopeners_mnk.openerAbilities.ShoulderTackle,
@@ -102,7 +74,7 @@ xivopeners_mnk.openers = {
         xivopeners_mnk.openerAbilities.SnapPunch,
         xivopeners_mnk.openerAbilities.DragonKick
     },
-    moderate = {
+    situational = {
         xivopeners_mnk.openerAbilities.TrueNorth,
         xivopeners_mnk.openerAbilities.ShoulderTackle,
         xivopeners_mnk.openerAbilities.Demolish,
@@ -129,6 +101,35 @@ xivopeners_mnk.openers = {
         xivopeners_mnk.openerAbilities.TwinSnakes,
         xivopeners_mnk.openerAbilities.Demolish,
         xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.ShoulderTackle
+    },
+    highlatency = {
+        xivopeners_mnk.openerAbilities.TrueNorth,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.Anatman,        
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Tincture,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.RiddleofFire,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.Brotherhood,
+        xivopeners_mnk.openerAbilities.ForbiddenChakra,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.FistsOfWind,
+        xivopeners_mnk.openerAbilities.PerfectBalance,
+        xivopeners_mnk.openerAbilities.SnapPunch,
+        xivopeners_mnk.openerAbilities.ElixirField,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.ShoulderTackle,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.DragonKick,
+        xivopeners_mnk.openerAbilities.Bootshine,
+        xivopeners_mnk.openerAbilities.TwinSnakes,
+        xivopeners_mnk.openerAbilities.Demolish,
+        xivopeners_mnk.openerAbilities.DragonKick, 
         xivopeners_mnk.openerAbilities.ShoulderTackle
     }
 }
@@ -175,11 +176,11 @@ end
 function xivopeners_mnk.getOpener()
     local opener
     if (xivopeners_mnk.openerInfo.currentOpenerIndex == 1) then
-        opener = xivopeners_mnk.openers.optimal
-    elseif (xivopeners_mnk.openerInfo.currentOpenerIndex == 2) then
         opener = xivopeners_mnk.openers.standard
+    elseif (xivopeners_mnk.openerInfo.currentOpenerIndex == 2) then
+        opener = xivopeners_mnk.openers.situational
     else
-        opener = xivopeners_mnk.openers.moderate
+        opener = xivopeners_mnk.openers.highlatency
     end
     return opener
 end
@@ -255,6 +256,11 @@ end
 
 function xivopeners_mnk.main(event, tickcount)
     if (Player.level >= xivopeners_mnk.supportedLevel) then
+        -- soon as turned on, start prepull
+        if (xivopeners_mnk.openerStarted == false and Player.gauge[2] < 5 and not HasBuff(Player.id, xivopeners_mnk.openerAbilities.CoerlFormID)) then
+            xivopeners_mnk.prepullSetup = true
+        end
+        
         if (xivopeners.running and not xivopeners_mnk.openerStarted and xivopeners_mnk.prepullSetup) then
             if (not HasBuff(Player.id, xivopeners_mnk.openerAbilities.FistsOfFireBuffID)) then
                 xivopeners_mnk.openerAbilities.FistsOfFire:Cast()
@@ -269,19 +275,20 @@ function xivopeners_mnk.main(event, tickcount)
                 -- myself and other monk's streams/youtube do not set this until after Coerl form has been established
                 -- aka should be the last thing cast
                 xivopeners_mnk.openerAbilities.RiddleofEarth:Cast()
+                -- once prepull is completed set off
+                xivopeners_mnk.prepullSetup = false
             end
-
         end
 
-        local target = Player:GetTarget()
-        if (not target or not target.attackable) then
-            -- hopefully this handles resets correctly
-            xivopeners_mnk.prepullSetup = true
+        if (xivopeners_mnk.prepullSetup) then 
             return
         end
 
-        -- once the target has been established turn off prepull
-        xivopeners_mnk.prepullSetup = false
+        local target = Player:GetTarget()
+        if (not target) then
+            -- if no target is selected, cannot start the opener         
+            return
+        end
 
         -- don't start opener if it's not available
         if (not xivopeners_mnk.openerAvailable() and not xivopeners_mnk.openerStarted) then
@@ -291,6 +298,10 @@ function xivopeners_mnk.main(event, tickcount)
         if (xivopeners_mnk.openerStarted and next(xivopeners_mnk.abilityQueue) == nil) then
             -- opener is finished, pass control to ACR
             xivopeners.log("Finished openers, handing control to ACR")
+            -- setting prepull back to true so it can be restarted
+            xivopeners_mnk.prepullSetup = true
+            SendTextCommand("/e done <se.6>")
+
             xivopeners_mnk.openerStarted = false
             if (xivopeners.running) then
                 xivopeners.ToggleRun()
@@ -316,6 +327,10 @@ function xivopeners_mnk.main(event, tickcount)
                     return
                 end
             end
+            xivopeners_mnk.lastcastid = -1
+            xivopeners_mnk.dequeue()
+            xivopeners_mnk.useNextAction(target)
+        elseif (xivopeners_mnk.lastCastFromQueue == xivopeners_mnk.openerAbilities.Demolish and not HasBuff(Player.id, xivopeners_mnk.openerAbilities.CoerlFormID) and not HasBuff(Player.id, xivopeners_mnk.openerAbilities.PerfectBalanceBuffID)) then
             xivopeners_mnk.lastcastid = -1
             xivopeners_mnk.dequeue()
             xivopeners_mnk.useNextAction(target)
@@ -364,28 +379,31 @@ end
 -- can move this over the ARC one, will disappear once opener is completed/stopped
 function xivopeners_mnk.drawPosWindow(event, tickcount)
     local target = Player:GetTarget()
-    
+    local childColor --= xivopeners_mnk.redColor
+
     -- only show the positional window when the opener is actually running.
-    if (target and target.attackable and Player.job == xivopeners.jobs.Monk and xivopeners.running) then      
+    if (Player.job == xivopeners.jobs.Monk and xivopeners.running) then        
 
         GUI:SetNextWindowSize(106, 70, GUI.SetCond_Always)
         local flags = (GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoCollapse)
         GUI:Begin("xivopeners_mnk_poswindow", false, flags)
 
-        local childColor
-        if (not xivopeners_mnk.abilityQueue[1]) then -- empty queue, display should be off at this point but handle it regardless
-            childColor = xivopeners_mnk.greenColor
-        elseif (HasBuff(Player.id, xivopeners_mnk.openerAbilities.TrueNorthBuffID) or HasBuff(Player.id, xivopeners_mnk.openerAbilities.RiddleOfEarthBuffID)) then -- check for positional nullifying bufffs
-            childColor = xivopeners_mnk.greenColor
-        elseif (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.rear and IsBehind(target)) then -- poositional check
-            childColor = xivopeners_mnk.greenColor
-        elseif (xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.flank and IsFlanking(target)) then
-            childColor = xivopeners_mnk.greenColor
-        elseif (not xivopeners_mnk.abilityQueue[1].pos) then -- check if no positional
-            childColor = xivopeners_mnk.greenColor
-        else -- at this point we are not at the right positional
-            childColor = xivopeners_mnk.redColor
-        end
+     --   if (target) then
+            local childColor
+            if (not xivopeners_mnk.abilityQueue[1]) then -- empty queue, display should be off at this point but handle it regardless
+                childColor = xivopeners_mnk.greenColor
+            elseif (HasBuff(Player.id, xivopeners_mnk.openerAbilities.TrueNorthBuffID) or HasBuff(Player.id, xivopeners_mnk.openerAbilities.RiddleOfEarthBuffID)) then -- check for positional nullifying bufffs
+                childColor = xivopeners_mnk.greenColor
+            elseif (target and xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.rear and IsBehind(target)) then -- poositional check
+                childColor = xivopeners_mnk.greenColor
+            elseif (target and xivopeners_mnk.abilityQueue[1].pos == xivopeners_mnk.positionals.flank and IsFlanking(target)) then
+                childColor = xivopeners_mnk.greenColor
+            elseif (not xivopeners_mnk.abilityQueue[1].pos) then -- check if no positional
+                childColor = xivopeners_mnk.greenColor
+            else -- at this point we are not at the right positional
+                childColor = xivopeners_mnk.redColor
+            end
+     --   end
 
         -- it's possible to merge this section with the childColor section, but imo it's harder to read the code that way, this one is simple and easy to understand
         local nextPos
