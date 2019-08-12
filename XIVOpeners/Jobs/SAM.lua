@@ -1,4 +1,4 @@
--- basically mnk but 10000x easier b/c meditate until next gcd omegalul
+-- basically monk but 10000x easier b/c meditate until next gcd omegalul
 -- SAM https://i.imgur.com/8Unt2nH.png
 -- Midare 1st opener
 
@@ -117,7 +117,7 @@ function xivopeners_sam.openerAvailable()
     for _, action in pairs(xivopeners_sam.getOpener()) do
         if (action == xivopeners_sam.openerAbilities.Tincture) then
             local tincture = xivopeners_sam.getTincture()
-            if (tincture and xivopeners_sam.useTincture and tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_mnk.openerAbilities.MedicineBuffID)) then
+            if (tincture and xivopeners_sam.useTincture and tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_sam.openerAbilities.MedicineBuffID)) then
                 return false
             end
         elseif (action.cd >= 1.5) then

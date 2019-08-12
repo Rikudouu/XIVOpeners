@@ -142,7 +142,7 @@ function xivopeners_drg.openerAvailable()
     for _, action in pairs(xivopeners_drg.getOpener()) do
         if (action == xivopeners_drg.openerAbilities.Tincture) then
             local tincture = xivopeners_drg.getTincture()
-            if (tincture and xivopeners_drg.useTincture and tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_mnk.openerAbilities.MedicineBuffID)) then
+            if (tincture and xivopeners_drg.useTincture and tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_drg.openerAbilities.MedicineBuffID)) then
                 return false
             end
         elseif (action == xivopeners_drg.openerAbilities.BloodOfTheDragon) then
