@@ -109,7 +109,6 @@ xivopeners_smn.openers = {
     },
 
     easyBahamut = {
-        xivopeners_smn.openerAbilities.SummonIfrit,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Tridisaster,
         xivopeners_smn.openerAbilities.Ruin2,
@@ -152,6 +151,7 @@ xivopeners_smn.abilityQueue = {}
 xivopeners_smn.lastCastFromQueue = nil -- might need this for some more complex openers with conditions
 xivopeners_smn.openerStarted = false
 xivopeners_smn.useTincture = false
+xivopeners_smn.prepullSetup = false
 xivopeners_smn.demiWaitTime = 500 -- balance recommends 0.5s
 xivopeners_smn.lastcastid = 0
 xivopeners_smn.lastcastid2 = 0
@@ -267,6 +267,18 @@ end
 
 function xivopeners_smn.main(event, tickcount)
     if (Player.level >= xivopeners_smn.supportedLevel) then
+        if (not Player.pet or Player.pet.contentid ~= xivopeners_smn.openerAbilities.IfritPetID) then
+            xivopeners_smn.prepullSetup = true
+        else
+            xivopeners_smn.prepullSetup = false
+        end
+
+        -- summon ifrit if we haven't already
+        if (xivopeners.running and not xivopeners_smn.openerStarted and xivopeners_smn.prepullSetup and not ActionList:IsCasting() and Player.castinginfo.timesincecast > 2000) then
+            xivopeners.log("Summoning ifrit prepull")
+            xivopeners_smn.openerAbilities.SummonIfrit:Cast()
+        end
+        
         local target = Player:GetTarget()
 
         if (not target or not target.attackable) then return end
@@ -333,18 +345,6 @@ function xivopeners_smn.useNextAction(target)
                 xivopeners_smn.lastCastFromQueue = tincture:GetAction()
             end
             -- don't want to continue past this point or we risk breaking shit
-            return
-        end
-
-        -- summon ifrit if we haven't already
-        if (xivopeners_smn.abilityQueue[1] == xivopeners_smn.openerAbilities.SummonIfrit) then
-            if (not Player.pet or Player.pet.contentid ~= xivopeners_smn.openerAbilities.IfritPetID) then
-                xivopeners_smn.abilityQueue[1]:Cast(target.id)
-                xivopeners_smn.lastCastFromQueue = xivopeners_smn.abilityQueue[1]
-            else
-                xivopeners.log("Ifrit was already summoned, dequeueing")
-                xivopeners_smn.dequeue()
-            end
             return
         end
 

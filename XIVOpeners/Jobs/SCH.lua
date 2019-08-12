@@ -26,7 +26,6 @@ xivopeners_sch.openerInfo = {
 
 xivopeners_sch.openers = {
     standard = {
-        xivopeners_sch.openerAbilities.SummonSelene,
         xivopeners_sch.openerAbilities.Tincture,
         xivopeners_sch.openerAbilities.Broil3,
         xivopeners_sch.openerAbilities.Biolysis,
@@ -54,7 +53,6 @@ xivopeners_sch.openers = {
     },
 
     nonDissipation = {
-        xivopeners_sch.openerAbilities.SummonSelene,
         xivopeners_sch.openerAbilities.Tincture,
         xivopeners_sch.openerAbilities.Broil3,
         xivopeners_sch.openerAbilities.Biolysis,
@@ -76,7 +74,7 @@ xivopeners_sch.abilityQueue = {}
 xivopeners_sch.lastCastFromQueue = nil -- might need this for some more complex openers with conditions
 xivopeners_sch.openerStarted = false
 xivopeners_sch.useTincture = false
-xivopeners_sch.demiWaitTime = 300
+xivopeners_sch.prepullSetup = false
 xivopeners_sch.lastcastid = 0
 xivopeners_sch.lastcastid2 = 0
 
@@ -178,6 +176,18 @@ end
 
 function xivopeners_sch.main(event, tickcount)
     if (Player.level >= xivopeners_sch.supportedLevel) then
+        -- summon selene if we haven't already
+        if (not Player.pet or (Player.pet.contentid ~= xivopeners_sch.openerAbilities.EosPetID and Player.pet.contentid ~= xivopeners_sch.openerAbilities.SelenePetID)) then
+            xivopeners_sch.prepullSetup = true
+        else
+            xivopeners_sch.prepullSetup = false
+        end
+
+        if (xivopeners.running and not xivopeners_sch.openerStarted and xivopeners_sch.prepullSetup and not ActionList:IsCasting() and Player.castinginfo.timesincecast > 2000) then
+            xivopeners.log("Summoning healing slave prepull")
+            xivopeners_sch.openerAbilities.SummonSelene:Cast()
+        end
+
         local target = Player:GetTarget()
 
         if (not target or not target.attackable) then return end
@@ -244,18 +254,6 @@ function xivopeners_sch.useNextAction(target)
                 xivopeners_sch.lastCastFromQueue = tincture:GetAction()
             end
             -- don't want to continue past this point or we risk breaking shit
-            return
-        end
-
-        -- summon selene if we haven't already
-        if (xivopeners_sch.abilityQueue[1] == xivopeners_sch.openerAbilities.SummonSelene) then
-            if (not Player.pet or (Player.pet.contentid ~= xivopeners_sch.openerAbilities.EosPetID and Player.pet.contentid ~= xivopeners_sch.openerAbilities.SelenePetID)) then
-                xivopeners_sch.abilityQueue[1]:Cast(target.id)
-                xivopeners_sch.lastCastFromQueue = xivopeners_sch.abilityQueue[1]
-            else
-                xivopeners.log("Healing slave was already summoned, dequeueing")
-                xivopeners_sch.dequeue()
-            end
             return
         end
 
