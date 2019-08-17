@@ -223,7 +223,6 @@ xivopeners_mch.openers = {
     },
 
     lateHypercharge = {
-        xivopeners_mch.openerAbilities.Reassemble,
         xivopeners_mch.openerAbilities.Tincture,
         xivopeners_mch.openerAbilities.Drill,
         xivopeners_mch.openerAbilities.GaussRound,
@@ -243,14 +242,15 @@ xivopeners_mch.openers = {
         xivopeners_mch.openerAbilities.HeatBlast,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.HeatBlast,
-        xivopeners_mch.openerAbilities.Ricochet,
-        xivopeners_mch.openerAbilities.CleanShot,
-        xivopeners_mch.openerAbilities.GaussRound,
-        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.Reassemble,
         xivopeners_mch.openerAbilities.AirAnchor,
+        xivopeners_mch.openerAbilities.Ricochet,
+        xivopeners_mch.openerAbilities.GaussRound,
+        xivopeners_mch.openerAbilities.CleanShot,
+        xivopeners_mch.openerAbilities.Ricochet,
         xivopeners_mch.openerAbilities.GaussRound,
         xivopeners_mch.openerAbilities.Drill,
-        xivopeners_mch.openerAbilities.Ricochet
+        xivopeners_mch.openerAbilities.Ricochet,
     },
 
     highPing = {
