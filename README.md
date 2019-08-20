@@ -16,9 +16,9 @@ I have been using it throughout Eden 1-4 savage, and have had absolutely zero is
 |       DRG       |  Fully Working  |
 |       PLD       |  Fully Working  |
 |       GNB       |  Fully Working  |
+|       DNC       |  Fully Working  |
+|       WAR       |  Fully Working  |
 |       BLM       |      Alpha      |
-|       DNC       |      Alpha      |
-|       WAR       |      Alpha      |
 | Everything Else | Not Implemented |
 
 **Alpha**: Implemented and tested against a dummy, but not in an actual raid environment
