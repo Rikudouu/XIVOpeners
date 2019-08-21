@@ -382,13 +382,15 @@ function xivopeners_mnk.drawPosWindow(event, tickcount)
     local childColor --= xivopeners_mnk.redColor
 
     -- only show the positional window when the opener is actually running.
-    if (Player.job == xivopeners.jobs.Monk and xivopeners.running) then        
+    if (Player.job == xivopeners.jobs.Monk) then
+        -- hide the acr positional window and show our own
+        ACR_BrawlerSB_PositionalWindow = not xivopeners.running
+        if (xivopeners.running) then
+            GUI:SetNextWindowSize(106, 70, GUI.SetCond_Always)
+            local flags = (GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoCollapse)
+            GUI:Begin("xivopeners_mnk_poswindow", false, flags)
 
-        GUI:SetNextWindowSize(106, 70, GUI.SetCond_Always)
-        local flags = (GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoCollapse)
-        GUI:Begin("xivopeners_mnk_poswindow", false, flags)
-
-     --   if (target) then
+            --   if (target) then
             local childColor
             if (not xivopeners_mnk.abilityQueue[1]) then -- empty queue, display should be off at this point but handle it regardless
                 childColor = xivopeners_mnk.greenColor
@@ -403,31 +405,33 @@ function xivopeners_mnk.drawPosWindow(event, tickcount)
             else -- at this point we are not at the right positional
                 childColor = xivopeners_mnk.redColor
             end
-     --   end
+            --   end
 
-        -- it's possible to merge this section with the childColor section, but imo it's harder to read the code that way, this one is simple and easy to understand
-        local nextPos
-        if (not xivopeners_mnk.abilityQueue[1]) then -- empty queue, display should be off at this point but handle it regardless
-            nextPos = xivopeners_mnk.positionals.any
-        elseif (HasBuff(Player.id, xivopeners_mnk.openerAbilities.TrueNorthBuffID) or HasBuff(Player.id, xivopeners_mnk.openerAbilities.RiddleOfEarthBuffID) or xivopeners_mnk.abilityQueue[1].pos == nil) then
-            nextPos = xivopeners_mnk.positionals.any
-        elseif (xivopeners_mnk.abilityQueue[1].pos) then
-            nextPos = xivopeners_mnk.abilityQueue[1].pos
-        else
-            nextPos = xivopeners_mnk.positionals.any
+            -- it's possible to merge this section with the childColor section, but imo it's harder to read the code that way, this one is simple and easy to understand
+            local nextPos
+            if (not xivopeners_mnk.abilityQueue[1]) then -- empty queue, display should be off at this point but handle it regardless
+                nextPos = xivopeners_mnk.positionals.any
+            elseif (HasBuff(Player.id, xivopeners_mnk.openerAbilities.TrueNorthBuffID) or HasBuff(Player.id, xivopeners_mnk.openerAbilities.RiddleOfEarthBuffID) or xivopeners_mnk.abilityQueue[1].pos == nil) then
+                nextPos = xivopeners_mnk.positionals.any
+            elseif (xivopeners_mnk.abilityQueue[1].pos) then
+                nextPos = xivopeners_mnk.abilityQueue[1].pos
+            else
+                nextPos = xivopeners_mnk.positionals.any
+            end
+
+            GUI:PushStyleColor(GUI.Col_ChildWindowBg, childColor.r, childColor.g, childColor.b, childColor.a)
+            GUI:Text("Opener pos")
+            GUI:Separator()
+            GUI:BeginChild("##xivopeners_mnk_poswindowdisplay", 90, 35, true)
+
+            GUI:AlignFirstTextHeightToWidgets()
+            GUI:Text(nextPos)
+            GUI:EndChild()
+
+            GUI:PopStyleColor()
+
+            GUI:End()
         end
-
-        GUI:PushStyleColor(GUI.Col_ChildWindowBg, childColor.r, childColor.g, childColor.b, childColor.a)
-        GUI:Text("Opener pos")
-        GUI:Separator()
-        GUI:BeginChild("##xivopeners_mnk_poswindowdisplay", 90, 35, true)
-        GUI:AlignFirstTextHeightToWidgets()
-        GUI:Text(nextPos)
-        GUI:EndChild()
-
-        GUI:PopStyleColor()
-
-        GUI:End()
     end
 end
 
