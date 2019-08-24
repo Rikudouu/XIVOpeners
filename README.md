@@ -19,6 +19,7 @@ I have been using it throughout Eden 1-4 savage, and have had absolutely zero is
 |       DNC       |  Fully Working  |
 |       WAR       |  Fully Working  |
 |       BLM       |      Alpha      |
+|       DRK       |      Alpha      |
 | Everything Else | Not Implemented |
 
 **Alpha**: Implemented and tested against a dummy, but not in an actual raid environment
