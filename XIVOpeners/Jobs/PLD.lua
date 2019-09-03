@@ -5,7 +5,7 @@ xivopeners_pld.openerAbilities = {
     HolySpirit = ActionList:Get(1, 7384),
     FastBlade = ActionList:Get(1, 9),
     RiotBlade= ActionList:Get(1, 15),
-    GoaringBlade= ActionList:Get(1, 3538),
+    GoringBlade= ActionList:Get(1, 3538),
     RoyalAuthority= ActionList:Get(1, 3539),
     Atonement= ActionList:Get(1, 16460),
     SpritWithin= ActionList:Get(1, 29),
@@ -31,7 +31,7 @@ xivopeners_pld.openers = {
         xivopeners_pld.openerAbilities.FastBlade,
         xivopeners_pld.openerAbilities.FightOrFlight,
         xivopeners_pld.openerAbilities.RiotBlade,        
-        xivopeners_pld.openerAbilities.GoaringBlade,
+        xivopeners_pld.openerAbilities.GoringBlade,
         xivopeners_pld.openerAbilities.FastBlade,
         xivopeners_pld.openerAbilities.Tincture,
         xivopeners_pld.openerAbilities.RiotBlade,
@@ -45,7 +45,7 @@ xivopeners_pld.openers = {
         xivopeners_pld.openerAbilities.Atonement,
         xivopeners_pld.openerAbilities.FastBlade,
         xivopeners_pld.openerAbilities.RiotBlade,        
-        xivopeners_pld.openerAbilities.GoaringBlade,
+        xivopeners_pld.openerAbilities.GoringBlade,
         xivopeners_pld.openerAbilities.Requiescat,
         xivopeners_pld.openerAbilities.HolySpirit,
         xivopeners_pld.openerAbilities.HolySpirit,
@@ -56,14 +56,14 @@ xivopeners_pld.openers = {
         xivopeners_pld.openerAbilities.FastBlade,
         xivopeners_pld.openerAbilities.SpritWithin,
         xivopeners_pld.openerAbilities.RiotBlade,        
-        xivopeners_pld.openerAbilities.GoaringBlade
+        xivopeners_pld.openerAbilities.GoringBlade
     },
     req = {
         xivopeners_pld.openerAbilities.HolySpirit,
         xivopeners_pld.openerAbilities.FastBlade,
         xivopeners_pld.openerAbilities.RiotBlade, 
         xivopeners_pld.openerAbilities.Tincture,    
-        xivopeners_pld.openerAbilities.GoaringBlade,
+        xivopeners_pld.openerAbilities.GoringBlade,
         xivopeners_pld.openerAbilities.CircleOfScorn,
         xivopeners_pld.openerAbilities.Requiescat,
         xivopeners_pld.openerAbilities.HolySpirit,
@@ -77,7 +77,7 @@ xivopeners_pld.openers = {
         xivopeners_pld.openerAbilities.FightOrFlight,
         xivopeners_pld.openerAbilities.RiotBlade,  
         xivopeners_pld.openerAbilities.Intervene,              
-        xivopeners_pld.openerAbilities.GoaringBlade,
+        xivopeners_pld.openerAbilities.GoringBlade,
         xivopeners_pld.openerAbilities.FastBlade,
         xivopeners_pld.openerAbilities.RiotBlade,
         xivopeners_pld.openerAbilities.CircleOfScorn,
@@ -89,7 +89,7 @@ xivopeners_pld.openers = {
         xivopeners_pld.openerAbilities.Intervene,
         xivopeners_pld.openerAbilities.RiotBlade,  
         xivopeners_pld.openerAbilities.SpritWithin,              
-        xivopeners_pld.openerAbilities.GoaringBlade
+        xivopeners_pld.openerAbilities.GoringBlade
     }
 }
 
