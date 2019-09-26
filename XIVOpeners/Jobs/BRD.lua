@@ -241,7 +241,7 @@ function xivopeners_brd.main(event, tickcount)
             xivopeners_brd.openerStarted = true
             xivopeners_brd.useNextAction(target)
         -- this code isn't working because the buff gets applied after the BS cast has gone off, but the script dequeues BS the moment the animation happens
-        elseif (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.RefulgentArrow and xivopeners_brd.abilityQueue[2] == xivopeners_brd.openerAbilities.Barrage and (xivopeners_brd.abilityQueue[1].cdmax - xivopeners_brd.abilityQueue[1].cd < 1.5) and not HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
+        elseif (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.RefulgentArrow and xivopeners_brd.abilityQueue[2] == xivopeners_brd.openerAbilities.Barrage and (xivopeners_brd.abilityQueue[1].cdmax - xivopeners_brd.abilityQueue[1].cd <= 1.1) and not HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
             xivopeners.log("Didn't get RA proc before Barrage, dequeuing")
             -- need to insert burst shot back in between Sidewinder and BL
             -- i could just do table.insert(queue, 5, burstshot) and it would be faster than looping through, but looping would be more reliable and flexible to opener changes in the future
