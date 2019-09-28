@@ -25,7 +25,7 @@ xivopeners_brd.openerAbilities = {
 }
 
 xivopeners_brd.openerInfo = {
-    listOpeners = {"Recommended", "Compatibility"},
+    listOpeners = {"Recommended", "No Ninja", "Compatibility"},
     currentOpenerIndex = 1,
 }
 
@@ -73,6 +73,28 @@ xivopeners_brd.openers = {
         xivopeners_brd.openerAbilities.IronJaws,
         xivopeners_brd.openerAbilities.EmpyrealArrow
     },
+
+    nonin = {
+        xivopeners_brd.openerAbilities.Tincture,
+        xivopeners_brd.openerAbilities.RagingStrikes,
+        xivopeners_brd.openerAbilities.Stormbite,
+        xivopeners_brd.openerAbilities.Bloodletter,
+        xivopeners_brd.openerAbilities.WanderersMinuet,
+        xivopeners_brd.openerAbilities.CausticBite,
+        xivopeners_brd.openerAbilities.EmpyrealArrow,
+        xivopeners_brd.openerAbilities.BattleVoice, -- after this point it's either 3 burst shots, or RA procs if we get them
+        xivopeners_brd.openerAbilities.BurstShot,
+        xivopeners_brd.openerAbilities.Sidewinder,
+        xivopeners_brd.openerAbilities.BurstShot,
+        xivopeners_brd.openerAbilities.RefulgentArrow, -- this will be dequeued if we don't have straight shot ready
+        xivopeners_brd.openerAbilities.Barrage, -- need a check here for an RA proc, and use that instead
+        xivopeners_brd.openerAbilities.RefulgentArrow,
+        xivopeners_brd.openerAbilities.BurstShot,
+        --        xivopeners_brd.openerAbilities.BurstShot, -- this is going to get inserted if we don't get the RA proc
+        xivopeners_brd.openerAbilities.Bloodletter,
+        xivopeners_brd.openerAbilities.IronJaws,
+        xivopeners_brd.openerAbilities.EmpyrealArrow
+    },
 }
 
 xivopeners_brd.abilityQueue = {}
@@ -95,7 +117,9 @@ end
 function xivopeners_brd.getOpener()
     if (xivopeners_brd.openerInfo.currentOpenerIndex == 1) then
         return xivopeners_brd.openers.recommended
-    else
+    elseif (xivopeners_brd.openerInfo.currentOpenerIndex == 2) then
+        return xivopeners_brd.openers.nonin
+    elseif (xivopeners_brd.openerInfo.currentOpenerIndex == 3) then
         return xivopeners_brd.openers.compatibility
     end
 end
@@ -246,9 +270,9 @@ function xivopeners_brd.main(event, tickcount)
             -- need to insert burst shot back in between Sidewinder and BL
             -- i could just do table.insert(queue, 5, burstshot) and it would be faster than looping through, but looping would be more reliable and flexible to opener changes in the future
             for k, v in ipairs(xivopeners_brd.abilityQueue) do
-                if (v == xivopeners_brd.openerAbilities.Sidewinder) then
+                if (v == xivopeners_brd.openerAbilities.Bloodletter) then
                     xivopeners.log("Added BurstShot back")
-                    table.insert(xivopeners_brd.abilityQueue, k + 1, xivopeners_brd.openerAbilities.BurstShot)
+                    table.insert(xivopeners_brd.abilityQueue, k - 1, xivopeners_brd.openerAbilities.BurstShot)
                     break
                 end
             end
@@ -293,7 +317,7 @@ function xivopeners_brd.useNextAction(target)
             xivopeners_brd.dequeue()
             return
         end
-        if (Player.gauge[2] >= 3) then
+        if (Player.gauge[2] >= 3 and xivopeners_brd.openerAbilities.BurstShot.cdmax - xivopeners_brd.openerAbilities.BurstShot.cd > 0.9) then
             -- don't want to dequeue here
             xivopeners.log("Using PP3 proc")
             xivopeners_brd.openerAbilities.PitchPerfect:Cast(target.id)
