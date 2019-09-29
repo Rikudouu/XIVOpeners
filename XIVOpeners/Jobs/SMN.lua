@@ -21,7 +21,7 @@ xivopeners_smn.openerAbilities = {
     Swiftcast = ActionList:Get(1, 7561),
     Ruin4BuffID = 1212,
     IfritPetID = 1402,
-    Tincture = {name = "Tincture", ids = {27998, 27789}}, -- int
+    Tincture = {name = "Tincture", ids = {27998, 27789}, range = 0}, -- int
     MedicineBuffID = 49,
 }
 
@@ -329,7 +329,7 @@ end
 function xivopeners_smn.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
-    if (target and target.attackable and xivopeners_smn.abilityQueue[1]) then
+    if (target and target.attackable and xivopeners_smn.abilityQueue[1] and (xivopeners_smn.abilityQueue[1].range <= 0 or target.distance2d <= xivopeners_smn.abilityQueue[1].range)) then
         -- tincture check
         if (xivopeners_smn.abilityQueue[1] == xivopeners_smn.openerAbilities.Tincture) then
             local tincture = xivopeners_smn.getTincture()

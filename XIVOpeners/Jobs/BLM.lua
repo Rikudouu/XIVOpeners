@@ -16,7 +16,7 @@ xivopeners_blm.openerAbilities = {
     Fire = ActionList:Get(1, 141),
     SharpCast = ActionList:Get(1, 3574),
     SharpCastBuffID = 867,
-    Tincture = {name = "Tincture", ids = {27998, 27789}}, -- int
+    Tincture = {name = "Tincture", ids = {27998, 27789}, range = 0}, -- int
     MedicineBuffID = 49,
 }
 
@@ -260,7 +260,7 @@ end
 function xivopeners_blm.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
-    if (target and target.attackable and xivopeners_blm.abilityQueue[1]) then
+    if (target and target.attackable and xivopeners_blm.abilityQueue[1] and (xivopeners_blm.abilityQueue[1].range <= 0 or target.distance2d <= xivopeners_blm.abilityQueue[1].range)) then
         -- tincture check
         if (xivopeners_blm.abilityQueue[1] == xivopeners_blm.openerAbilities.Tincture) then
             local tincture = xivopeners_blm.getTincture()

@@ -21,7 +21,7 @@ xivopeners_sam.openerAbilities = {
     Senei = ActionList:Get(1, 16481),
     Ikishoten = ActionList:Get(1, 16482),
     KaeshiSetsugekka = ActionList:Get(1, 16486),
-    Tincture = {name = "Tincture", ids = {27995, 27786}},
+    Tincture = {name = "Tincture", ids = {27995, 27786}, range = 0},
     MedicineBuffID = 49
 }
 
@@ -230,7 +230,7 @@ end
 function xivopeners_sam.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
-    if (target and target.attackable and xivopeners_sam.abilityQueue[1]) then
+    if (target and target.attackable and xivopeners_sam.abilityQueue[1] and (xivopeners_sam.abilityQueue[1].range <= 0 or target.distance2d <= xivopeners_sam.abilityQueue[1].range)) then
         if (xivopeners_sam.abilityQueue[1] == xivopeners_sam.openerAbilities.Tincture) then
             local tincture = xivopeners_sam.getTincture()
             if (HasBuff(Player.id, xivopeners_sam.openerAbilities.MedicineBuffID) or not xivopeners_sam.useTincture or not tincture) then

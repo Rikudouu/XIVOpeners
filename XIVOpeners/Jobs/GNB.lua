@@ -20,7 +20,7 @@ xivopeners_gnb.openerAbilities = {
     RoughDivide = ActionList:Get(1, 16154),
     BurstStrike = ActionList:Get(1, 16162),
     Sprint = ActionList:Get(1, 3),
-    Tincture = {name = "Tincture", ids = {27995, 27786}},
+    Tincture = {name = "Tincture", ids = {27995, 27786}, range = 0},
     MedicineBuffID = 49,
 }
 
@@ -243,7 +243,7 @@ end
 function xivopeners_gnb.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
-    if (target and target.attackable and xivopeners_gnb.abilityQueue[1]) then
+    if (target and target.attackable and xivopeners_gnb.abilityQueue[1] and (xivopeners_gnb.abilityQueue[1].range <= 0 or target.distance2d <= xivopeners_gnb.abilityQueue[1].range)) then
         if (xivopeners_gnb.abilityQueue[1] == xivopeners_gnb.openerAbilities.Tincture) then
             local tincture = xivopeners_gnb.getTincture()
             if (HasBuff(Player.id, xivopeners_gnb.openerAbilities.MedicineBuffID) or not xivopeners_gnb.useTincture or not tincture) then

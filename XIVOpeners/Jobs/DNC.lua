@@ -19,7 +19,7 @@ xivopeners_dnc.openerAbilities = {
     Devilment = ActionList:Get(1, 16011),
     StandardStepBuffID = 1818,
     StandardFinishBuffID = 1821,
-    Tincture = {name = "Tincture", ids = {27996, 27787}},
+    Tincture = {name = "Tincture", ids = {27996, 27787}, range = 0},
     MedicineBuffID = 49,
 }
 
@@ -299,7 +299,7 @@ end
 function xivopeners_dnc.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
-    if (target and target.attackable and xivopeners_dnc.abilityQueue[1]) then
+    if (target and target.attackable and xivopeners_dnc.abilityQueue[1] and (xivopeners_dnc.abilityQueue[1].range <= 0 or target.distance2d <= xivopeners_dnc.abilityQueue[1].range)) then
         -- tincture check
         if (xivopeners_dnc.abilityQueue[1] == xivopeners_dnc.openerAbilities.Tincture) then
             local tincture = xivopeners_dnc.getTincture()

@@ -16,7 +16,7 @@ xivopeners_pld.openerAbilities = {
     Intervene= ActionList:Get(1, 16461),
     Confiteor= ActionList:Get(1, 16459),
     Sprint = ActionList:Get(1, 3),
-    Tincture = {name = "Tincture", ids = {27995, 27786}},
+    Tincture = {name = "Tincture", ids = {27995, 27786}, range = 0},
     MedicineBuffID = 49,    
 }
 
@@ -240,7 +240,7 @@ end
 function xivopeners_pld.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
-    if (target and target.attackable and xivopeners_pld.abilityQueue[1]) then
+    if (target and target.attackable and xivopeners_pld.abilityQueue[1] and (xivopeners_pld.abilityQueue[1].range <= 0 or target.distance2d <= xivopeners_pld.abilityQueue[1].range)) then
         if (xivopeners_pld.abilityQueue[1] == xivopeners_pld.openerAbilities.Tincture) then
             local tincture = xivopeners_pld.getTincture()
             if (HasBuff(Player.id, xivopeners_pld.openerAbilities.MedicineBuffID) or not xivopeners_pld.useTincture or not tincture) then

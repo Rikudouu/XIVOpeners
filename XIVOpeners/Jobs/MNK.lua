@@ -26,7 +26,7 @@ xivopeners_mnk.openerAbilities = {
     TornadoKick = ActionList:Get(1, 3543),
     TwinSnakes = ActionList:Get(1, 61),
     Sprint = ActionList:Get(1, 3),
-    Tincture = {name = "Tincture", ids = {27995, 27786}},
+    Tincture = {name = "Tincture", ids = {27995, 27786}, range = 0},
     MedicineBuffID = 49,
     AnatmanBuffID = 1862,
     FistsOfFireBuffID = 103,
@@ -353,7 +353,7 @@ end
 function xivopeners_mnk.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
-    if (target and target.attackable and xivopeners_mnk.abilityQueue[1]) then
+    if (target and target.attackable and xivopeners_mnk.abilityQueue[1] and (xivopeners_mnk.abilityQueue[1].range <= 0 or target.distance2d <= xivopeners_mnk.abilityQueue[1].range)) then
         if (xivopeners_mnk.abilityQueue[1] == xivopeners_mnk.openerAbilities.Tincture) then
             local tincture = xivopeners_mnk.getTincture()
             if (HasBuff(Player.id, xivopeners_mnk.openerAbilities.MedicineBuffID) or not xivopeners_mnk.useTincture or not tincture) then

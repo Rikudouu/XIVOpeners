@@ -20,7 +20,7 @@ xivopeners_brd.openerAbilities = {
     StraightShotReadyBuffID = 122,
     RagingStrikesBuffID = 125,
     BarrageBuffID = 128,
-    Tincture = {name = "Tincture", ids = {27996, 27787}},
+    Tincture = {name = "Tincture", ids = {27996, 27787}, range = 0},
     MedicineBuffID = 49,
 }
 
@@ -310,7 +310,7 @@ end
 function xivopeners_brd.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
-    if (target and target.attackable and xivopeners_brd.abilityQueue[1]) then
+    if (target and target.attackable and xivopeners_brd.abilityQueue[1] and (xivopeners_brd.abilityQueue[1].range <= 0 or target.distance2d <= xivopeners_brd.abilityQueue[1].range)) then
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.RagingStrikes and HasBuff(Player.id, xivopeners_brd.openerAbilities.RagingStrikesBuffID)) then
             xivopeners.log("Player already used raging strikes prepull, continue with opener")
 --            xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RagingStrikes

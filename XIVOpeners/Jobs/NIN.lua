@@ -1,6 +1,6 @@
 xivopeners_nin = {}
 
-xivopeners_nin.supportedLevel = 80
+xivopeners_nin.supportedLevel = 56
 xivopeners_nin.openerAbilities = {
     Ten = ActionList:Get(1, 2259),
     Jin = ActionList:Get(1, 2263),
@@ -27,7 +27,7 @@ xivopeners_nin.openerAbilities = {
     Bunshin = ActionList:Get(1, 16493),
     Hide = ActionList:Get(1, 2245),
     Meisui = ActionList:Get(1, 16489),
-    Tincture = {name = "Tincture", ids = {27996, 27787}},
+    Tincture = {name = "Tincture", ids = {27996, 27787}, range = 0},
     MedicineBuffID = 49,
 }
 
@@ -298,7 +298,7 @@ end
 function xivopeners_nin.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
-    if (xivopeners_nin.abilityQueue[1]) then
+    if (xivopeners_nin.abilityQueue[1] and ((xivopeners_nin.abilityQueue[1].range <= 0 or not target) or target.distance2d <= xivopeners_nin.abilityQueue[1].range)) then
         -- tincture check
         if (xivopeners_nin.abilityQueue[1] == xivopeners_nin.openerAbilities.Tincture) then
             local tincture = xivopeners_nin.getTincture()

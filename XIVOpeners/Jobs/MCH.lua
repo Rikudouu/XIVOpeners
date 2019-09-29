@@ -20,7 +20,7 @@ xivopeners_mch.openerAbilities = {
     AirAnchor = ActionList:Get(1, 16500),
     CleanShot = ActionList:Get(1, 7413),
     ReassembleBuffID = 851,
-    Tincture = {name = "Tincture", ids = {27996, 27787}},
+    Tincture = {name = "Tincture", ids = {27996, 27787}, range = 0},
     MedicineBuffID = 49,
 }
 
@@ -451,7 +451,7 @@ end
 function xivopeners_mch.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
-    if (target and target.attackable and xivopeners_mch.abilityQueue[1]) then
+    if (target and target.attackable and xivopeners_mch.abilityQueue[1] and (xivopeners_mch.abilityQueue[1].range <= 0 or target.distance2d <= xivopeners_mch.abilityQueue[1].range)) then
         -- tincture check
         if (xivopeners_mch.abilityQueue[1] == xivopeners_mch.openerAbilities.Tincture) then
             local tincture = xivopeners_mch.getTincture()
