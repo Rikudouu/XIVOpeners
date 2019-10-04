@@ -6,14 +6,14 @@ xivopeners_dnc.supportedLevel = 60
 xivopeners_dnc.openerAbilities = {
     StandardStep = ActionList:Get(1, 15997),
     StandardFinish = ActionList:Get(1, 16192),
-    StandardDance = {name = "Standard Dance", id = 0, cd = 0, cdmax = 0};
+    StandardDance = {name = "Standard Dance", id = 0, cd = 0, cdmax = 0, range = 0};
     Emboite = ActionList:Get(1, 15999),
     Entrechat = ActionList:Get(1, 16000),
     Jete = ActionList:Get(1, 16001),
     Pirouette = ActionList:Get(1, 16002),
     TechnicalStep = ActionList:Get(1, 15998),
     TechnicalFinish = ActionList:Get(1, 16196),
-    TechnicalDance = {name = "Technical Dance", id = 0, cd = 0, cdmax = 0};
+    TechnicalDance = {name = "Technical Dance", id = 0, cd = 0, cdmax = 0, range = 0};
     Flourish = ActionList:Get(1, 16013),
     RisingWindmill = ActionList:Get(1, 15995),
     Devilment = ActionList:Get(1, 16011),
