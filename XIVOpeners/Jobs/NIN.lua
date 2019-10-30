@@ -2,13 +2,20 @@ xivopeners_nin = {}
 
 xivopeners_nin.supportedLevel = 56
 xivopeners_nin.openerAbilities = {
+    -- first id for mudra has to be the old id, after that it is the new ids
     Ten = ActionList:Get(1, 2259),
     Jin = ActionList:Get(1, 2263),
     Chi = ActionList:Get(1, 2261),
-    Huton = ActionList:Get(1, 2269), -- the id changes depending on which ninjutsu you use
+    Ten2 = ActionList:Get(1, 18805),
+    Jin2 = ActionList:Get(1, 18807),
+    Chi2 = ActionList:Get(1, 18806),
+    Huton = ActionList:Get(1, 2269),
     FumaShuriken = ActionList:Get(1, 2265),
-    Raiton = ActionList:Get(1, 2267),
-    Suiton = ActionList:Get(1, 2271),
+    FumaShuriken2 = ActionList:Get(1, 18873),
+    Raiton = ActionList:Get(1, 2267), -- mudra
+    Raiton2 = ActionList:Get(1, 18877), -- tcj
+    Suiton = ActionList:Get(1, 2271), -- mudra
+    Suiton2 = ActionList:Get(1, 18881), -- tcj
     Doton = ActionList:Get(1, 2270),
     HyoshoRanryu = ActionList:Get(1, 16492),
     Katon = ActionList:Get(1, 2266),
@@ -19,6 +26,7 @@ xivopeners_nin.openerAbilities = {
     AeolianEdge = ActionList:Get(1, 2255),
     ShadowFang = ActionList:Get(1, 2257),
     TrickAttack = ActionList:Get(1, 2258),
+    TrueNorth = ActionList:Get(1, 7546),
     Kassatsu = ActionList:Get(1, 2264),
     ArmorCrush = ActionList:Get(1, 3563),
     DreamWithinADream = ActionList:Get(1, 3566),
@@ -29,96 +37,123 @@ xivopeners_nin.openerAbilities = {
     Meisui = ActionList:Get(1, 16489),
     Tincture = {name = "Tincture", ids = {27996, 27787}, range = 0},
     MedicineBuffID = 49,
+    AssassinateReadyID = 1955,
+    
 }
 
 xivopeners_nin.openerInfo = {
-    listOpeners = {"Doton", "Raiton"},
+    listOpeners = {"standard","gnb_mch", "smn_dnc_drg"},
     currentOpenerIndex = 1,
 }
 
 xivopeners_nin.openers = {
-    doton = {
+    standard = {
         xivopeners_nin.openerAbilities.Ten,
-        xivopeners_nin.openerAbilities.Chi,
-        xivopeners_nin.openerAbilities.Jin,
+        xivopeners_nin.openerAbilities.Chi2,
+        xivopeners_nin.openerAbilities.Jin2,
         xivopeners_nin.openerAbilities.Suiton,
+        xivopeners_nin.openerAbilities.Kassatsu,
         xivopeners_nin.openerAbilities.SpinningEdge,
         xivopeners_nin.openerAbilities.Tincture,
-        xivopeners_nin.openerAbilities.ShadowFang,
-        xivopeners_nin.openerAbilities.TenChiJin,
-        xivopeners_nin.openerAbilities.Jin,
-        xivopeners_nin.openerAbilities.FumaShuriken,
-        xivopeners_nin.openerAbilities.Ten,
-        xivopeners_nin.openerAbilities.Katon,
-        xivopeners_nin.openerAbilities.Chi,
-        xivopeners_nin.openerAbilities.Doton,
-        xivopeners_nin.openerAbilities.SpinningEdge,
-        xivopeners_nin.openerAbilities.TrickAttack,
-        xivopeners_nin.openerAbilities.Kassatsu,
         xivopeners_nin.openerAbilities.GustSlash,
-        xivopeners_nin.openerAbilities.Chi,
-        xivopeners_nin.openerAbilities.Jin,
-        xivopeners_nin.openerAbilities.HyoshoRanryu,
-        xivopeners_nin.openerAbilities.AeolianEdge,
-        xivopeners_nin.openerAbilities.DreamWithinADream,
-        xivopeners_nin.openerAbilities.Kassatsu,
-        xivopeners_nin.openerAbilities.SpinningEdge,
         xivopeners_nin.openerAbilities.Mug,
-        xivopeners_nin.openerAbilities.Assassinate,
-        xivopeners_nin.openerAbilities.GustSlash,
-        xivopeners_nin.openerAbilities.Chi,
-        xivopeners_nin.openerAbilities.Jin,
-        xivopeners_nin.openerAbilities.HyoshoRanryu,
         xivopeners_nin.openerAbilities.AeolianEdge,
         xivopeners_nin.openerAbilities.Bunshin,
         xivopeners_nin.openerAbilities.SpinningEdge,
+        xivopeners_nin.openerAbilities.TrueNorth,
+        xivopeners_nin.openerAbilities.TrickAttack,
         xivopeners_nin.openerAbilities.ShadowFang,
-    },
-
-    raiton = {
-        xivopeners_nin.openerAbilities.Tincture,
+        xivopeners_nin.openerAbilities.DreamWithinADream,
+        xivopeners_nin.openerAbilities.Ten2,
+        xivopeners_nin.openerAbilities.Jin2,
+        xivopeners_nin.openerAbilities.HyoshoRanryu,
+        xivopeners_nin.openerAbilities.Assassinate,
         xivopeners_nin.openerAbilities.Ten,
-        xivopeners_nin.openerAbilities.Chi,
-        xivopeners_nin.openerAbilities.Jin,
-        xivopeners_nin.openerAbilities.Suiton,
-        xivopeners_nin.openerAbilities.SpinningEdge,
-        xivopeners_nin.openerAbilities.Mug,
-        xivopeners_nin.openerAbilities.Meisui,
-        xivopeners_nin.openerAbilities.ShadowFang,
-        xivopeners_nin.openerAbilities.TenChiJin,
-        xivopeners_nin.openerAbilities.Ten,
-        xivopeners_nin.openerAbilities.FumaShuriken,
-        xivopeners_nin.openerAbilities.Chi,
+        xivopeners_nin.openerAbilities.Chi2,
         xivopeners_nin.openerAbilities.Raiton,
-        xivopeners_nin.openerAbilities.Jin,
-        xivopeners_nin.openerAbilities.Suiton,
+        xivopeners_nin.openerAbilities.GustSlash,
+        xivopeners_nin.openerAbilities.TenChiJin,
+        xivopeners_nin.openerAbilities.FumaShuriken2,
+        xivopeners_nin.openerAbilities.Raiton2,
+        xivopeners_nin.openerAbilities.Suiton2,
+        xivopeners_nin.openerAbilities.Meisui,
+        xivopeners_nin.openerAbilities.Ten,
+        xivopeners_nin.openerAbilities.Chi2,
+        xivopeners_nin.openerAbilities.Raiton,
+        xivopeners_nin.openerAbilities.Bhavacakra,
+    },
+    gnb_mch = {        
+        xivopeners_nin.openerAbilities.Ten,
+        xivopeners_nin.openerAbilities.Chi2,
+        xivopeners_nin.openerAbilities.Jin2,
+        xivopeners_nin.openerAbilities.Suiton, 
+        xivopeners_nin.openerAbilities.Kassatsu,
         xivopeners_nin.openerAbilities.SpinningEdge,
-        xivopeners_nin.openerAbilities.TrickAttack,
+        xivopeners_nin.openerAbilities.Tincture,
+        xivopeners_nin.openerAbilities.GustSlash,
+        xivopeners_nin.openerAbilities.Mug,
+        xivopeners_nin.openerAbilities.AeolianEdge,
+        xivopeners_nin.openerAbilities.TrueNorth,
+        xivopeners_nin.openerAbilities.TrickAttack,        
         xivopeners_nin.openerAbilities.Bunshin,
-        xivopeners_nin.openerAbilities.GustSlash,
+        xivopeners_nin.openerAbilities.ShadowFang,
         xivopeners_nin.openerAbilities.DreamWithinADream,
-        xivopeners_nin.openerAbilities.Kassatsu,
-        xivopeners_nin.openerAbilities.AeolianEdge,
-        xivopeners_nin.openerAbilities.Chi,
-        xivopeners_nin.openerAbilities.Jin,
+        xivopeners_nin.openerAbilities.Ten2,
+        xivopeners_nin.openerAbilities.Jin2,
         xivopeners_nin.openerAbilities.HyoshoRanryu,
-        xivopeners_nin.openerAbilities.SpinningEdge,
-        xivopeners_nin.openerAbilities.Kassatsu,
         xivopeners_nin.openerAbilities.Assassinate,
-        xivopeners_nin.openerAbilities.GustSlash,
-        xivopeners_nin.openerAbilities.Chi,
-        xivopeners_nin.openerAbilities.Jin,
-        xivopeners_nin.openerAbilities.HyoshoRanryu,
-        xivopeners_nin.openerAbilities.AeolianEdge,
+        xivopeners_nin.openerAbilities.Ten,
+        xivopeners_nin.openerAbilities.Chi2,
+        xivopeners_nin.openerAbilities.Raiton,
+        xivopeners_nin.openerAbilities.TenChiJin,
+        xivopeners_nin.openerAbilities.FumaShuriken2,
+        xivopeners_nin.openerAbilities.Raiton2,
+        xivopeners_nin.openerAbilities.Suiton2,
+        xivopeners_nin.openerAbilities.Meisui,
+        xivopeners_nin.openerAbilities.Ten,
+        xivopeners_nin.openerAbilities.Chi2,
+        xivopeners_nin.openerAbilities.Raiton,
         xivopeners_nin.openerAbilities.Bhavacakra,
         xivopeners_nin.openerAbilities.SpinningEdge,
-        xivopeners_nin.openerAbilities.ShadowFang,
     },
-
+    smn_dnc_drg = {        
+        xivopeners_nin.openerAbilities.Ten,
+        xivopeners_nin.openerAbilities.Chi2,
+        xivopeners_nin.openerAbilities.Jin2,
+        xivopeners_nin.openerAbilities.Suiton, 
+        xivopeners_nin.openerAbilities.Kassatsu,
+        xivopeners_nin.openerAbilities.SpinningEdge,
+        xivopeners_nin.openerAbilities.Tincture,
+        xivopeners_nin.openerAbilities.GustSlash,
+        xivopeners_nin.openerAbilities.TrueNorth,
+        xivopeners_nin.openerAbilities.TrickAttack,        
+        xivopeners_nin.openerAbilities.Mug,
+        xivopeners_nin.openerAbilities.AeolianEdge,        
+        xivopeners_nin.openerAbilities.Bunshin,
+        xivopeners_nin.openerAbilities.Ten2,
+        xivopeners_nin.openerAbilities.Jin2,
+        xivopeners_nin.openerAbilities.HyoshoRanryu,
+        xivopeners_nin.openerAbilities.DreamWithinADream,
+        xivopeners_nin.openerAbilities.ShadowFang,
+        xivopeners_nin.openerAbilities.Assassinate,
+        xivopeners_nin.openerAbilities.Ten,
+        xivopeners_nin.openerAbilities.Chi2,
+        xivopeners_nin.openerAbilities.Raiton,
+        xivopeners_nin.openerAbilities.TenChiJin,
+        xivopeners_nin.openerAbilities.FumaShuriken2,
+        xivopeners_nin.openerAbilities.Raiton2,
+        xivopeners_nin.openerAbilities.Suiton2,
+        xivopeners_nin.openerAbilities.Meisui,
+        xivopeners_nin.openerAbilities.Ten,
+        xivopeners_nin.openerAbilities.Chi2,
+        xivopeners_nin.openerAbilities.Raiton,
+        xivopeners_nin.openerAbilities.Bhavacakra,
+    },
+  
     prepull = {
         xivopeners_nin.openerAbilities.Jin,
-        xivopeners_nin.openerAbilities.Chi,
-        xivopeners_nin.openerAbilities.Ten,
+        xivopeners_nin.openerAbilities.Chi2,
+        xivopeners_nin.openerAbilities.Ten2,
         xivopeners_nin.openerAbilities.Huton,
         xivopeners_nin.openerAbilities.Hide,
     }
@@ -146,12 +181,18 @@ end
 
 function xivopeners_nin.getOpener()
     if (xivopeners_nin.openerInfo.currentOpenerIndex == 1) then
-        return xivopeners_nin.openers.doton
-    elseif (xivopeners_nin.openerInfo.currentOpenerIndex == 2) then
-        return xivopeners_nin.openers.raiton
-    else
-        return {}
+        return xivopeners_nin.openers.standard
     end
+
+    if (xivopeners_nin.openerInfo.currentOpenerIndex == 2) then
+        return xivopeners_nin.openers.gnb_mch
+    end
+
+    if (xivopeners_nin.openerInfo.currentOpenerIndex == 3) then
+        return xivopeners_nin.openers.smn_dnc_drg
+    end
+
+    return xivopeners_nin.openers.standard
 end
 
 function xivopeners_nin.checkOpenerIds()
@@ -170,6 +211,23 @@ function xivopeners_nin.openerAvailable()
             if (tincture and xivopeners_nin.useTincture and tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_nin.openerAbilities.MedicineBuffID)) then
                 return false
             end
+        -- these happen later in the fight, cooldown does not need to be as strict
+        elseif (action == xivopeners_nin.openerAbilities.Bunshin and xivopeners_nin.openerAbilities.Bunshin.cd < 10) then
+            return true
+        elseif (action == xivopeners_nin.openerAbilities.DreamWithinADream and xivopeners_nin.openerAbilities.DreamWithinADream.cd < 10) then
+            return true
+        elseif (action == xivopeners_nin.openerAbilities.Assassinate and xivopeners_nin.openerAbilities.Assassinate.cd < 10) then
+            return true
+        elseif (action == xivopeners_nin.openerAbilities.Kassatsu and xivopeners_nin.openerAbilities.Kassatsu.cd < 10) then
+            return true
+        elseif (action == xivopeners_nin.openerAbilities.Mug and xivopeners_nin.openerAbilities.Mug.cd < 3) then
+            return true
+        elseif (action == xivopeners_nin.openerAbilities.Ten and xivopeners_nin.openerAbilities.Ten.cd >= 20) then
+            return true
+        elseif (action == xivopeners_nin.openerAbilities.Chi and xivopeners_nin.openerAbilities.Chi.cd >= 20) then
+            return true
+        elseif (action == xivopeners_nin.openerAbilities.Jin and xivopeners_nin.openerAbilities.Jin.cd >= 20) then
+            return true
         elseif (action.cd >= 1.5) then
             return false
         end
@@ -191,6 +249,7 @@ function xivopeners_nin.queueOpener()
     --    end
     xivopeners_nin.lastCastFromQueue = nil
     xivopeners_nin.openerStarted = false
+
     if (xivopeners_nin.useTincture and not xivopeners_nin.getTincture()) then
         xivopeners_nin.useTincture = false
     end
@@ -258,6 +317,7 @@ function xivopeners_nin.main(event, tickcount)
                 return
             end
             -- opener is finished, pass control to ACR
+            SendTextCommand("/e done <se.6>")
             xivopeners.log("Finished openers, handing control to ACR")
             xivopeners_nin.openerStarted = false
             if (xivopeners.running) then xivopeners.ToggleRun() end
@@ -275,6 +335,21 @@ function xivopeners_nin.main(event, tickcount)
             xivopeners_nin.openerStarted = true
             xivopeners_nin.useNextAction(target)
         elseif (xivopeners_nin.lastCastFromQueue and xivopeners_nin.lastcastid == xivopeners_nin.lastCastFromQueue.id) then
+            xivopeners_nin.lastcastid = -1
+            xivopeners_nin.dequeue()
+            xivopeners_nin.useNextAction(target)
+            -- due to in out mechanics Ninki Gauge Cost might not be 80 yet, if so skip instead of breaking opener
+        elseif (xivopeners_nin.lastCastFromQueue == xivopeners_nin.openerAbilities.Bhavacakra and  Player.gauge[1] < 80) then
+            xivopeners_nin.lastcastid = -1
+            xivopeners_nin.dequeue()
+            xivopeners_nin.useNextAction(target)
+            -- due to in out mechanics Ninki Gauge Cost might not be 80 yet, if so skip instead of breaking opener
+        elseif (xivopeners_nin.lastCastFromQueue == xivopeners_nin.openerAbilities.Bunshin and  (Player.gauge[1] < 80 or xivopeners_nin.openerAbilities.Bunshin.cd > 0)) then
+            xivopeners_nin.lastcastid = -1
+            xivopeners_nin.dequeue()
+            xivopeners_nin.useNextAction(target)
+            -- due to mechanics Assassinate Ready could expire, skip instead of breaking opener
+        elseif (xivopeners_nin.lastCastFromQueue == xivopeners_nin.openerAbilities.Assassinate and not HasBuff(Player.id, xivopeners_nin.openerAbilities.AssassinateReadyID)) then
             xivopeners_nin.lastcastid = -1
             xivopeners_nin.dequeue()
             xivopeners_nin.useNextAction(target)
@@ -317,20 +392,10 @@ function xivopeners_nin.useNextAction(target)
             return
         end
 
-        if (IsMudraSkill(xivopeners_nin.abilityQueue[1].id)) then
-            if (Player.castinginfo.timesincecast >= 150) then
-                xivopeners_nin.abilityQueue[1]:Cast(target.id)
-                xivopeners_nin.lastCastFromQueue = xivopeners_nin.abilityQueue[1]
-            else
-                xivopeners.log("Waiting for mudra delay")
-            end
-            return
-        end
-
-
-        -- idk how to make it not spam console
---        xivopeners.log("Casting " .. xivopeners_nin.abilityQueue[1].name)
+       -- idk how to make it not spam console
+       -- xivopeners.log("Casting " .. xivopeners_nin.abilityQueue[1].name)
         xivopeners_nin.abilityQueue[1]:Cast(target.id)
+       -- xivopeners.log("true")
         xivopeners_nin.lastCastFromQueue = xivopeners_nin.abilityQueue[1]
     end
 end
