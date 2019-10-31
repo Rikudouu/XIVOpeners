@@ -307,6 +307,14 @@ function xivopeners_brd.dequeue()
     table.remove(xivopeners_brd.abilityQueue, 1)
 end
 
+function xivopeners_brd.cast(action, target)
+    if (action.oCast ~= nil) then
+        action:Cast(target, true)
+    else
+        action:Cast(target)
+    end
+end
+
 function xivopeners_brd.useNextAction(target)
     -- do the actual opener
     -- the current implementation uses a queue system
@@ -320,13 +328,13 @@ function xivopeners_brd.useNextAction(target)
         if (Player.gauge[2] >= 3 and xivopeners_brd.openerAbilities.BurstShot.cdmax - xivopeners_brd.openerAbilities.BurstShot.cd > 0.9) then
             -- don't want to dequeue here
             xivopeners.log("Using PP3 proc")
-            xivopeners_brd.openerAbilities.PitchPerfect:Cast(target.id)
+            xivopeners_brd.cast(xivopeners_brd.openerAbilities.PitchPerfect, target.id)
 --            xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.PitchPerfect
             return
         end
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.BurstShot and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
             xivopeners.log("Using RA proc during BurstShot window")
-            xivopeners_brd.openerAbilities.RefulgentArrow:Cast(target.id)
+            xivopeners_brd.cast(xivopeners_brd.openerAbilities.RefulgentArrow, target.id)
             xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RefulgentArrow
             return
         end
@@ -351,7 +359,7 @@ function xivopeners_brd.useNextAction(target)
 
         -- idk how to make it not spam console
 --        xivopeners.log("Casting " .. xivopeners_brd.abilityQueue[1].name)
-        xivopeners_brd.abilityQueue[1]:Cast(target.id)
+        xivopeners_brd.cast(xivopeners_brd.abilityQueue[1], target.id)
         xivopeners_brd.lastCastFromQueue = xivopeners_brd.abilityQueue[1]
     end
 end
