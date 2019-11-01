@@ -19,6 +19,7 @@ xivopeners_smn.openerAbilities = {
     EnkindleBahamut = ActionList:Get(1, 7429),
     SummonIfrit = ActionList:Get(1, 180),
     Swiftcast = ActionList:Get(1, 7561),
+    LucidDreaming = ActionList:Get(1, 7562),
     Ruin4BuffID = 1212,
     IfritPetID = 1402,
     Tincture = {name = "Tincture", ids = {27998, 27789}, range = 0}, -- int
@@ -26,28 +27,24 @@ xivopeners_smn.openerAbilities = {
 }
 
 xivopeners_smn.openerInfo = {
-    listOpeners = {"1.55 ED Miyabi", "4.05 ED Miyabi Modified", "Easy Bahamut"},
+    listOpeners = {"6th GCD Summon", "5th GCD Summon"},
     currentOpenerIndex = 1,
 }
 
 xivopeners_smn.openers = {
-    edMiyabiOriginal = {
+    sixGCDSummon = {
         xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Tridisaster,
-        xivopeners_smn.openerAbilities.Ruin2, -- supposed to be clipped by 0.5s, why?
+        xivopeners_smn.openerAbilities.EgiAssault,
         xivopeners_smn.openerAbilities.EnergyDrain,
-        xivopeners_smn.openerAbilities.DreadwyrmTrance,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.Tridisaster,
         xivopeners_smn.openerAbilities.EgiAssault2,
-        xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Tincture,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Aetherpact,
-        xivopeners_smn.openerAbilities.Enkindle,
-        xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.Aetherpact,
+        xivopeners_smn.openerAbilities.DreadwyrmTrance,
         xivopeners_smn.openerAbilities.EgiAssault2,
+        xivopeners_smn.openerAbilities.LucidDreaming,
+        xivopeners_smn.openerAbilities.Enkindle,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Fester,
         xivopeners_smn.openerAbilities.Tridisaster,
@@ -57,94 +54,51 @@ xivopeners_smn.openers = {
         xivopeners_smn.openerAbilities.Ruin4,
         xivopeners_smn.openerAbilities.EnkindleBahamut,
         xivopeners_smn.openerAbilities.Fester,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Ruin4,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Ruin4,
         xivopeners_smn.openerAbilities.EnkindleBahamut,
-        xivopeners_smn.openerAbilities.EnergyDrain,
+        xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Ruin4,
+        xivopeners_smn.openerAbilities.EnergyDrain,
+        xivopeners_smn.openerAbilities.Swiftcast,
+        xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Fester,
-        xivopeners_smn.openerAbilities.Ruin4
     },
 
-    edMiyabiModified = {
+    fiveGCDSummon = {
         xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Tridisaster,
-        xivopeners_smn.openerAbilities.Ruin2,
         xivopeners_smn.openerAbilities.EgiAssault,
-        xivopeners_smn.openerAbilities.DreadwyrmTrance,
-        xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.EnergyDrain,
+        xivopeners_smn.openerAbilities.Tridisaster,
         xivopeners_smn.openerAbilities.EgiAssault2,
-        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Tincture,
         xivopeners_smn.openerAbilities.EgiAssault,
         xivopeners_smn.openerAbilities.Aetherpact,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Tincture,
-        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.DreadwyrmTrance,
         xivopeners_smn.openerAbilities.EgiAssault2,
         xivopeners_smn.openerAbilities.Enkindle,
-        xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Fester,
-        xivopeners_smn.openerAbilities.Tridisaster,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Deathflare,
         xivopeners_smn.openerAbilities.SummonBahamut,
         xivopeners_smn.openerAbilities.Ruin4,
         xivopeners_smn.openerAbilities.EnkindleBahamut,
+        xivopeners_smn.openerAbilities.Tridisaster,
+        xivopeners_smn.openerAbilities.Ruin4,
         xivopeners_smn.openerAbilities.Fester,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Ruin4,
         xivopeners_smn.openerAbilities.EnkindleBahamut,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Ruin4,
         xivopeners_smn.openerAbilities.Swiftcast,
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.EnergyDrain,
         xivopeners_smn.openerAbilities.Fester,
-        xivopeners_smn.openerAbilities.Ruin4,
-    },
-
-    easyBahamut = {
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Tridisaster,
-        xivopeners_smn.openerAbilities.Ruin2,
-        xivopeners_smn.openerAbilities.EgiAssault,
-        xivopeners_smn.openerAbilities.DreadwyrmTrance,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.EnergyDrain,
-        xivopeners_smn.openerAbilities.EgiAssault2,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.EgiAssault,
-        xivopeners_smn.openerAbilities.Aetherpact,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Tincture,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.EgiAssault2,
-        xivopeners_smn.openerAbilities.Enkindle,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Fester,
-        xivopeners_smn.openerAbilities.Tridisaster,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Deathflare,
-        xivopeners_smn.openerAbilities.SummonBahamut,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Ruin4,
-        xivopeners_smn.openerAbilities.EnkindleBahamut,
-        xivopeners_smn.openerAbilities.Fester,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.Ruin4,
-        xivopeners_smn.openerAbilities.EnkindleBahamut,
-        xivopeners_smn.openerAbilities.Ruin4,
-        xivopeners_smn.openerAbilities.EnergyDrain,
-        xivopeners_smn.openerAbilities.Fester,
-        xivopeners_smn.openerAbilities.Ruin4,
-    },
+    }
 }
 
 xivopeners_smn.abilityQueue = {}
@@ -152,7 +106,6 @@ xivopeners_smn.lastCastFromQueue = nil -- might need this for some more complex 
 xivopeners_smn.openerStarted = false
 xivopeners_smn.useTincture = false
 xivopeners_smn.prepullSetup = false
-xivopeners_smn.demiWaitTime = 500 -- balance recommends 0.5s
 xivopeners_smn.lastcastid = 0
 xivopeners_smn.lastcastid2 = 0
 
@@ -169,11 +122,9 @@ end
 
 function xivopeners_smn.getOpener()
     if (xivopeners_smn.openerInfo.currentOpenerIndex == 1) then
-        return xivopeners_smn.openers.edMiyabiOriginal
+        return xivopeners_smn.openers.sixGCDSummon
     elseif (xivopeners_smn.openerInfo.currentOpenerIndex == 2) then
-        return xivopeners_smn.openers.edMiyabiModified
-    elseif (xivopeners_smn.openerInfo.currentOpenerIndex == 3) then
-        return xivopeners_smn.openers.easyBahamut
+        return xivopeners_smn.openers.fiveGCDSummon
     else
         return {}
     end
@@ -252,17 +203,6 @@ function xivopeners_smn.drawCall(event, tickcount)
     xivopeners_smn.useTincture = GUI:Checkbox("##xivopeners_smn_tincturecheck", xivopeners_smn.useTincture)
     GUI:EndGroup()
     GUI:NextColumn()
-
-    GUI:AlignFirstTextHeightToWidgets()
-    GUI:BeginGroup()
-    GUI:Text("GCD Clip after Demi (ms)")
-    GUI:NextColumn()
-    xivopeners_smn.demiWaitTime = GUI:InputInt("##xivopeners_smn_demiwaittime", xivopeners_smn.demiWaitTime, 5, 50)
-    GUI:NextColumn()
-    GUI:EndGroup()
-    if (GUI:IsItemHovered()) then
-        GUI:SetTooltip("This is for the GCD clip after summoning bahamut that you have to do for Tokyo Drift.\nIf this is set too low, the first r4 after summoning won't get a WW.\nIf it's too high, you risk not getting 8 WW. 28ms ping and 600ms delay should be able to get 8 WW")
-    end
 end
 
 function xivopeners_smn.main(event, tickcount)
@@ -353,18 +293,6 @@ function xivopeners_smn.useNextAction(target)
             xivopeners.log("Has r4 proc during r2, adjusting lastcast")
             xivopeners_smn.abilityQueue[1]:Cast(target.id)
             xivopeners_smn.lastCastFromQueue = xivopeners_smn.openerAbilities.Ruin4
-            return
-        end
-
-        -- need to clip gcd for a split second here to make sure r4 procs WW
-        if (xivopeners_smn.abilityQueue[1] == xivopeners_smn.openerAbilities.Ruin4 and xivopeners_smn.lastCastFromQueue == xivopeners_smn.openerAbilities.SummonBahamut) then
-            if (Player.castinginfo.timesincecast >= xivopeners_smn.demiWaitTime) then
-                xivopeners.log("Clipped gcd, continuing with r4")
-                xivopeners_smn.abilityQueue[1]:Cast(target.id)
-                xivopeners_smn.lastCastFromQueue = xivopeners_smn.abilityQueue[1]
-            else
-                xivopeners.log("Waiting for gcd clip")
-            end
             return
         end
 
