@@ -42,7 +42,7 @@ xivopeners_nin.openerAbilities = {
 }
 
 xivopeners_nin.openerInfo = {
-    listOpeners = {"standard","gnb_mch", "smn_dnc_drg"},
+    listOpeners = {"standard"},
     currentOpenerIndex = 1,
 }
 
@@ -57,8 +57,8 @@ xivopeners_nin.openers = {
         xivopeners_nin.openerAbilities.Tincture,
         xivopeners_nin.openerAbilities.GustSlash,
         xivopeners_nin.openerAbilities.Mug,
-        xivopeners_nin.openerAbilities.AeolianEdge,
         xivopeners_nin.openerAbilities.Bunshin,
+        xivopeners_nin.openerAbilities.AeolianEdge,
         xivopeners_nin.openerAbilities.SpinningEdge,
         xivopeners_nin.openerAbilities.TrueNorth,
         xivopeners_nin.openerAbilities.TrickAttack,
@@ -71,85 +71,20 @@ xivopeners_nin.openers = {
         xivopeners_nin.openerAbilities.Ten,
         xivopeners_nin.openerAbilities.Chi2,
         xivopeners_nin.openerAbilities.Raiton,
-        xivopeners_nin.openerAbilities.GustSlash,
         xivopeners_nin.openerAbilities.TenChiJin,
         xivopeners_nin.openerAbilities.FumaShuriken2,
         xivopeners_nin.openerAbilities.Raiton2,
         xivopeners_nin.openerAbilities.Suiton2,
         xivopeners_nin.openerAbilities.Meisui,
-        xivopeners_nin.openerAbilities.Ten,
-        xivopeners_nin.openerAbilities.Chi2,
-        xivopeners_nin.openerAbilities.Raiton,
-        xivopeners_nin.openerAbilities.Bhavacakra,
-    },
-    gnb_mch = {        
-        xivopeners_nin.openerAbilities.Ten,
-        xivopeners_nin.openerAbilities.Chi2,
-        xivopeners_nin.openerAbilities.Jin2,
-        xivopeners_nin.openerAbilities.Suiton, 
-        xivopeners_nin.openerAbilities.Kassatsu,
-        xivopeners_nin.openerAbilities.SpinningEdge,
-        xivopeners_nin.openerAbilities.Tincture,
         xivopeners_nin.openerAbilities.GustSlash,
-        xivopeners_nin.openerAbilities.Mug,
+        xivopeners_nin.openerAbilities.Bhavacakra,
         xivopeners_nin.openerAbilities.AeolianEdge,
-        xivopeners_nin.openerAbilities.TrueNorth,
-        xivopeners_nin.openerAbilities.TrickAttack,        
-        xivopeners_nin.openerAbilities.Bunshin,
-        xivopeners_nin.openerAbilities.ShadowFang,
-        xivopeners_nin.openerAbilities.DreamWithinADream,
-        xivopeners_nin.openerAbilities.Ten2,
-        xivopeners_nin.openerAbilities.Jin2,
-        xivopeners_nin.openerAbilities.HyoshoRanryu,
-        xivopeners_nin.openerAbilities.Assassinate,
-        xivopeners_nin.openerAbilities.Ten,
-        xivopeners_nin.openerAbilities.Chi2,
-        xivopeners_nin.openerAbilities.Raiton,
-        xivopeners_nin.openerAbilities.TenChiJin,
-        xivopeners_nin.openerAbilities.FumaShuriken2,
-        xivopeners_nin.openerAbilities.Raiton2,
-        xivopeners_nin.openerAbilities.Suiton2,
-        xivopeners_nin.openerAbilities.Meisui,
-        xivopeners_nin.openerAbilities.Ten,
-        xivopeners_nin.openerAbilities.Chi2,
-        xivopeners_nin.openerAbilities.Raiton,
         xivopeners_nin.openerAbilities.Bhavacakra,
-        xivopeners_nin.openerAbilities.SpinningEdge,
-    },
-    smn_dnc_drg = {        
-        xivopeners_nin.openerAbilities.Ten,
-        xivopeners_nin.openerAbilities.Chi2,
-        xivopeners_nin.openerAbilities.Jin2,
-        xivopeners_nin.openerAbilities.Suiton, 
-        xivopeners_nin.openerAbilities.Kassatsu,
-        xivopeners_nin.openerAbilities.SpinningEdge,
-        xivopeners_nin.openerAbilities.Tincture,
-        xivopeners_nin.openerAbilities.GustSlash,
-        xivopeners_nin.openerAbilities.TrueNorth,
-        xivopeners_nin.openerAbilities.TrickAttack,        
-        xivopeners_nin.openerAbilities.Mug,
-        xivopeners_nin.openerAbilities.AeolianEdge,        
-        xivopeners_nin.openerAbilities.Bunshin,
-        xivopeners_nin.openerAbilities.Ten2,
-        xivopeners_nin.openerAbilities.Jin2,
-        xivopeners_nin.openerAbilities.HyoshoRanryu,
-        xivopeners_nin.openerAbilities.DreamWithinADream,
-        xivopeners_nin.openerAbilities.ShadowFang,
-        xivopeners_nin.openerAbilities.Assassinate,
         xivopeners_nin.openerAbilities.Ten,
         xivopeners_nin.openerAbilities.Chi2,
         xivopeners_nin.openerAbilities.Raiton,
-        xivopeners_nin.openerAbilities.TenChiJin,
-        xivopeners_nin.openerAbilities.FumaShuriken2,
-        xivopeners_nin.openerAbilities.Raiton2,
-        xivopeners_nin.openerAbilities.Suiton2,
-        xivopeners_nin.openerAbilities.Meisui,
-        xivopeners_nin.openerAbilities.Ten,
-        xivopeners_nin.openerAbilities.Chi2,
-        xivopeners_nin.openerAbilities.Raiton,
-        xivopeners_nin.openerAbilities.Bhavacakra,
     },
-  
+ 
     prepull = {
         xivopeners_nin.openerAbilities.Jin,
         xivopeners_nin.openerAbilities.Chi2,
@@ -182,14 +117,6 @@ end
 function xivopeners_nin.getOpener()
     if (xivopeners_nin.openerInfo.currentOpenerIndex == 1) then
         return xivopeners_nin.openers.standard
-    end
-
-    if (xivopeners_nin.openerInfo.currentOpenerIndex == 2) then
-        return xivopeners_nin.openers.gnb_mch
-    end
-
-    if (xivopeners_nin.openerInfo.currentOpenerIndex == 3) then
-        return xivopeners_nin.openers.smn_dnc_drg
     end
 
     return xivopeners_nin.openers.standard
