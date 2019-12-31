@@ -1,5 +1,10 @@
 xivopeners = {}
 
+xivopeners.LuaPath = GetLuaModsPath()
+xivopeners.ModuleSettingPath = xivopeners.LuaPath .. [[ffxivminion\xivopener\]]
+xivopeners.ModuleSettings = xivopeners.ModuleSettingPath .. [[Settings.lua]]
+xivopeners.PreviousSave,xivopeners.lastcheck = {},Now()
+
 xivopeners.version = semver(1,6,0)
 
 xivopeners.GUI = {
@@ -7,6 +12,32 @@ xivopeners.GUI = {
     visible = true,
     drawMode = 1,
 }
+
+
+xivopeners.v = table.valid
+function xivopeners.valid(...)
+    local tbl = {...}
+    local size = #tbl
+    if size > 0 then
+        local count = tbl[1]
+        if type(count) == "number" then
+            if size == (count + 1) then
+                for i = 2, size do
+                    if not xivopeners.v(tbl[i]) then return false end
+                end
+                return true
+            end
+        else
+            for i = 1, size do
+                if not xivopeners.v(tbl[i]) then return false end
+            end
+            return true
+        end
+    end
+    return false
+end
+
+
 
 xivopeners.running = false
 
@@ -32,6 +63,69 @@ xivopeners.jobs = {
     BlueMage = 36,
     Gunbreaker = 37,
     Dancer = 38
+}
+
+xivopeners.settings = {
+    -- settings for all jobs
+    advancedMode = false,
+    oocEnable = false,
+    -- job specific
+    [xivopeners.jobs.BlackMage] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
+    [xivopeners.jobs.Bard] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
+    [xivopeners.jobs.Dancer] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
+    [xivopeners.jobs.Dragoon] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
+    [xivopeners.jobs.DarkKnight] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
+    [xivopeners.jobs.Gunbreaker] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
+    [xivopeners.jobs.Machinist] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
+    [xivopeners.jobs.Monk] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
+    [xivopeners.jobs.Ninja] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
+    [xivopeners.jobs.Paladin] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
+    [xivopeners.jobs.Samurai] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
+    [xivopeners.jobs.Scholar] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
+    [xivopeners.jobs.Summoner] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
+    [xivopeners.jobs.Warrior] = {
+        useTincture = false,
+        currentOpenerIndex = 1,
+    },
 }
 
 function xivopeners.log(string)
@@ -182,8 +276,8 @@ xivopeners.supportedJobs = {
         drawCall = xivopeners_drk.drawCall,
     },
 }
-xivopeners.oocEnable = false
-xivopeners.advancedMode = false
+--xivopeners.oocEnable = false
+--xivopeners.advancedMode = false
 
 function xivopeners.version:getNumber()
     return self.major + self.minor * 10^(-1) + self.patch * 10^(-2)
@@ -213,6 +307,8 @@ function xivopeners.Init()
     end
 
     ml_gui.ui_mgr:AddMember({ id = "FFXIVMINION##MENU_XIVOpeners", name = "XIVOpeners", onClick = function() xivopeners.GUI.open = not xivopeners.GUI.open end, tooltip = "Does openers and passes them off to ACR. Currently in BETA, not all jobs are supported!"},"FFXIVMINION##MENU_HEADER")
+
+    xivopeners.LoadSettings()
 end
 
 function xivopeners.DrawCall(event, ticks)
@@ -226,6 +322,7 @@ function xivopeners.DrawCall(event, ticks)
             end
         end
     end
+    xivopeners.SaveSettings()
 end
 
 function xivopeners.drawMainFull(event, ticks)
@@ -263,7 +360,7 @@ function xivopeners.drawMainFull(event, ticks)
         GUI:BeginGroup()
         GUI:Text("Advanced Mode")
         GUI:NextColumn()
-        xivopeners.advancedMode = GUI:Checkbox("##xivopeners_advancedcheck", xivopeners.advancedMode)
+        xivopeners.settings.advancedMode = GUI:Checkbox("##xivopeners_advancedcheck", xivopeners.settings.advancedMode)
         GUI:EndGroup()
         if (GUI:IsItemHovered()) then
             GUI:SetTooltip("ONLY ENABLE THIS IF YOU KNOW WHAT YOU'RE DOING!! Shows some useful options such as auto enable when out of combat")
@@ -271,13 +368,13 @@ function xivopeners.drawMainFull(event, ticks)
 
         GUI:NextColumn()
 
-        if (xivopeners.advancedMode) then
+        if (xivopeners.settings.advancedMode) then
             GUI:AlignFirstTextHeightToWidgets()
             GUI:BeginGroup()
             GUI:Text("Professional Static Mode")
             GUI:NextColumn()
             local oocEnableChanged --unused for now, left it here for future use
-            xivopeners.oocEnable, oocEnableChanged = GUI:Checkbox("##xivopeners_oocenablecheck", xivopeners.oocEnable)
+            xivopeners.settings.oocEnable, oocEnableChanged = GUI:Checkbox("##xivopeners_oocenablecheck", xivopeners.settings.oocEnable)
     --        if (oocEnableChanged) then
     --        end
             GUI:EndGroup()
@@ -294,7 +391,7 @@ function xivopeners.drawMainFull(event, ticks)
             GUI:NextColumn()
             GUI:PushItemWidth(-1)
             local openerIndexChanged
-            xivopeners.supportedJobs[Player.job].openerInfo.currentOpenerIndex, openerIndexChanged = GUI:Combo("##xivopeners_opener_select", xivopeners.supportedJobs[Player.job].openerInfo.currentOpenerIndex, xivopeners.supportedJobs[Player.job].openerInfo.listOpeners)
+            xivopeners.settings[Player.job].currentOpenerIndex, openerIndexChanged = GUI:Combo("##xivopeners_opener_select", xivopeners.settings[Player.job].currentOpenerIndex, xivopeners.supportedJobs[Player.job].openerInfo.listOpeners)
             if (openerIndexChanged) then
                 xivopeners.supportedJobs[Player.job].queueOpener()
             end
@@ -384,8 +481,52 @@ function xivopeners.OnUpdate(event, tickcount)
             if (not gStartCombat and target and not target.incombat) then return end -- combat check
             xivopeners.supportedJobs[Player.job].main(event, tickcount) -- call main for job
 
-        elseif (xivopeners.oocEnable and not Player.incombat and not xivopeners.running) then
+        elseif (xivopeners.settings.oocEnable and not Player.incombat and not xivopeners.running) then
             xivopeners.ToggleRun()
+        end
+    end
+end
+
+function xivopeners.LoadSettings()
+    --SaveSettings(tbl, true)
+    if (not FolderExists(xivopeners.ModuleSettingPath)) then
+        xivopeners.log("created folder")
+        FolderCreate(xivopeners.ModuleSettingPath)
+    end
+    local tbl = FileLoad(xivopeners.ModuleSettings)
+    local function scan(tbl,tbl2,depth)
+        depth = depth or 0
+        if xivopeners.valid(2,tbl,tbl2) then
+            for k,v in pairs(tbl2) do
+                if type(v) == "table" then
+                    if tbl[k] and xivopeners.valid(tbl[k]) then
+                        tbl[k] = table.merge(tbl[k],scan(tbl[k],v,depth+1))
+                    else
+                        tbl[k] = v
+                    end
+                else
+                    if tbl[k] ~= tbl2[k] then tbl[k] = tbl2[k] end
+                end
+            end
+        end
+        return tbl
+    end
+    xivopeners.settings = scan(xivopeners.settings,tbl)
+end
+
+
+function xivopeners.SaveSettings(force)
+    if (force or TimeSince(xivopeners.lastcheck) > 5000) then
+        xivopeners.lastcheck = Now()
+        if not table.deepcompare(xivopeners.settings,PreviousSave) then
+
+            if (not FolderExists(xivopeners.ModuleSettingPath)) then
+                xivopeners.log("created folder")
+                FolderCreate(xivopeners.ModuleSettingPath)
+            end
+
+            FileSave(xivopeners.ModuleSettings,xivopeners.settings)
+            PreviousSave = table.deepcopy(xivopeners.settings)
         end
     end
 end

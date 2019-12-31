@@ -20,8 +20,7 @@ xivopeners_sch.openerAbilities = {
 }
 
 xivopeners_sch.openerInfo = {
-    listOpeners = {"Standard", "Non-Dissipation"},
-    currentOpenerIndex = 1,
+    listOpeners = {"Standard", "Non-Dissipation"}
 }
 
 xivopeners_sch.openers = {
@@ -73,7 +72,6 @@ xivopeners_sch.openers = {
 xivopeners_sch.abilityQueue = {}
 xivopeners_sch.lastCastFromQueue = nil -- might need this for some more complex openers with conditions
 xivopeners_sch.openerStarted = false
-xivopeners_sch.useTincture = false
 xivopeners_sch.prepullSetup = false
 xivopeners_sch.lastcastid = 0
 xivopeners_sch.lastcastid2 = 0
@@ -90,9 +88,9 @@ end
 
 
 function xivopeners_sch.getOpener()
-    if (xivopeners_sch.openerInfo.currentOpenerIndex == 1) then
+    if (xivopeners.settings[Player.job].currentOpenerIndex == 1) then
         return xivopeners_sch.openers.standard
-    elseif (xivopeners_sch.openerInfo.currentOpenerIndex == 2) then
+    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 2) then
         return xivopeners_sch.openers.nonDissipation
     else
         return {}
@@ -107,7 +105,7 @@ function xivopeners_sch.checkOpenerIds()
     end
     for key, action in pairs(xivopeners_sch.getOpener()) do
         if (action == nil) then
-            xivopeners.log("WARNING: Action at index " .. tostring(key) .. " in opener " .. tostring(xivopeners_sch.openerInfo.currentOpenerIndex) .. " is nil. Possible typo?")
+            xivopeners.log("WARNING: Action at index " .. tostring(key) .. " in opener " .. tostring(xivopeners.settings[Player.job].currentOpenerIndex) .. " is nil. Possible typo?")
         end
 
     end
@@ -118,7 +116,7 @@ function xivopeners_sch.openerAvailable()
     for _, action in pairs(xivopeners_sch.getOpener()) do
         if (action == xivopeners_sch.openerAbilities.Tincture) then
             local tincture = xivopeners_sch.getTincture()
-            if (tincture and xivopeners_sch.useTincture and tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_sch.openerAbilities.MedicineBuffID)) then
+            if (tincture and xivopeners.settings[Player.job].useTincture and tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_sch.openerAbilities.MedicineBuffID)) then
                 return false
             end
         elseif (action.cd >= 1.5) then
@@ -142,8 +140,8 @@ function xivopeners_sch.queueOpener()
     --    end
     xivopeners_sch.lastCastFromQueue = nil
     xivopeners_sch.openerStarted = false
-    if (xivopeners_sch.useTincture and not xivopeners_sch.getTincture()) then
-        xivopeners_sch.useTincture = false
+    if (xivopeners.settings[Player.job].useTincture and not xivopeners_sch.getTincture()) then
+        xivopeners.settings[Player.job].useTincture = false
     end
 end
 
@@ -169,7 +167,7 @@ function xivopeners_sch.drawCall(event, tickcount)
     GUI:BeginGroup()
     GUI:Text("Use Tincture")
     GUI:NextColumn()
-    xivopeners_sch.useTincture = GUI:Checkbox("##xivopeners_sch_tincturecheck", xivopeners_sch.useTincture)
+    xivopeners.settings[Player.job].useTincture = GUI:Checkbox("##xivopeners_sch_tincturecheck", xivopeners.settings[Player.job].useTincture)
     GUI:EndGroup()
     GUI:NextColumn()
 end
@@ -242,7 +240,7 @@ function xivopeners_sch.useNextAction(target)
         -- tincture check
         if (xivopeners_sch.abilityQueue[1] == xivopeners_sch.openerAbilities.Tincture) then
             local tincture = xivopeners_sch.getTincture()
-            if (HasBuff(Player.id, xivopeners_sch.openerAbilities.MedicineBuffID) or not xivopeners_sch.useTincture or not tincture) then
+            if (HasBuff(Player.id, xivopeners_sch.openerAbilities.MedicineBuffID) or not xivopeners.settings[Player.job].useTincture or not tincture) then
                 xivopeners.log("Tincture already used during opener, not enabled, or not available, dequeueing")
                 xivopeners_sch.dequeue()
                 return
