@@ -19,8 +19,7 @@ xivopeners_war.openerAbilities = {
 }
 
 xivopeners_war.openerInfo = {
-    listOpeners = {"IC IC IR", "IC IR IC"},
-    currentOpenerIndex = 1
+    listOpeners = {"IC IC IR", "IC IR IC"}
 }
 
 xivopeners_war.openers = {
@@ -80,7 +79,6 @@ xivopeners_war.openers = {
 xivopeners_war.abilityQueue = {}
 xivopeners_war.lastCastFromQueue = nil -- might need this for some more complex openers with conditions
 xivopeners_war.openerStarted = false
-xivopeners_war.useTincture = false
 xivopeners_war.lastcastid = 0
 xivopeners_war.lastcastid2 = 0
 
@@ -95,9 +93,9 @@ function xivopeners_war.getTincture()
 end
 
 function xivopeners_war.getOpener()
-    if (xivopeners_war.openerInfo.currentOpenerIndex == 1) then
+    if (xivopeners.settings[Player.job].currentOpenerIndex == 1) then
         return xivopeners_war.openers.ICICIR
-    elseif (xivopeners_war.openerInfo.currentOpenerIndex == 2) then
+    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 2) then
         return xivopeners_war.openers.ICIRIC
     end
     return {}
@@ -116,7 +114,7 @@ function xivopeners_war.openerAvailable()
     for _, action in pairs(xivopeners_war.getOpener()) do
         if (action == xivopeners_war.openerAbilities.Tincture) then
             local tincture = xivopeners_war.getTincture()
-            if (tincture and xivopeners_war.useTincture and tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_war.openerAbilities.MedicineBuffID)) then
+            if (tincture and xivopeners.settings[Player.job].useTincture and tincture:GetAction().cd >= 1.5 and not HasBuff(Player.id, xivopeners_war.openerAbilities.MedicineBuffID)) then
                 return false
             end
         elseif (action.cd >= 1.5) then
@@ -137,9 +135,9 @@ function xivopeners_war.queueOpener()
     xivopeners_war.lastCastFromQueue = nil
     xivopeners_war.openerStarted = false
 
-    if (xivopeners_war.useTincture and not xivopeners_war.getTincture()) then
+    if (xivopeners.settings[Player.job].useTincture and not xivopeners_war.getTincture()) then
         -- if we don't have a tincture but the toggle is on, turn it off
-        xivopeners_war.useTincture = false
+        xivopeners.settings[Player.job].useTincture = false
     end
 end
 
@@ -163,7 +161,7 @@ function xivopeners_war.drawCall(event, tickcount)
     GUI:BeginGroup()
     GUI:Text("Use Tincture")
     GUI:NextColumn()
-    xivopeners_war.useTincture = GUI:Checkbox("##xivopeners_war_tincturecheck", xivopeners_war.useTincture)
+    xivopeners.settings[Player.job].useTincture = GUI:Checkbox("##xivopeners_war_tincturecheck", xivopeners.settings[Player.job].useTincture)
     GUI:EndGroup()
     GUI:NextColumn()
 end
@@ -225,7 +223,7 @@ function xivopeners_war.useNextAction(target)
     if (target and target.attackable and xivopeners_war.abilityQueue[1] and (xivopeners_war.abilityQueue[1].range <= 0 or target.distance2d <= xivopeners_war.abilityQueue[1].range)) then
         if (xivopeners_war.abilityQueue[1] == xivopeners_war.openerAbilities.Tincture) then
             local tincture = xivopeners_war.getTincture()
-            if (HasBuff(Player.id, xivopeners_war.openerAbilities.MedicineBuffID) or not xivopeners_war.useTincture or not tincture) then
+            if (HasBuff(Player.id, xivopeners_war.openerAbilities.MedicineBuffID) or not xivopeners.settings[Player.job].useTincture or not tincture) then
                 xivopeners.log("Tincture already used during opener, not enabled, or not available, dequeueing")
                 xivopeners_war.dequeue()
                 return
