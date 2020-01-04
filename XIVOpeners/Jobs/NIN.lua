@@ -269,7 +269,14 @@ function xivopeners_nin.main(event, tickcount)
         if (xivopeners.running and not xivopeners_nin.openerStarted and xivopeners_nin.prepullSetup) then
             if (Player.gauge[2] < 30000) then
                 xivopeners_nin.abilityQueue = {}
-                for _, action in pairs(xivopeners_nin.openers.prepull) do
+                local prepull
+                if (xivopeners.settings[Player.job].currentOpenerIndex == 1) then
+                    prepull = xivopeners_nin.openers.prepull
+                elseif (xivopeners.settings[Player.job].currentOpenerIndex == 2) then
+                    prepull = xivopeners_nin.openers.prepull_no_doton
+                end -- can add more prepull openers if needed in the future
+                
+                for _, action in pairs(prepull) do
                     xivopeners_nin.enqueue(action)
                 end
                 xivopeners.log("Starting prepull huton")
