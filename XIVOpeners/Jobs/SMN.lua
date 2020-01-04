@@ -119,7 +119,7 @@ end
 
 
 function xivopeners_smn.getOpener()
-    if (xivopeners.settings[Player.job].currentOpenerIndexx == 1) then
+    if (xivopeners.settings[Player.job].currentOpenerIndex == 1) then
         return xivopeners_smn.openers.sixGCDSummon
     elseif (xivopeners.settings[Player.job].currentOpenerIndex == 2) then
         return xivopeners_smn.openers.fiveGCDSummon
