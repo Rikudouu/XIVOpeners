@@ -25,7 +25,7 @@ xivopeners_brd.openerAbilities = {
 }
 
 xivopeners_brd.openerInfo = {
-    listOpeners = {"Recommended", "No Ninja", "Compatibility"},
+    listOpeners = {"Recommended", "TEA", "No Ninja", "Compatibility"},
 }
 
 xivopeners_brd.openers = {
@@ -50,6 +50,29 @@ xivopeners_brd.openers = {
         xivopeners_brd.openerAbilities.IronJaws,
         xivopeners_brd.openerAbilities.EmpyrealArrow
     },
+
+    tea = {
+        xivopeners_brd.openerAbilities.Tincture,
+        xivopeners_brd.openerAbilities.RagingStrikes,
+        xivopeners_brd.openerAbilities.Stormbite,
+        xivopeners_brd.openerAbilities.Bloodletter,
+        xivopeners_brd.openerAbilities.WanderersMinuet,
+        xivopeners_brd.openerAbilities.CausticBite,
+        xivopeners_brd.openerAbilities.EmpyrealArrow,
+        xivopeners_brd.openerAbilities.BattleVoice, -- after this point it's either 3 burst shots, or RA procs if we get them
+        xivopeners_brd.openerAbilities.BurstShot,
+        xivopeners_brd.openerAbilities.BurstShot,
+        xivopeners_brd.openerAbilities.BurstShot,
+        xivopeners_brd.openerAbilities.RefulgentArrow, -- this will be dequeued if we don't have straight shot ready
+        xivopeners_brd.openerAbilities.Barrage, -- need a check here for an RA proc, and use that instead
+        xivopeners_brd.openerAbilities.BurstShot,
+--        xivopeners_brd.openerAbilities.Sidewinder, -- skipping this to use at AOE
+--        xivopeners_brd.openerAbilities.BurstShot, -- this is going to get inserted if we don't get the RA proc
+        xivopeners_brd.openerAbilities.Bloodletter,
+        xivopeners_brd.openerAbilities.IronJaws,
+        xivopeners_brd.openerAbilities.EmpyrealArrow
+    },
+
 
     compatibility = {
         xivopeners_brd.openerAbilities.Tincture,
@@ -116,8 +139,10 @@ function xivopeners_brd.getOpener()
     if (xivopeners.settings[Player.job].currentOpenerIndex == 1) then
         return xivopeners_brd.openers.recommended
     elseif (xivopeners.settings[Player.job].currentOpenerIndex == 2) then
-        return xivopeners_brd.openers.nonin
+        return xivopeners_brd.openers.tea
     elseif (xivopeners.settings[Player.job].currentOpenerIndex == 3) then
+        return xivopeners_brd.openers.nonin
+    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 4) then
         return xivopeners_brd.openers.compatibility
     end
 end
