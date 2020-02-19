@@ -14,7 +14,7 @@ xivopeners_war.openerAbilities = {
     Onslaught = ActionList:Get(1, 7386),
     StormsPath = ActionList:Get(1, 42),
     Sprint = ActionList:Get(1, 3),
-    Tincture = {name = "Tincture", ids = {27995, 27786}, range = 0},
+    Tincture = {name = "Tincture", ids = {29492, 27995, 27786}, range = 0},
     MedicineBuffID = 49,
 }
 

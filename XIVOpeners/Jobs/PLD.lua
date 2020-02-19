@@ -16,7 +16,7 @@ xivopeners_pld.openerAbilities = {
     Intervene= ActionList:Get(1, 16461),
     Confiteor= ActionList:Get(1, 16459),
     Sprint = ActionList:Get(1, 3),
-    Tincture = {name = "Tincture", ids = {27995, 27786}, range = 0},
+    Tincture = {name = "Tincture", ids = {29492, 27995, 27786}, range = 0},
     MedicineBuffID = 49,    
 }
 

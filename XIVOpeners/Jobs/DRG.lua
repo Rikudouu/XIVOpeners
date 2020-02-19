@@ -20,7 +20,7 @@ xivopeners_drg.openerAbilities = {
     MirageDive = ActionList:Get(1, 7399),
     FullThrust = ActionList:Get(1, 84),
     DragonfireDive = ActionList:Get(1, 96),
-    Tincture = {name = "Tincture", ids = {27995, 27786}, range = 0},
+    Tincture = {name = "Tincture", ids = {29492, 27995, 27786}, range = 0},
     MedicineBuffID = 49
 }
 

@@ -16,7 +16,7 @@ xivopeners_blm.openerAbilities = {
     Fire = ActionList:Get(1, 141),
     SharpCast = ActionList:Get(1, 3574),
     SharpCastBuffID = 867,
-    Tincture = {name = "Tincture", ids = {27998, 27789}, range = 0}, -- int
+    Tincture = {name = "Tincture", ids = {29495, 27998, 27789}, range = 0}, -- int
     MedicineBuffID = 49,
 }
 

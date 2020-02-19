@@ -13,7 +13,7 @@ xivopeners_sch.openerAbilities = {
     Dissipation = ActionList:Get(1, 3587),
     SummonEos = ActionList:Get(1, 17215),
     SummonSelene = ActionList:Get(1, 17216),
-    Tincture = {name = "Tincture", ids = {27790, 27999}, range = 0}, -- mind
+    Tincture = {name = "Tincture", ids = {29496, 27790, 27999}, range = 0}, -- mind
     MedicineBuffID = 49,
     EosPetID = 1398,
     SelenePetID = 1399,

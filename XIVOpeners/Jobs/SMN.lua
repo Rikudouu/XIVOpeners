@@ -22,7 +22,7 @@ xivopeners_smn.openerAbilities = {
     LucidDreaming = ActionList:Get(1, 7562),
     Ruin4BuffID = 1212,
     IfritPetID = 1402,
-    Tincture = {name = "Tincture", ids = {27998, 27789}, range = 0}, -- int
+    Tincture = {name = "Tincture", ids = {29495, 27998, 27789}, range = 0}, -- int
     MedicineBuffID = 49,
 }
 

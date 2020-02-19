@@ -20,7 +20,7 @@ xivopeners_mch.openerAbilities = {
     AirAnchor = ActionList:Get(1, 16500),
     CleanShot = ActionList:Get(1, 7413),
     ReassembleBuffID = 851,
-    Tincture = {name = "Tincture", ids = {27996, 27787}, range = 0},
+    Tincture = {name = "Tincture", ids = {29493, 27996, 27787}, range = 0},
     MedicineBuffID = 49,
 }
 

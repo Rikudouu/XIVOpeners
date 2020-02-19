@@ -20,7 +20,7 @@ xivopeners_brd.openerAbilities = {
     StraightShotReadyBuffID = 122,
     RagingStrikesBuffID = 125,
     BarrageBuffID = 128,
-    Tincture = {name = "Tincture", ids = {27996, 27787}, range = 0},
+    Tincture = {name = "Tincture", ids = {29493, 27996, 27787}, range = 0},
     MedicineBuffID = 49,
 }
 

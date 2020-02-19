@@ -21,7 +21,7 @@ xivopeners_sam.openerAbilities = {
     Senei = ActionList:Get(1, 16481),
     Ikishoten = ActionList:Get(1, 16482),
     KaeshiSetsugekka = ActionList:Get(1, 16486),
-    Tincture = {name = "Tincture", ids = {27995, 27786}, range = 0},
+    Tincture = {name = "Tincture", ids = {29492, 27995, 27786}, range = 0},
     MedicineBuffID = 49
 }
 

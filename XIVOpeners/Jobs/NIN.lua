@@ -35,7 +35,7 @@ xivopeners_nin.openerAbilities = {
     Bunshin = ActionList:Get(1, 16493),
     Hide = ActionList:Get(1, 2245),
     Meisui = ActionList:Get(1, 16489),
-    Tincture = {name = "Tincture", ids = {27996, 27787}, range = 0},
+    Tincture = {name = "Tincture", ids = {29493, 27996, 27787}, range = 0},
     MedicineBuffID = 49,
     AssassinateReadyID = 1955,
     

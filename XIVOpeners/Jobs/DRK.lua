@@ -17,7 +17,7 @@ xivopeners_drk.openerAbilities = {
     BloodSpiller = ActionList:Get(1, 7392),
     Unmend = ActionList:Get(1, 3624),
     Sprint = ActionList:Get(1, 3),
-    Tincture = {name = "Tincture", ids = {27995, 27786}, range = 0},
+    Tincture = {name = "Tincture", ids = {29492, 27995, 27786}, range = 0},
     MedicineBuffID = 49,
 }
 

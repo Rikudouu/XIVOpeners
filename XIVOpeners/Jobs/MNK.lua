@@ -26,7 +26,7 @@ xivopeners_mnk.openerAbilities = {
     TornadoKick = ActionList:Get(1, 3543),
     TwinSnakes = ActionList:Get(1, 61),
     Sprint = ActionList:Get(1, 3),
-    Tincture = {name = "Tincture", ids = {27995, 27786}, range = 0},
+    Tincture = {name = "Tincture", ids = {29492, 27995, 27786}, range = 0},
     MedicineBuffID = 49,
     AnatmanBuffID = 1862,
     FistsOfFireBuffID = 103,

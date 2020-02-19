@@ -19,7 +19,7 @@ xivopeners_dnc.openerAbilities = {
     Devilment = ActionList:Get(1, 16011),
     StandardStepBuffID = 1818,
     StandardFinishBuffID = 1821,
-    Tincture = {name = "Tincture", ids = {27996, 27787}, range = 0},
+    Tincture = {name = "Tincture", ids = {29493, 27996, 27787}, range = 0},
     MedicineBuffID = 49,
 }
 
