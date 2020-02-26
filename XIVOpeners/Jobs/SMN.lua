@@ -21,13 +21,13 @@ xivopeners_smn.openerAbilities = {
     Swiftcast = ActionList:Get(1, 7561),
     LucidDreaming = ActionList:Get(1, 7562),
     Ruin4BuffID = 1212,
-    IfritPetID = 1402,
+    IfritPetID = 3,
     Tincture = {name = "Tincture", ids = {29495, 27998, 27789}, range = 0}, -- int
     MedicineBuffID = 49,
 }
 
 xivopeners_smn.openerInfo = {
-    listOpeners = {"6th GCD Summon", "5th GCD Summon"}
+    listOpeners = {"6th GCD Summon", "5th GCD Summon", "9th GCD Summon"}
 }
 
 xivopeners_smn.openers = {
@@ -97,6 +97,31 @@ xivopeners_smn.openers = {
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.EnergyDrain,
         xivopeners_smn.openerAbilities.Fester,
+    },
+    
+    nineGCDSummon = {
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.Tridisaster,
+        xivopeners_smn.openerAbilities.EnergyDrain,
+        xivopeners_smn.openerAbilities.EgiAssault2,
+        xivopeners_smn.openerAbilities.LucidDreaming,
+        xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.Aetherpact,
+        xivopeners_smn.openerAbilities.DreadwyrmTrance,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Tincture,
+        xivopeners_smn.openerAbilities.EgiAssault2,
+        xivopeners_smn.openerAbilities.Tridisaster,
+        xivopeners_smn.openerAbilities.Fester,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Fester,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Enkindle,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Deathflare,
+        xivopeners_smn.openerAbilities.SummonBahamut,
     }
 }
 
@@ -123,6 +148,8 @@ function xivopeners_smn.getOpener()
         return xivopeners_smn.openers.sixGCDSummon
     elseif (xivopeners.settings[Player.job].currentOpenerIndex == 2) then
         return xivopeners_smn.openers.fiveGCDSummon
+    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 3) then
+        return xivopeners_smn.openers.nineGCDSummon
     else
         return {}
     end
@@ -205,7 +232,7 @@ end
 
 function xivopeners_smn.main(event, tickcount)
     if (Player.level >= xivopeners_smn.supportedLevel) then
-        if (not Player.pet or Player.pet.contentid ~= xivopeners_smn.openerAbilities.IfritPetID) then
+        if (not Player.pet or Player.pet.pettype ~= xivopeners_smn.openerAbilities.IfritPetID) then
             xivopeners_smn.prepullSetup = true
         else
             xivopeners_smn.prepullSetup = false
