@@ -5,7 +5,7 @@ xivopeners.ModuleSettingPath = xivopeners.LuaPath .. [[ffxivminion\xivopener\]]
 xivopeners.ModuleSettings = xivopeners.ModuleSettingPath .. [[Settings.lua]]
 xivopeners.PreviousSave,xivopeners.lastcheck = {},Now()
 
-xivopeners.version = semver(1,7,0)
+xivopeners.version = semver(1,7,1)
 
 xivopeners.GUI = {
     open = false,
