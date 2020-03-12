@@ -27,7 +27,7 @@ xivopeners_smn.openerAbilities = {
 }
 
 xivopeners_smn.openerInfo = {
-    listOpeners = {"6th GCD Summon", "5th GCD Summon", "9th GCD Summon"}
+    listOpeners = {"6th GCD Summon", "5th GCD Summon", "Prepull Devotion 6 GCD", "9th GCD Summon"}
 }
 
 xivopeners_smn.openers = {
@@ -98,6 +98,41 @@ xivopeners_smn.openers = {
         xivopeners_smn.openerAbilities.EnergyDrain,
         xivopeners_smn.openerAbilities.Fester,
     },
+	
+	prepullDevotion = {
+        xivopeners_smn.openerAbilities.Aetherpact,
+		xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.EnergyDrain,
+        xivopeners_smn.openerAbilities.Tridisaster,
+        xivopeners_smn.openerAbilities.EgiAssault2,
+        xivopeners_smn.openerAbilities.Tincture,
+        xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.DreadwyrmTrance,
+        xivopeners_smn.openerAbilities.EgiAssault2,
+        xivopeners_smn.openerAbilities.LucidDreaming,
+        xivopeners_smn.openerAbilities.Enkindle,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Fester,
+        xivopeners_smn.openerAbilities.Tridisaster,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Deathflare,
+        xivopeners_smn.openerAbilities.SummonBahamut,
+        xivopeners_smn.openerAbilities.Ruin4,
+        xivopeners_smn.openerAbilities.EnkindleBahamut,
+        xivopeners_smn.openerAbilities.Fester,
+        xivopeners_smn.openerAbilities.Ruin4,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Ruin4,
+        xivopeners_smn.openerAbilities.EnkindleBahamut,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Ruin4,
+        xivopeners_smn.openerAbilities.EnergyDrain,
+        xivopeners_smn.openerAbilities.Swiftcast,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Fester,
+    },
     
     nineGCDSummon = {
         xivopeners_smn.openerAbilities.Ruin3,
@@ -149,6 +184,8 @@ function xivopeners_smn.getOpener()
     elseif (xivopeners.settings[Player.job].currentOpenerIndex == 2) then
         return xivopeners_smn.openers.fiveGCDSummon
     elseif (xivopeners.settings[Player.job].currentOpenerIndex == 3) then
+        return xivopeners_smn.openers.prepullDevotion
+    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 4) then
         return xivopeners_smn.openers.nineGCDSummon
     else
         return {}
