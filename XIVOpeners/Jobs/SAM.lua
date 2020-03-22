@@ -21,24 +21,24 @@ xivopeners_sam.openerAbilities = {
     Senei = ActionList:Get(1, 16481),
     Ikishoten = ActionList:Get(1, 16482),
     KaeshiSetsugekka = ActionList:Get(1, 16486),
+    Shoha = ActionList:Get(1, 16487),
     Tincture = {name = "Tincture", ids = {29492, 27995, 27786}, range = 0},
     MedicineBuffID = 49
 }
 
 xivopeners_sam.openerInfo = {
-    listOpeners = {"Midare 1st", "Higanbana 1st"}
+    listOpeners = {"Midare 1st", "Midare 1st Alt", "Higanbana 1st", "Higanbana 1st Alt"}
 }
 
 xivopeners_sam.openers = {
     midare1st = {
         xivopeners_sam.openerAbilities.Hakaze,
-        xivopeners_sam.openerAbilities.Meditate,
-        xivopeners_sam.openerAbilities.Shifu,
         xivopeners_sam.openerAbilities.Ikishoten,
+        xivopeners_sam.openerAbilities.Shifu,
         xivopeners_sam.openerAbilities.Kasha, -- flank
         xivopeners_sam.openerAbilities.Hakaze,
-        xivopeners_sam.openerAbilities.Jinpu,
         xivopeners_sam.openerAbilities.Tincture,
+        xivopeners_sam.openerAbilities.Jinpu,
         xivopeners_sam.openerAbilities.Gekko, -- back
         xivopeners_sam.openerAbilities.Meikyo,
         xivopeners_sam.openerAbilities.Senei,
@@ -50,29 +50,81 @@ xivopeners_sam.openers = {
         xivopeners_sam.openerAbilities.Gekko, -- back
         xivopeners_sam.openerAbilities.Kaiten,
         xivopeners_sam.openerAbilities.Higanbana,
-        xivopeners_sam.openerAbilities.Gekko -- back
+        xivopeners_sam.openerAbilities.Shoha,
+        xivopeners_sam.openerAbilities.Gekko, -- back
     },
+
+    midare1stAlt = {
+        xivopeners_sam.openerAbilities.Hakaze,
+        xivopeners_sam.openerAbilities.Ikishoten,
+        xivopeners_sam.openerAbilities.Shifu,
+        xivopeners_sam.openerAbilities.Kasha, -- flank
+        xivopeners_sam.openerAbilities.Hakaze,
+        xivopeners_sam.openerAbilities.Tincture,
+        xivopeners_sam.openerAbilities.Jinpu,
+        xivopeners_sam.openerAbilities.Gekko, -- back
+        xivopeners_sam.openerAbilities.Senei,
+        xivopeners_sam.openerAbilities.Hakaze,
+        xivopeners_sam.openerAbilities.Shinten,
+        xivopeners_sam.openerAbilities.Yukikaze,
+        xivopeners_sam.openerAbilities.Kaiten,
+        xivopeners_sam.openerAbilities.MidareSetsugekka,
+        xivopeners_sam.openerAbilities.KaeshiSetsugekka,
+        xivopeners_sam.openerAbilities.Meikyo,
+        xivopeners_sam.openerAbilities.Gekko, -- back
+        xivopeners_sam.openerAbilities.Kaiten,
+        xivopeners_sam.openerAbilities.Higanbana,
+        xivopeners_sam.openerAbilities.Shoha,
+        xivopeners_sam.openerAbilities.Gekko, -- back
+        xivopeners_sam.openerAbilities.Kasha, -- flank
+    },
+
     higanbana1st = {
         xivopeners_sam.openerAbilities.Hakaze,
-        xivopeners_sam.openerAbilities.Meditate,
+        xivopeners_sam.openerAbilities.Ikishoten,
         xivopeners_sam.openerAbilities.Shifu,
         xivopeners_sam.openerAbilities.Kasha, -- flank
-        xivopeners_sam.openerAbilities.Ikishoten,
         xivopeners_sam.openerAbilities.Hakaze,
         xivopeners_sam.openerAbilities.Tincture,
         xivopeners_sam.openerAbilities.Jinpu,
         xivopeners_sam.openerAbilities.Kaiten,
         xivopeners_sam.openerAbilities.Higanbana,
+        xivopeners_sam.openerAbilities.Senei,
         xivopeners_sam.openerAbilities.Gekko, -- back
         xivopeners_sam.openerAbilities.Meikyo,
-        xivopeners_sam.openerAbilities.Senei,
         xivopeners_sam.openerAbilities.Kasha, -- flank
         xivopeners_sam.openerAbilities.Shinten,
         xivopeners_sam.openerAbilities.Yukikaze,
         xivopeners_sam.openerAbilities.Kaiten,
         xivopeners_sam.openerAbilities.MidareSetsugekka,
         xivopeners_sam.openerAbilities.KaeshiSetsugekka,
-        xivopeners_sam.openerAbilities.Gekko -- back
+        xivopeners_sam.openerAbilities.Shoha,
+        xivopeners_sam.openerAbilities.Gekko, -- back
+    },
+
+    higanbana1stAlt = {
+        xivopeners_sam.openerAbilities.Hakaze,
+        xivopeners_sam.openerAbilities.Ikishoten,
+        xivopeners_sam.openerAbilities.Shifu,
+        xivopeners_sam.openerAbilities.Kasha, -- flank
+        xivopeners_sam.openerAbilities.Hakaze,
+        xivopeners_sam.openerAbilities.Tincture,
+        xivopeners_sam.openerAbilities.Jinpu,
+        xivopeners_sam.openerAbilities.Gekko, -- back
+        xivopeners_sam.openerAbilities.Senei,
+        xivopeners_sam.openerAbilities.Hakaze,
+        xivopeners_sam.openerAbilities.Shinten,
+        xivopeners_sam.openerAbilities.Yukikaze,
+        xivopeners_sam.openerAbilities.Kaiten,
+        xivopeners_sam.openerAbilities.MidareSetsugekka,
+        xivopeners_sam.openerAbilities.KaeshiSetsugekka,
+        xivopeners_sam.openerAbilities.Meikyo,
+        xivopeners_sam.openerAbilities.Gekko, -- back
+        xivopeners_sam.openerAbilities.Kaiten,
+        xivopeners_sam.openerAbilities.Higanbana,
+        xivopeners_sam.openerAbilities.Shoha,
+        xivopeners_sam.openerAbilities.Gekko, -- back
+        xivopeners_sam.openerAbilities.Kasha, -- flank
     }
 }
 
@@ -96,8 +148,14 @@ function xivopeners_sam.getOpener()
     local opener
     if (xivopeners.settings[Player.job].currentOpenerIndex == 1) then
         opener = xivopeners_sam.openers.midare1st
-    else
+    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 2) then
+        opener = xivopeners_sam.openers.midare1stAlt
+    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 3) then
         opener = xivopeners_sam.openers.higanbana1st
+    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 4) then
+        opener = xivopeners_sam.openers.higanbana1stAlt
+    else
+        opener = {}
     end
     return opener
 end
