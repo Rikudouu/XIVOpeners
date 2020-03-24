@@ -157,6 +157,7 @@ xivopeners_smn.openers = {
         xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.Deathflare,
         xivopeners_smn.openerAbilities.SummonBahamut,
+        xivopeners_smn.openerAbilities.Ruin4,
     },
 
     rushDWT = {
@@ -178,8 +179,6 @@ xivopeners_smn.openers = {
         xivopeners_smn.openerAbilities.Deathflare,
         xivopeners_smn.openerAbilities.SummonBahamut,
         xivopeners_smn.openerAbilities.Ruin4,
-        xivopeners_smn.openerAbilities.EnkindleBahamut,
-        xivopeners_smn.openerAbilities.Fester,
     },
 
     rushDWTPrepullDevotion = {
@@ -201,8 +200,6 @@ xivopeners_smn.openers = {
         xivopeners_smn.openerAbilities.Deathflare,
         xivopeners_smn.openerAbilities.SummonBahamut,
         xivopeners_smn.openerAbilities.Ruin4,
-        xivopeners_smn.openerAbilities.EnkindleBahamut,
-        xivopeners_smn.openerAbilities.Fester,
     }
 }
 
