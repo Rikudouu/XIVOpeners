@@ -149,9 +149,13 @@ end
 
 function xivopeners_gnb.getOpener()
     if (xivopeners.settings[Player.job].currentOpenerIndex == 1) then
-        return xivopeners_gnb.openers.EarlyBF
+        return xivopeners_gnb.openers.secondGCDGnashing
     elseif (xivopeners.settings[Player.job].currentOpenerIndex == 2) then
-        return xivopeners_gnb.openers.Standard
+        return xivopeners_gnb.openers.raidBuff
+    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 3) then
+        return xivopeners_gnb.openers.secondGCDBowBlasting
+    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 4) then
+        return xivopeners_gnb.openers.firstGCDInstantBurst
     end
     return {}
 end
