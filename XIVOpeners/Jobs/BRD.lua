@@ -122,8 +122,7 @@ xivopeners_brd.openers = {
 xivopeners_brd.abilityQueue = {}
 xivopeners_brd.lastCastFromQueue = nil -- might need this for some more complex openers with conditions
 xivopeners_brd.openerStarted = false
-xivopeners_brd.lastcastid = 0
-xivopeners_brd.lastcastid2 = 0
+xivopeners_brd.timeLastAction = 0
 
 function xivopeners_brd.getTincture()
     for i = 0, 3 do
@@ -192,23 +191,6 @@ function xivopeners_brd.queueOpener()
     end
 end
 
-function xivopeners_brd.updateLastCast()
---    xivopeners.log(tostring(xivopeners_brd.lastcastid) .. ", " .. tostring(xivopeners_brd.lastcastid2) .. ", " .. tostring(Player.castinginfo.lastcastid))
-    if (xivopeners_brd.lastCastFromQueue) then
-        if (xivopeners_brd.lastcastid == -1) then
-            -- compare the real castid and see if it changed, if it did, update from -1
-            if (xivopeners_brd.lastcastid2 ~= Player.castinginfo.castingid and Player.castinginfo.castingid ~= xivopeners_brd.openerAbilities.PitchPerfect.id and xivopeners_brd.lastCastFromQueue.cd > 0) then
-                xivopeners.log("cast changed")
-                xivopeners_brd.lastcastid = Player.castinginfo.castingid
-                xivopeners_brd.lastcastid2 = Player.castinginfo.castingid
-            end
-        elseif (xivopeners_brd.lastcastid ~= Player.castinginfo.castingid and xivopeners_brd.lastCastFromQueue.cd > 0) then
-            xivopeners_brd.lastcastid = Player.castinginfo.castingid
-            xivopeners_brd.lastcastid2 = Player.castinginfo.castingid
-        end
-    end
-end
-
 function xivopeners_brd.drawCall(event, tickcount)
     GUI:AlignFirstTextHeightToWidgets()
     GUI:BeginGroup()
@@ -261,6 +243,21 @@ function xivopeners_brd.drawCall(event, tickcount)
     end
 end
 
+function xivopeners_brd.isStalled()
+    local nextQueuedAction = TensorCore.getLastAction()
+    local lastSuccessfulAction = TensorCore.getLastSuccessfulCast()
+    local nextAction = xivopeners_brd.abilityQueue[1]
+
+    -- have not used an action for longer than a gcd
+    if TimeSince(xivopeners_brd.timeLastAction) > TensorCore.currentGCD + 1000 then
+        xivopeners.log("Inactivity stall")
+        return true
+    end
+
+
+    return false
+end
+
 function xivopeners_brd.main(event, tickcount)
     if (Player.level >= xivopeners_brd.supportedLevel) then
         local target = Player:GetTarget()
@@ -280,15 +277,25 @@ function xivopeners_brd.main(event, tickcount)
             return
         end
 
-        xivopeners_brd.updateLastCast()
-
         if (not xivopeners_brd.openerStarted) then
             -- technically, even if you use an ability from prepull, it should still work, since the next time this loop runs it'll jump to the elseif
             xivopeners.log("Starting opener")
             xivopeners_brd.openerStarted = true
             xivopeners_brd.useNextAction(target)
-        -- this code isn't working because the buff gets applied after the BS cast has gone off, but the script dequeues BS the moment the animation happens
-        elseif (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.RefulgentArrow and xivopeners_brd.abilityQueue[2] == xivopeners_brd.openerAbilities.Barrage and (xivopeners_brd.abilityQueue[1].cdmax - xivopeners_brd.abilityQueue[1].cd <= 1.1) and not HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
+            xivopeners_brd.timeLastAction = Now()
+        elseif xivopeners_brd.isStalled() then
+            xivopeners.log("Stall detected, handing control to ACR")
+            xivopeners_brd.openerStarted = false
+            if (xivopeners.running) then xivopeners.ToggleRun() end
+            if (not FFXIV_Common_BotRunning) then
+                ml_global_information.ToggleRun()
+            end
+            return
+        elseif xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.RefulgentArrow
+        and xivopeners_brd.abilityQueue[2] == xivopeners_brd.openerAbilities.Barrage
+        and xivopeners_brd.abilityQueue[1].cdmax - xivopeners_brd.abilityQueue[1].cd <= 1.1
+        and not HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)
+        then
             xivopeners.log("Didn't get RA proc before Barrage, dequeuing")
             -- need to insert burst shot back in between Sidewinder and BL
             -- i could just do table.insert(queue, 5, burstshot) and it would be faster than looping through, but looping would be more reliable and flexible to opener changes in the future
@@ -303,9 +310,11 @@ function xivopeners_brd.main(event, tickcount)
 --            table.insert(xivopeners_brd.abilityQueue, 5, xivopeners_brd.openerAbilities.BurstShot)
             xivopeners_brd.dequeue()
             xivopeners_brd.useNextAction(target)
-        elseif (xivopeners_brd.lastCastFromQueue and xivopeners_brd.lastcastid == xivopeners_brd.lastCastFromQueue.id) then
-            xivopeners_brd.lastcastid = -1
+        elseif (xivopeners_brd.lastCastFromQueue and xivopeners_brd.lastCastFromQueue.used == true) then
             if (xivopeners_brd.lastCastFromQueue ~= xivopeners_brd.openerAbilities.PitchPerfect) then
+                xivopeners_brd.lastCastFromQueue.used = nil
+                xivopeners_brd.lastCastFromQueue = nil
+                xivopeners_brd.timeLastAction = Now()
                 xivopeners_brd.dequeue()
             end
             xivopeners_brd.useNextAction(target)
@@ -317,16 +326,19 @@ function xivopeners_brd.main(event, tickcount)
 end
 
 function xivopeners_brd.enqueueNext(action)
+    action.used = nil
     table.insert(xivopeners_brd.abilityQueue, 1, action)
 end
 
 function xivopeners_brd.enqueue(action)
     -- implementation of the queue can be changed later
+    action.used = nil
     table.insert(xivopeners_brd.abilityQueue, action)
 end
 
 function xivopeners_brd.dequeue()
     xivopeners.log("Dequeing " .. xivopeners_brd.abilityQueue[1].name)
+    xivopeners_brd.abilityQueue[1].used = nil
     table.remove(xivopeners_brd.abilityQueue, 1)
 end
 
@@ -336,6 +348,7 @@ function xivopeners_brd.cast(action, target)
     else
         action:Cast(target)
     end
+    TensorCore.awaitCastCompletion(action)
 end
 
 function xivopeners_brd.useNextAction(target)
@@ -348,15 +361,15 @@ function xivopeners_brd.useNextAction(target)
             xivopeners_brd.dequeue()
             return
         end
-        if (Player.gauge[2] >= 3 and xivopeners_brd.openerAbilities.BurstShot.cdmax - xivopeners_brd.openerAbilities.BurstShot.cd > 0.9) then
+        if (Player.gauge[2] >= 3 and TensorCore.canWeaveOGCD()) then
             -- don't want to dequeue here
-            xivopeners.log("Using PP3 proc")
+            -- xivopeners.log("Using PP3 proc")
             xivopeners_brd.cast(xivopeners_brd.openerAbilities.PitchPerfect, target.id)
 --            xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.PitchPerfect
             return
         end
         if (xivopeners_brd.abilityQueue[1] == xivopeners_brd.openerAbilities.BurstShot and HasBuff(Player.id, xivopeners_brd.openerAbilities.StraightShotReadyBuffID)) then
-            xivopeners.log("Using RA proc during BurstShot window")
+            -- xivopeners.log("Using RA proc during BurstShot window")
             xivopeners_brd.cast(xivopeners_brd.openerAbilities.RefulgentArrow, target.id)
             xivopeners_brd.lastCastFromQueue = xivopeners_brd.openerAbilities.RefulgentArrow
             return
@@ -373,8 +386,8 @@ function xivopeners_brd.useNextAction(target)
 
             if (tincture) then
                 xivopeners.log("Casting tincture")
-                tincture:Cast()
-                xivopeners_brd.lastCastFromQueue = tincture:GetAction()
+                xivopeners_brd.cast(tincture, Player.id)
+                xivopeners_brd.lastCastFromQueue = tincture
             end
             -- don't want to continue past this point or we risk breaking shit
             return

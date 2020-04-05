@@ -288,6 +288,7 @@ xivopeners_mch.openers = {
 xivopeners_mch.abilityQueue = {}
 xivopeners_mch.lastCastFromQueue = nil -- might need this for some more complex openers with conditions
 xivopeners_mch.openerStarted = false
+xivopeners_mch.timeLastAction = 0
 
 function xivopeners_mch.getTincture()
     for i = 0, 3 do
@@ -377,12 +378,12 @@ function xivopeners_mch.drawCall(event, tickcount)
 end
 
 function xivopeners_mch.isStalled()
-    local lastQueuedAction = TensorCore.getLastAction()
+    local nextQueuedAction = TensorCore.getLastAction()
     local lastSuccessfulAction = TensorCore.getLastSuccessfulCast()
     local nextAction = xivopeners_mch.abilityQueue[1]
 
     -- have not used an action for longer than a gcd
-    if Player.castinginfo.timesincecast > TensorCore.currentGCD + 1000 then
+    if TimeSince(xivopeners_mch.timeLastAction) > TensorCore.currentGCD + 1000 then
         xivopeners.log("Inactivity stall")
         return true
     end
@@ -393,7 +394,7 @@ function xivopeners_mch.isStalled()
     if nextAction
     and nextAction.id == xivopeners_mch.openerAbilities.Hypercharge.id
     and Player.gauge[1] < 50
-    and (not lastQueuedAction or (lastQueuedAction.id ~= xivopeners_mch.openerAbilities.BarrelStabilizer.id and lastQueuedAction.id ~= xivopeners_mch.openerAbilities.Hypercharge.id))
+    and (not nextQueuedAction or (nextQueuedAction.id ~= xivopeners_mch.openerAbilities.BarrelStabilizer.id and nextQueuedAction.id ~= xivopeners_mch.openerAbilities.Hypercharge.id))
     and (not lastSuccessfulAction or lastSuccessfulAction.id ~= xivopeners_mch.openerAbilities.BarrelStabilizer.id)
     then
         xivopeners.log("HC no heat stall")
@@ -432,6 +433,7 @@ function xivopeners_mch.main(event, tickcount)
             -- technically, even if you use an ability from prepull, it should still work, since the next time this loop runs it'll jump to the elseif
             xivopeners.log("Starting opener")
             xivopeners_mch.openerStarted = true
+            xivopeners_mch.timeLastAction = Now()
             xivopeners_mch.useNextAction(target)
         elseif xivopeners_mch.isStalled() then -- stall check
             xivopeners.log("Stall detected, handing control to ACR")
@@ -441,11 +443,13 @@ function xivopeners_mch.main(event, tickcount)
                 ml_global_information.ToggleRun()
             end
             return
-        elseif xivopeners_mch.abilityQueue[1] and xivopeners_mch.abilityQueue[1].used == true then
+        elseif xivopeners_mch.lastCastFromQueue and xivopeners_mch.lastCastFromQueue.used == true then
             -- if (xivopeners_mch.lastCastFromQueue == xivopeners_mch.openerAbilities.BarrelStabilizer and Player.gauge[1] < 50) then
             --     xivopeners_mch.useNextAction(target)
             --     return
             -- end
+            xivopeners_mch.timeLastAction = Now()
+            xivopeners_mch.lastCastFromQueue.used = nil
             xivopeners_mch.lastCastFromQueue = nil
             xivopeners_mch.dequeue()
             xivopeners_mch.useNextAction(target)
@@ -483,7 +487,7 @@ function xivopeners_mch.useNextAction(target)
 
             if (tincture) then
                 xivopeners.log("Casting tincture")
-                tincture:Cast()
+                tincture:Cast(Player.id)
                 xivopeners_mch.lastCastFromQueue = tincture:GetAction()
                 TensorCore.awaitCastCompletion(xivopeners_mch.abilityQueue[1])
             end
