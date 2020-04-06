@@ -5,7 +5,7 @@ xivopeners.ModuleSettingPath = xivopeners.LuaPath .. [[ffxivminion\xivopener\]]
 xivopeners.ModuleSettings = xivopeners.ModuleSettingPath .. [[Settings.lua]]
 xivopeners.PreviousSave,xivopeners.lastcheck = {},Now()
 
-xivopeners.version = semver(1,7,4)
+xivopeners.version = semver(1,8,0,"WIP")
 
 xivopeners.GUI = {
     open = false,
@@ -36,8 +36,6 @@ function xivopeners.valid(...)
     end
     return false
 end
-
-
 
 xivopeners.running = false
 
@@ -306,16 +304,29 @@ function xivopeners.Init()
         xivopeners.supportedJobs[Player.job].queueOpener()
     end
 
-    ml_gui.ui_mgr:AddMember({ id = "FFXIVMINION##MENU_XIVOpeners", name = "XIVOpeners", onClick = function() xivopeners.GUI.open = not xivopeners.GUI.open end, tooltip = "Does openers and passes them off to ACR. Currently in BETA, not all jobs are supported!"},"FFXIVMINION##MENU_HEADER")
+    ml_gui.ui_mgr:AddMember({ id = "FFXIVMINION##MENU_XIVOpeners", name = "XIVOpeners", onClick = function() xivopeners.settings.guiOpen = not xivopeners.settings.guiOpen end, tooltip = "Does openers and passes them off to ACR. Currently in BETA, not all jobs are supported!"},"FFXIVMINION##MENU_HEADER")
 
     xivopeners.LoadSettings()
+
+    if xivopeners.settings.guiOpen == nil then
+        xivopeners.settings.guiOpen = xivopeners.GUI.open
+    else
+        xivopeners.GUI.open = xivopeners.settings.guiOpen
+    end
+
+    if xivopeners.settings.drawMode == nil then
+        xivopeners.settings.drawMode = xivopeners.GUI.drawMode
+    else
+        xivopeners.GUI.drawMode = xivopeners.settings.drawMode
+    end
+
 end
 
 function xivopeners.DrawCall(event, ticks)
    local gamestate = GetGameState()
     if (gamestate == FFXIV.GAMESTATE.INGAME) then
-        if (xivopeners.GUI.open) then
-            if (xivopeners.GUI.drawMode == 1) then
+        if (xivopeners.settings.guiOpen) then
+            if (xivopeners.settings.drawMode == 1) then
                 xivopeners.drawMainFull(event, ticks)
             else
                 xivopeners.drawMainSmall()
@@ -327,7 +338,7 @@ end
 
 function xivopeners.drawMainFull(event, ticks)
     GUI:SetNextWindowSize(400, 150, GUI.SetCond_FirstUseEver)
-    xivopeners.GUI.visible, xivopeners.GUI.open = GUI:Begin("XIVOpeners v" .. tostring(xivopeners.version), xivopeners.GUI.open)
+    xivopeners.GUI.visible, xivopeners.settings.guiOpen = GUI:Begin("XIVOpeners v" .. tostring(xivopeners.version), xivopeners.settings.guiOpen)
     if (xivopeners.GUI.visible) then
         local x, y = GUI:GetWindowPos()
         local width, height = GUI:GetWindowSize()
@@ -352,7 +363,7 @@ function xivopeners.drawMainFull(event, ticks)
         end
         GUI:SameLine(0, 5)
         if (GUI:ImageButton("##xivopeners_drawmode_collapse", ml_global_information.path .. "\\GUI\\UI_Textures\\collapse.png", 14, 14)) then
-            xivopeners.GUI.drawMode = 0
+            xivopeners.settings.drawMode = 0
         end
 
         GUI:AlignFirstTextHeightToWidgets()
@@ -458,7 +469,7 @@ function xivopeners.drawMainSmall()
     GUI:Image(ml_global_information.path .. "\\GUI\\UI_Textures\\expand.png", 14, 14)
     if (GUI:IsItemHovered()) then
         if (GUI:IsMouseClicked(0)) then
-            xivopeners.GUI.drawMode = 1
+            xivopeners.settings.drawMode = 1
         end
     end
     GUI:EndChild()
