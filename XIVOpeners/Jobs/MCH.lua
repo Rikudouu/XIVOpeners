@@ -20,7 +20,7 @@ xivopeners_mch.openerAbilities = {
     AirAnchor = ActionList:Get(1, 16500),
     CleanShot = ActionList:Get(1, 7413),
     ReassembleBuffID = 851,
-    Tincture = {name = "Tincture", ids = {29493, 27996, 27787}, range = 0},
+    Tincture = {name = "Tincture", ids = {29493, 27996, 27787}, range = 0, id = 846},
     MedicineBuffID = 49,
 }
 
@@ -488,8 +488,8 @@ function xivopeners_mch.useNextAction(target)
             if (tincture) then
                 xivopeners.log("Casting tincture")
                 tincture:Cast(Player.id)
-                xivopeners_mch.lastCastFromQueue = tincture:GetAction()
-                TensorCore.awaitCastCompletion(xivopeners_mch.abilityQueue[1])
+                xivopeners_mch.lastCastFromQueue = xivopeners_mch.abilityQueue[1]
+                TensorCore.awaitCastCompletion(xivopeners_mch.lastCastFromQueue)
             end
             -- don't want to continue past this point or we risk breaking shit
             return
