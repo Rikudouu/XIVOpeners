@@ -26,7 +26,7 @@ xivopeners_brd.openerAbilities = {
 }
 
 xivopeners_brd.openerInfo = {
-    listOpeners = {"Recommended", "E8s", "TEA", "No Ninja", "Compatibility"},
+    listOpeners = {"Recommended", "E8s", "TEA", "TEA Troubadour", "No Ninja", "Compatibility"},
 }
 
 xivopeners_brd.openers = {
