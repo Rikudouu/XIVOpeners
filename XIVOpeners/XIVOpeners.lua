@@ -5,7 +5,7 @@ xivopeners.ModuleSettingPath = xivopeners.LuaPath .. [[ffxivminion\xivopener\]]
 xivopeners.ModuleSettings = xivopeners.ModuleSettingPath .. [[Settings.lua]]
 xivopeners.PreviousSave,xivopeners.lastcheck = {},Now()
 
-xivopeners.version = semver(1,8,0,"WIP")
+xivopeners.version = semver(1,8,0,"WIP-R2")
 
 xivopeners.GUI = {
     open = false,
@@ -420,7 +420,7 @@ function xivopeners.drawMainFull(event, ticks)
 end
 
 function xivopeners.drawMainSmall()
-    GUI:SetNextWindowSize(190,50,GUI.SetCond_FirstUseEver)
+    GUI:SetNextWindowSize(190,50,GUI.SetCond_Always)
     local flags = (GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoCollapse)
     GUI:Begin("xivopeners_main_minimized", true, flags)
 
