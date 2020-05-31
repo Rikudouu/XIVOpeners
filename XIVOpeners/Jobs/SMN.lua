@@ -27,7 +27,7 @@ xivopeners_smn.openerAbilities = {
 }
 
 xivopeners_smn.openerInfo = {
-    listOpeners = {"6th GCD Summon", "5th GCD Summon", "Prepull Devotion 6 GCD", "9th GCD Summon", "Rush DWT", "Rush DWT Prepull Devotion"}
+    listOpeners = {"6th GCD Summon", "5th GCD Summon", "Prepull Devotion 6 GCD", "9th GCD Summon", "Rush DWT", "Rush DWT Prepull Devotion", "Rush DWT No Devotion", "TensorRuin"}
 }
 
 xivopeners_smn.openers = {
@@ -200,6 +200,31 @@ xivopeners_smn.openers = {
         xivopeners_smn.openerAbilities.Deathflare,
         xivopeners_smn.openerAbilities.SummonBahamut,
         xivopeners_smn.openerAbilities.Ruin4,
+    },
+
+    rushDWTNoDevotion = {
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.Tridisaster,
+        xivopeners_smn.openerAbilities.DreadwyrmTrance,
+        xivopeners_smn.openerAbilities.EgiAssault2,
+        xivopeners_smn.openerAbilities.EnergyDrain,
+        xivopeners_smn.openerAbilities.EgiAssault,
+        xivopeners_smn.openerAbilities.Tincture,
+        xivopeners_smn.openerAbilities.EgiAssault2,
+        -- xivopeners_smn.openerAbilities.Addle,
+        xivopeners_smn.openerAbilities.Enkindle,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Fester,
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.Deathflare,
+        xivopeners_smn.openerAbilities.SummonBahamut,
+        xivopeners_smn.openerAbilities.Ruin4,
+    },
+
+    tensorRuin = {
+        xivopeners_smn.openerAbilities.Ruin3,
+        xivopeners_smn.openerAbilities.EgiAssault,
     }
 }
 
@@ -234,6 +259,10 @@ function xivopeners_smn.getOpener()
         return xivopeners_smn.openers.rushDWT
     elseif (xivopeners.settings[Player.job].currentOpenerIndex == 6) then
         return xivopeners_smn.openers.rushDWTPrepullDevotion
+    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 7) then
+        return xivopeners_smn.openers.rushDWTNoDevotion
+    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 8) then
+        return xivopeners_smn.openers.tensorRuin
     else
         return {}
     end
