@@ -1,6 +1,6 @@
 xivopeners_smn = {}
 
-xivopeners_smn.supportedLevel = 80
+xivopeners_smn.supportedLevel = 70
 xivopeners_smn.openerAbilities = {
     -- all pet actions are ifrit only!!! WILL HANG IF NOT IFRIT, already know morons will complain
     Ruin3 = ActionList:Get(1, 3579),
