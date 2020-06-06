@@ -402,7 +402,7 @@ function xivopeners_mch.isStalled()
     end
 
     -- heat blast is next but no overheat left
-    if nextAction and nextAction.id == xivopeners_mch.openerAbilities.HeatBlast.id and Player.gauge[2] <= 0 then
+    if nextAction and nextAction.id == xivopeners_mch.openerAbilities.HeatBlast.id and Player.gauge[3] <= 0 and (not lastSuccessfulAction or lastSuccessfulAction.id ~= xivopeners_mch.openerAbilities.Hypercharge.id) then
         xivopeners.log("HB no Overheat stall")
         return true
     end
