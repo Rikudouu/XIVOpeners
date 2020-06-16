@@ -351,7 +351,7 @@ function xivopeners_smn.main(event, tickcount)
         if (Player.castinginfo.channelingid == xivopeners_smn.openerAbilities.Ruin3.id and not Player.incombat) then
             local timeRemain = Player.castinginfo.casttime - Player.castinginfo.channeltime
             if timeRemain <= 0.7 then
-                xivopeners_smn.openerAbilities.Sic:Cast(Player.castinginfo.castingtargets[1])
+                xivopeners_smn.openerAbilities.Sic:Cast(Player.castinginfo.channeltargetid)
             end
         end
         
