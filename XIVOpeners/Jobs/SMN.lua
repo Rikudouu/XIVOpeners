@@ -20,6 +20,7 @@ xivopeners_smn.openerAbilities = {
     SummonIfrit = ActionList:Get(1, 180),
     Swiftcast = ActionList:Get(1, 7561),
     LucidDreaming = ActionList:Get(1, 7562),
+    Sic = ActionList:Get(11, 7),
     Ruin4BuffID = 1212,
     IfritPetID = 3,
     Tincture = {name = "Tincture", ids = {29495, 27998, 27789}, range = 0}, -- int
@@ -27,7 +28,7 @@ xivopeners_smn.openerAbilities = {
 }
 
 xivopeners_smn.openerInfo = {
-    listOpeners = {"6th GCD Summon", "5th GCD Summon", "Prepull Devotion 6 GCD", "9th GCD Summon", "Rush DWT", "Rush DWT Prepull Devotion", "Rush DWT No Devotion", "TensorRuin"}
+    listOpeners = {"6th GCD Summon", "5th GCD Summon", "Prepull Devotion 6 GCD", "9th GCD Summon", "UCOB", "UwU"}
 }
 
 xivopeners_smn.openers = {
@@ -160,72 +161,60 @@ xivopeners_smn.openers = {
         xivopeners_smn.openerAbilities.Ruin4,
     },
 
-    rushDWT = {
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.EgiAssault,
-        xivopeners_smn.openerAbilities.Tridisaster,
-        xivopeners_smn.openerAbilities.DreadwyrmTrance,
-        xivopeners_smn.openerAbilities.EgiAssault2,
-        -- xivopeners_smn.openerAbilities.EnergyDrain,
-        -- xivopeners_smn.openerAbilities.Aetherpact,
-        -- xivopeners_smn.openerAbilities.EgiAssault,
-        -- xivopeners_smn.openerAbilities.Tincture,
-        -- xivopeners_smn.openerAbilities.EgiAssault2,
-        -- -- xivopeners_smn.openerAbilities.Addle,
-        -- xivopeners_smn.openerAbilities.Enkindle,
-        -- xivopeners_smn.openerAbilities.Ruin3,
-        -- xivopeners_smn.openerAbilities.Fester,
-        -- xivopeners_smn.openerAbilities.Ruin3,
-        -- xivopeners_smn.openerAbilities.Deathflare,
-        -- xivopeners_smn.openerAbilities.SummonBahamut,
-        -- xivopeners_smn.openerAbilities.Ruin4,
-    },
-
-    rushDWTPrepullDevotion = {
-        xivopeners_smn.openerAbilities.Aetherpact,
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.EgiAssault,
-        xivopeners_smn.openerAbilities.Tridisaster,
-        xivopeners_smn.openerAbilities.DreadwyrmTrance,
-        xivopeners_smn.openerAbilities.EgiAssault2,
-        -- xivopeners_smn.openerAbilities.EnergyDrain,
-        -- xivopeners_smn.openerAbilities.EgiAssault,
-        -- xivopeners_smn.openerAbilities.Tincture,
-        -- xivopeners_smn.openerAbilities.EgiAssault2,
-        -- -- xivopeners_smn.openerAbilities.Addle,
-        -- xivopeners_smn.openerAbilities.Enkindle,
-        -- xivopeners_smn.openerAbilities.Ruin3,
-        -- xivopeners_smn.openerAbilities.Fester,
-        -- xivopeners_smn.openerAbilities.Ruin3,
-        -- xivopeners_smn.openerAbilities.Deathflare,
-        -- xivopeners_smn.openerAbilities.SummonBahamut,
-        -- xivopeners_smn.openerAbilities.Ruin4,
-    },
-
-    rushDWTNoDevotion = {
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.EgiAssault,
-        xivopeners_smn.openerAbilities.Tridisaster,
-        xivopeners_smn.openerAbilities.DreadwyrmTrance,
-        xivopeners_smn.openerAbilities.EgiAssault2,
-        -- xivopeners_smn.openerAbilities.EnergyDrain,
-        -- xivopeners_smn.openerAbilities.EgiAssault,
-        -- xivopeners_smn.openerAbilities.Tincture,
-        -- xivopeners_smn.openerAbilities.EgiAssault2,
-        -- -- xivopeners_smn.openerAbilities.Addle,
-        -- xivopeners_smn.openerAbilities.Enkindle,
-        -- xivopeners_smn.openerAbilities.Ruin3,
-        -- xivopeners_smn.openerAbilities.Fester,
-        -- xivopeners_smn.openerAbilities.Ruin3,
-        -- xivopeners_smn.openerAbilities.Deathflare,
-        -- xivopeners_smn.openerAbilities.SummonBahamut,
-        -- xivopeners_smn.openerAbilities.Ruin4,
-    },
-
-    tensorRuin = {
-        xivopeners_smn.openerAbilities.Ruin3,
-        xivopeners_smn.openerAbilities.EgiAssault,
-    }
+    Lvl70Ucob = {
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.EgiAssault,
+		xivopeners_smn.openerAbilities.EnergyDrain,
+		xivopeners_smn.openerAbilities.Tridisaster,
+		xivopeners_smn.openerAbilities.EgiAssault2,
+		xivopeners_smn.openerAbilities.Tincture,
+		xivopeners_smn.openerAbilities.EgiAssault,
+		xivopeners_smn.openerAbilities.Aetherpact,
+		xivopeners_smn.openerAbilities.DreadwyrmTrance,
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.Enkindle,
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.Tridisaster,
+		xivopeners_smn.openerAbilities.Fester,
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.Fester,
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.Deathflare,
+	
+	},
+	
+	Lvl70UwU = {
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.EgiAssault,
+		xivopeners_smn.openerAbilities.EnergyDrain,
+		xivopeners_smn.openerAbilities.Tridisaster,
+		xivopeners_smn.openerAbilities.EgiAssault,
+		xivopeners_smn.openerAbilities.Tincture,
+		xivopeners_smn.openerAbilities.Ruin4,
+		xivopeners_smn.openerAbilities.Aetherpact,
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.Ruin4,
+		xivopeners_smn.openerAbilities.Fester,
+		xivopeners_smn.openerAbilities.DreadwyrmTrance,
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.Tridisaster,
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.SummonTitan,
+		xivopeners_smn.openerAbilities.Ruin3,
+		xivopeners_smn.openerAbilities.EnkindleTitan,
+		xivopeners_smn.openerAbilities.EgiAssault2Titan,
+		xivopeners_smn.openerAbilities.Deathflare,
+		xivopeners_smn.openerAbilities.Bane,
+		xivopeners_smn.openerAbilities.EgiAssault2Titan,
+		xivopeners_smn.openerAbilities.Painflare,
+		xivopeners_smn.openerAbilities.Swiftcast,
+		xivopeners_smn.openerAbilities.Outburst,
+		xivopeners_smn.openerAbilities.EnergyDrain,
+	}
 }
 
 xivopeners_smn.abilityQueue = {}
@@ -256,13 +245,9 @@ function xivopeners_smn.getOpener()
     elseif (xivopeners.settings[Player.job].currentOpenerIndex == 4) then
         return xivopeners_smn.openers.nineGCDSummon
     elseif (xivopeners.settings[Player.job].currentOpenerIndex == 5) then
-        return xivopeners_smn.openers.rushDWT
+        return xivopeners_smn.openers.Lvl70Ucob
     elseif (xivopeners.settings[Player.job].currentOpenerIndex == 6) then
-        return xivopeners_smn.openers.rushDWTPrepullDevotion
-    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 7) then
-        return xivopeners_smn.openers.rushDWTNoDevotion
-    elseif (xivopeners.settings[Player.job].currentOpenerIndex == 8) then
-        return xivopeners_smn.openers.tensorRuin
+        return xivopeners_smn.openers.Lvl70UwU
     else
         return {}
     end
@@ -355,6 +340,13 @@ function xivopeners_smn.main(event, tickcount)
         if (xivopeners.running and not xivopeners_smn.openerStarted and xivopeners_smn.prepullSetup and not ActionList:IsCasting() and Player.castinginfo.timesincecast > 2000) then
             xivopeners.log("Summoning ifrit prepull")
             xivopeners_smn.openerAbilities.SummonIfrit:Cast()
+        end
+
+        if (Player.castinginfo.channelingid == xivopeners_smn.openerAbilities.Ruin3.id and not Player.incombat) then
+            local timeRemain = Player.castinginfo.casttime - Player.castinginfo.channeltime
+            if timeRemain <= 0.7 then
+                xivopeners_smn.openerAbilities.Sic:Cast(Player.castinginfo.castingtargets[1])
+            end
         end
         
         local target = Player:GetTarget()
