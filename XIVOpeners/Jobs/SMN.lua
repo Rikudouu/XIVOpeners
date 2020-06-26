@@ -441,6 +441,14 @@ function xivopeners_smn.useNextAction(target)
             return
         end
 
+        if (xivopeners_smn.abilityQueue[1] == xivopeners_smn.openerAbilities.EnkindleTitan) then
+            if (TensorCore.getGCD() < 0.9) then
+                xivopeners_smn.abilityQueue[1]:Cast(target.id)
+                xivopeners_smn.lastCastFromQueue = xivopeners_smn.abilityQueue[1]
+            end
+            return
+        end
+
                 -- idk how to make it not spam console
         --xivopeners.log("Casting " .. xivopeners_smn.abilityQueue[1].name)
         xivopeners_smn.abilityQueue[1]:Cast(target.id)
