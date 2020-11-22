@@ -219,7 +219,7 @@ xivopeners_smn.openers = {
 		xivopeners_smn.openerAbilities.Painflare,
 		xivopeners_smn.openerAbilities.Swiftcast,
 		xivopeners_smn.openerAbilities.Outburst,
-		xivopeners_smn.openerAbilities.EnergyDrain,
+		-- xivopeners_smn.openerAbilities.EnergyDrain,
 	}
 }
 
