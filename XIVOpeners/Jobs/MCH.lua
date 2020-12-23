@@ -20,7 +20,7 @@ xivopeners_mch.openerAbilities = {
     AirAnchor = ActionList:Get(1, 16500),
     CleanShot = ActionList:Get(1, 7413),
     ReassembleBuffID = 851,
-    Tincture = {name = "Tincture", ids = {29493, 27996, 27787}, range = 0, id = 846},
+    Tincture = {name = "Tincture", ids = {31894, 29493, 27996, 27787}, range = 0, id = 846},
     MedicineBuffID = 49,
 }
 
@@ -291,10 +291,19 @@ xivopeners_mch.openerStarted = false
 xivopeners_mch.timeLastAction = 0
 
 function xivopeners_mch.getTincture()
+    if TensorCore.API[gACRSelectedProfiles[Player.job]] ~= nil then
+        local pot = TensorCore.API[gACRSelectedProfiles[Player.job]].getPotion()
+        if pot ~= nil and pot:isReady() then
+            return pot
+        end
+
+        return nil
+    end
+
     for i = 0, 3 do
-        for _, id in pairs(xivopeners_mch.openerAbilities.Tincture.ids) do
+        for _, id in ipairs(xivopeners_mch.openerAbilities.Tincture.ids) do
             local tincture = Inventory:Get(i):Get(id)
-            if (tincture) then return tincture end
+            if (tincture and tincture:GetAction().cdmax - tincture:GetAction().cd < 1.5) then return tincture end
         end
     end
     return nil

@@ -35,7 +35,7 @@ xivopeners_nin.openerAbilities = {
     Bunshin = ActionList:Get(1, 16493),
     Hide = ActionList:Get(1, 2245),
     Meisui = ActionList:Get(1, 16489),
-    Tincture = {name = "Tincture", ids = {29493, 27996, 27787}, range = 0},
+    Tincture = {name = "Tincture", ids = {31894, 29493, 27996, 27787}, range = 0},
     MedicineBuffID = 49,
     AssassinateReadyID = 1955,
     
@@ -152,10 +152,19 @@ xivopeners_nin.lastcastid2 = 0
 xivopeners_nin.prepullSetup = false
 
 function xivopeners_nin.getTincture()
+    if TensorCore.API[gACRSelectedProfiles[Player.job]] ~= nil then
+        local pot = TensorCore.API[gACRSelectedProfiles[Player.job]].getPotion()
+        if pot ~= nil and pot:isReady() then
+            return pot
+        end
+
+        return nil
+    end
+
     for i = 0, 3 do
-        for _, id in pairs(xivopeners_nin.openerAbilities.Tincture.ids) do
+        for _, id in ipairs(xivopeners_nin.openerAbilities.Tincture.ids) do
             local tincture = Inventory:Get(i):Get(id)
-            if (tincture) then return tincture end
+            if (tincture and tincture:GetAction().cdmax - tincture:GetAction().cd < 1.5) then return tincture end
         end
     end
     return nil

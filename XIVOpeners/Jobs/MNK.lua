@@ -26,7 +26,7 @@ xivopeners_mnk.openerAbilities = {
     TornadoKick = ActionList:Get(1, 3543),
     TwinSnakes = ActionList:Get(1, 61),
     Sprint = ActionList:Get(1, 3),
-    Tincture = {name = "Tincture", ids = {29492, 27995, 27786}, range = 0},
+    Tincture = {name = "Tincture", ids = {31893, 29492, 27995, 27786}, range = 0},
     MedicineBuffID = 49,
     AnatmanBuffID = 1862,
     FistsOfFireBuffID = 103,
@@ -162,10 +162,19 @@ xivopeners_mnk.openerAbilities.DragonKick.pos = xivopeners_mnk.positionals.flank
 
 
 function xivopeners_mnk.getTincture()
+    if TensorCore.API[gACRSelectedProfiles[Player.job]] ~= nil then
+        local pot = TensorCore.API[gACRSelectedProfiles[Player.job]].getPotion()
+        if pot ~= nil and pot:isReady() then
+            return pot
+        end
+
+        return nil
+    end
+
     for i = 0, 3 do
-        for _, id in pairs(xivopeners_mnk.openerAbilities.Tincture.ids) do
+        for _, id in ipairs(xivopeners_mnk.openerAbilities.Tincture.ids) do
             local tincture = Inventory:Get(i):Get(id)
-            if (tincture) then return tincture end
+            if (tincture and tincture:GetAction().cdmax - tincture:GetAction().cd < 1.5) then return tincture end
         end
     end
     return nil

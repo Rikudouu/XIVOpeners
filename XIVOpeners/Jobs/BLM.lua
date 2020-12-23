@@ -16,7 +16,7 @@ xivopeners_blm.openerAbilities = {
     Fire = ActionList:Get(1, 141),
     SharpCast = ActionList:Get(1, 3574),
     SharpCastBuffID = 867,
-    Tincture = {name = "Tincture", ids = {29495, 27998, 27789}, range = 0}, -- int
+    Tincture = {name = "Tincture", ids = {31896, 29495, 27998, 27789}, range = 0}, -- int
     MedicineBuffID = 49,
 }
 
@@ -105,10 +105,19 @@ xivopeners_blm.lastcastid = 0
 xivopeners_blm.lastcastid2 = 0
 
 function xivopeners_blm.getTincture()
+    if TensorCore.API[gACRSelectedProfiles[Player.job]] ~= nil then
+        local pot = TensorCore.API[gACRSelectedProfiles[Player.job]].getPotion()
+        if pot ~= nil and pot:isReady() then
+            return pot
+        end
+
+        return nil
+    end
+
     for i = 0, 3 do
-        for _, id in pairs(xivopeners_blm.openerAbilities.Tincture.ids) do
+        for _, id in ipairs(xivopeners_blm.openerAbilities.Tincture.ids) do
             local tincture = Inventory:Get(i):Get(id)
-            if (tincture) then return tincture end
+            if (tincture and tincture:GetAction().cdmax - tincture:GetAction().cd < 1.5) then return tincture end
         end
     end
     return nil

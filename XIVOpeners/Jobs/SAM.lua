@@ -22,7 +22,7 @@ xivopeners_sam.openerAbilities = {
     Ikishoten = ActionList:Get(1, 16482),
     KaeshiSetsugekka = ActionList:Get(1, 16486),
     Shoha = ActionList:Get(1, 16487),
-    Tincture = {name = "Tincture", ids = {29492, 27995, 27786}, range = 0},
+    Tincture = {name = "Tincture", ids = {31893, 29492, 27995, 27786}, range = 0},
     MedicineBuffID = 49
 }
 
@@ -135,10 +135,19 @@ xivopeners_sam.lastcastid = 0
 xivopeners_sam.lastcastid2 = 0
 
 function xivopeners_sam.getTincture()
+    if TensorCore.API[gACRSelectedProfiles[Player.job]] ~= nil then
+        local pot = TensorCore.API[gACRSelectedProfiles[Player.job]].getPotion()
+        if pot ~= nil and pot:isReady() then
+            return pot
+        end
+
+        return nil
+    end
+
     for i = 0, 3 do
-        for _, id in pairs(xivopeners_sam.openerAbilities.Tincture.ids) do
+        for _, id in ipairs(xivopeners_sam.openerAbilities.Tincture.ids) do
             local tincture = Inventory:Get(i):Get(id)
-            if (tincture) then return tincture end
+            if (tincture and tincture:GetAction().cdmax - tincture:GetAction().cd < 1.5) then return tincture end
         end
     end
     return nil

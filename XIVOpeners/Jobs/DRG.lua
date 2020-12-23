@@ -20,7 +20,7 @@ xivopeners_drg.openerAbilities = {
     MirageDive = ActionList:Get(1, 7399),
     FullThrust = ActionList:Get(1, 84),
     DragonfireDive = ActionList:Get(1, 96),
-    Tincture = {name = "Tincture", ids = {29492, 27995, 27786}, range = 0},
+    Tincture = {name = "Tincture", ids = {31893, 29492, 27995, 27786}, range = 0},
     MedicineBuffID = 49
 }
 
@@ -87,10 +87,19 @@ xivopeners_drg.lastcastid2 = 0
 xivopeners_drg.eyeParterIndex = 1
 
 function xivopeners_drg.getTincture()
+    if TensorCore.API[gACRSelectedProfiles[Player.job]] ~= nil then
+        local pot = TensorCore.API[gACRSelectedProfiles[Player.job]].getPotion()
+        if pot ~= nil and pot:isReady() then
+            return pot
+        end
+
+        return nil
+    end
+
     for i = 0, 3 do
-        for _, id in pairs(xivopeners_drg.openerAbilities.Tincture.ids) do
+        for _, id in ipairs(xivopeners_drg.openerAbilities.Tincture.ids) do
             local tincture = Inventory:Get(i):Get(id)
-            if (tincture) then return tincture end
+            if (tincture and tincture:GetAction().cdmax - tincture:GetAction().cd < 1.5) then return tincture end
         end
     end
     return nil

@@ -13,7 +13,7 @@ xivopeners_sch.openerAbilities = {
     Dissipation = ActionList:Get(1, 3587),
     SummonEos = ActionList:Get(1, 17215),
     SummonSelene = ActionList:Get(1, 17216),
-    Tincture = {name = "Tincture", ids = {29496, 27790, 27999}, range = 0}, -- mind
+    Tincture = {name = "Tincture", ids = {31897, 29496, 27790, 27999}, range = 0}, -- mind
     MedicineBuffID = 49,
     EosPetID = 1398,
     SelenePetID = 1399,
@@ -77,10 +77,19 @@ xivopeners_sch.lastcastid = 0
 xivopeners_sch.lastcastid2 = 0
 
 function xivopeners_sch.getTincture()
+    if TensorCore.API[gACRSelectedProfiles[Player.job]] ~= nil then
+        local pot = TensorCore.API[gACRSelectedProfiles[Player.job]].getPotion()
+        if pot ~= nil and pot:isReady() then
+            return pot
+        end
+
+        return nil
+    end
+
     for i = 0, 3 do
-        for _, id in pairs(xivopeners_sch.openerAbilities.Tincture.ids) do
+        for _, id in ipairs(xivopeners_sch.openerAbilities.Tincture.ids) do
             local tincture = Inventory:Get(i):Get(id)
-            if (tincture) then return tincture end
+            if (tincture and tincture:GetAction().cdmax - tincture:GetAction().cd < 1.5) then return tincture end
         end
     end
     return nil

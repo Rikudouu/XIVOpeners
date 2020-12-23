@@ -19,7 +19,7 @@ xivopeners_dnc.openerAbilities = {
     Devilment = ActionList:Get(1, 16011),
     StandardStepBuffID = 1818,
     StandardFinishBuffID = 1821,
-    Tincture = {name = "Tincture", ids = {29493, 27996, 27787}, range = 0},
+    Tincture = {name = "Tincture", ids = {31894, 29493, 27996, 27787}, range = 0},
     MedicineBuffID = 49,
 }
 
@@ -77,10 +77,19 @@ xivopeners_dnc.lastcastid = 0
 xivopeners_dnc.lastcastid2 = 0
 
 function xivopeners_dnc.getTincture()
+    if TensorCore.API[gACRSelectedProfiles[Player.job]] ~= nil then
+        local pot = TensorCore.API[gACRSelectedProfiles[Player.job]].getPotion()
+        if pot ~= nil and pot:isReady() then
+            return pot
+        end
+
+        return nil
+    end
+
     for i = 0, 3 do
-        for _, id in pairs(xivopeners_dnc.openerAbilities.Tincture.ids) do
+        for _, id in ipairs(xivopeners_dnc.openerAbilities.Tincture.ids) do
             local tincture = Inventory:Get(i):Get(id)
-            if (tincture) then return tincture end
+            if (tincture and tincture:GetAction().cdmax - tincture:GetAction().cd < 1.5) then return tincture end
         end
     end
     return nil
