@@ -177,10 +177,10 @@ function xivopeners_drg.queueOpener()
     xivopeners_drg.lastCastFromQueue = nil
     xivopeners_drg.openerStarted = false
 
-    if (xivopeners.settings[Player.job].useTincture and not xivopeners_drg.getTincture()) then
-        -- if we don't have a tincture but the toggle is on, turn it off
-        xivopeners.settings[Player.job].useTincture = false
-    end
+    -- if (xivopeners.settings[Player.job].useTincture and not xivopeners_drg.getTincture()) then
+    --     -- if we don't have a tincture but the toggle is on, turn it off
+    --     xivopeners.settings[Player.job].useTincture = false
+    -- end
 end
 
 function xivopeners_drg.updateLastCast()

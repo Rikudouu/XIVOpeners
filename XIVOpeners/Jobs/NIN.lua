@@ -238,9 +238,9 @@ function xivopeners_nin.queueOpener()
     xivopeners_nin.lastCastFromQueue = nil
     xivopeners_nin.openerStarted = false
 
-    if (xivopeners.settings[Player.job].useTincture and not xivopeners_nin.getTincture()) then
-        xivopeners.settings[Player.job].useTincture = false
-    end
+    -- if (xivopeners.settings[Player.job].useTincture and not xivopeners_nin.getTincture()) then
+    --     xivopeners.settings[Player.job].useTincture = false
+    -- end
 
     -- enable this if you want to force opener to set to legacy controls
     -- Player:SetMoveMode(1)

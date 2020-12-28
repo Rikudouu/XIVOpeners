@@ -206,10 +206,10 @@ function xivopeners_sam.queueOpener()
     xivopeners_sam.lastCastFromQueue = nil
     xivopeners_sam.openerStarted = false
 
-    if (xivopeners.settings[Player.job].useTincture and not xivopeners_sam.getTincture()) then
-        -- if we don't have a tincture but the toggle is on, turn it off
-        xivopeners.settings[Player.job].useTincture = false
-    end
+    -- if (xivopeners.settings[Player.job].useTincture and not xivopeners_sam.getTincture()) then
+    --     -- if we don't have a tincture but the toggle is on, turn it off
+    --     xivopeners.settings[Player.job].useTincture = false
+    -- end
 end
 
 function xivopeners_sam.updateLastCast()

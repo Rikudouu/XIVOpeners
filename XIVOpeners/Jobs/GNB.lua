@@ -204,10 +204,10 @@ function xivopeners_gnb.queueOpener()
     xivopeners_gnb.lastCastFromQueue = nil
     xivopeners_gnb.openerStarted = false
 
-    if (xivopeners.settings[Player.job].useTincture and not xivopeners_gnb.getTincture()) then
-        -- if we don't have a tincture but the toggle is on, turn it off
-        xivopeners.settings[Player.job].useTincture = false
-    end
+    -- if (xivopeners.settings[Player.job].useTincture and not xivopeners_gnb.getTincture()) then
+    --     -- if we don't have a tincture but the toggle is on, turn it off
+    --     xivopeners.settings[Player.job].useTincture = false
+    -- end
 end
 
 function xivopeners_gnb.updateLastCast()

@@ -311,9 +311,9 @@ function xivopeners_smn.queueOpener()
     --    end
     xivopeners_smn.lastCastFromQueue = nil
     xivopeners_smn.openerStarted = false
-    if (xivopeners.settings[Player.job].useTincture and not xivopeners_smn.getTincture()) then
-        xivopeners.settings[Player.job].useTincture = false
-    end
+    -- if (xivopeners.settings[Player.job].useTincture and not xivopeners_smn.getTincture()) then
+    --     xivopeners.settings[Player.job].useTincture = false
+    -- end
 end
 
 function xivopeners_smn.updateLastCast()

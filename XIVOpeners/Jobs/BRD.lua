@@ -247,9 +247,9 @@ function xivopeners_brd.queueOpener()
     --    end
     xivopeners_brd.lastCastFromQueue = nil
     xivopeners_brd.openerStarted = false
-    if (xivopeners.settings[Player.job].useTincture and not xivopeners_brd.getTincture()) then
-        xivopeners.settings[Player.job].useTincture = false
-    end
+    -- if (xivopeners.settings[Player.job].useTincture and not xivopeners_brd.getTincture()) then
+    --     xivopeners.settings[Player.job].useTincture = false
+    -- end
 end
 
 function xivopeners_brd.drawCall(event, tickcount)

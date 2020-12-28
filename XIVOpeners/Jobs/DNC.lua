@@ -143,9 +143,9 @@ function xivopeners_dnc.queueOpener()
     --    end
     xivopeners_dnc.lastCastFromQueue = nil
     xivopeners_dnc.openerStarted = false
-    if (xivopeners.settings[Player.job].useTincture and not xivopeners_dnc.getTincture()) then
-        xivopeners.settings[Player.job].useTincture = false
-    end
+    -- if (xivopeners.settings[Player.job].useTincture and not xivopeners_dnc.getTincture()) then
+    --     xivopeners.settings[Player.job].useTincture = false
+    -- end
 end
 
 function xivopeners_dnc.updateLastCast()

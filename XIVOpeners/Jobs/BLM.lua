@@ -183,9 +183,9 @@ function xivopeners_blm.queueOpener()
     --    end
     xivopeners_blm.lastCastFromQueue = nil
     xivopeners_blm.openerStarted = false
-    if (xivopeners.settings[Player.job].useTincture and not xivopeners_blm.getTincture()) then
-        xivopeners.settings[Player.job].useTincture = false
-    end
+    -- if (xivopeners.settings[Player.job].useTincture and not xivopeners_blm.getTincture()) then
+    --     xivopeners.settings[Player.job].useTincture = false
+    -- end
 end
 
 function xivopeners_blm.updateLastCast()
