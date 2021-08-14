@@ -39,7 +39,6 @@ xivopeners_smn.openerInfo = {
 
 xivopeners_smn.openers = {
     sixGCDSummon = {
-        xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.EgiAssault,
         xivopeners_smn.openerAbilities.EnergyDrain,
         xivopeners_smn.openerAbilities.Tridisaster,
@@ -74,7 +73,6 @@ xivopeners_smn.openers = {
     },
 
     fiveGCDSummon = {
-        xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.EgiAssault,
         xivopeners_smn.openerAbilities.EnergyDrain,
         xivopeners_smn.openerAbilities.Tridisaster,
@@ -142,7 +140,6 @@ xivopeners_smn.openers = {
     },
     
     nineGCDSummon = {
-        xivopeners_smn.openerAbilities.Ruin3,
         xivopeners_smn.openerAbilities.EgiAssault,
         xivopeners_smn.openerAbilities.Tridisaster,
         xivopeners_smn.openerAbilities.EnergyDrain,
@@ -165,10 +162,10 @@ xivopeners_smn.openers = {
         xivopeners_smn.openerAbilities.Deathflare,
         xivopeners_smn.openerAbilities.SummonBahamut,
         xivopeners_smn.openerAbilities.Ruin4,
+        xivopeners_smn.openerAbilities.EnkindleBahamut,
     },
 
     Lvl70Ucob = {
-		xivopeners_smn.openerAbilities.Ruin3,
 		xivopeners_smn.openerAbilities.EgiAssault,
 		xivopeners_smn.openerAbilities.EnergyDrain,
 		xivopeners_smn.openerAbilities.Tridisaster,
@@ -192,7 +189,6 @@ xivopeners_smn.openers = {
 	},
 	
 	Lvl70UwU = {
-		xivopeners_smn.openerAbilities.Ruin3,
 		xivopeners_smn.openerAbilities.EgiAssault,
 		xivopeners_smn.openerAbilities.EnergyDrain,
 		xivopeners_smn.openerAbilities.Tridisaster,
@@ -450,7 +446,14 @@ function xivopeners_smn.useNextAction(target)
             return
         end
 
-        if (xivopeners_smn.abilityQueue[1] == xivopeners_smn.openerAbilities.EnkindleTitan) then
+        if (
+            xivopeners_smn.abilityQueue[1] == xivopeners_smn.openerAbilities.EnkindleTitan
+            or (
+                xivopeners_smn.abilityQueue[1] == xivopeners_smn.openerAbilities.Enkindle
+                and xivopeners_smn.getOpener() == xivopeners_smn.openers.nineGCDSummon
+            )
+        )
+        then
             if (TensorCore.getGCD() < 0.9) then
                 xivopeners_smn.abilityQueue[1]:Cast(target.id)
                 xivopeners_smn.lastCastFromQueue = xivopeners_smn.abilityQueue[1]
